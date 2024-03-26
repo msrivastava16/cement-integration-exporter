@@ -67,8 +67,29 @@ The script will fetch and download packages from the specified environment accor
 > Note: Make sure you have proper permissions and network connectivity to access the specified URLs and download packages.
 
 
+### 5. Setup and execute inside a docker containr
 
+1. Build the Docker Image:
 
+Open a terminal/command prompt, navigate to the directory containing your Dockerfile and Python script, and run the following 
 
+command to build the Docker image:
+```bash
+docker build -t async-package-downloader .
+```
 
+Replace async-package-downloader with your desired image name.
 
+2. Run the Docker Container:
+
+Once the image is built, you can run the Docker container using the following command:
+
+```bash
+docker run async-package-downloader
+```
+
+By default, the script will run with the dev environment. If you want to run it with the stage environment, modify the command like this:
+
+```bash
+docker run async-package-downloader stage
+```
