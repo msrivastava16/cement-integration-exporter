@@ -5,10 +5,15 @@ This Python script is designed to asynchronously fetch and download packages fro
 ## Overview
 
 The script performs the following tasks:
+
 1. Reads configuration from `config.yml` file for OAuth URL, client ID, client secret, base URL, package URL, and artifacts URL.
+
 2. Gets an OAuth token using client credentials (client ID and client secret).
+
 3. Fetches a CSRF token from the base URL using the OAuth token.
+
 4. Fetches package IDs from the base URL using the CSRF token.
+
 5. Downloads all iflows for each package asynchronously.
 
 ## Instructions
