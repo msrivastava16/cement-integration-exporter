@@ -69,7 +69,7 @@ The script will fetch and download packages from the specified environment accor
 
 ### 5. Setup and execute inside a docker containr
 
-1. Build the Docker Image:
+#### 1. Build the Docker Image:
 
 Open a terminal/command prompt, navigate to the directory containing your Dockerfile and Python script, and run the following 
 
@@ -80,7 +80,7 @@ docker build -t async-package-downloader .
 
 Replace async-package-downloader with your desired image name.
 
-2. Run the Docker Container:
+#### 2. Run the Docker Container:
 
 Once the image is built, you can run the Docker container using the following command:
 
