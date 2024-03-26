@@ -1,0 +1,18 @@
+all:
+  tenants:
+      dev:
+          tenant_name:    0c915174trial
+          oAuthUrl:       https://0c915174trial.authentication.us10.hana.ondemand.com/oauth/token?grant_type=client_credentials
+          baseURL:        https://0c915174trial.it-cpitrial06.cfapps.us10-001.hana.ondemand.com/api/v1/IntegrationPackages
+          PackageURL:     https://0c915174trial.it-cpitrial06.cfapps.us10-001.hana.ondemand.com/api/v1/IntegrationPackages('{{ item }}')/IntegrationDesigntimeArtifacts
+          ArtifactsURL:   https://0c915174trial.it-cpitrial06.cfapps.us10-001.hana.ondemand.com/api/v1/IntegrationDesigntimeArtifacts(Id='{{id}}',Version='{{version}}')/$value
+          client_id:      xxxx
+          client_secret:  xxxx
+      stage:
+          tenant_name:    0c915174trial
+          oAuthUrl:       https://0c915174trial.authentication.us10.hana.ondemand.com/oauth/token?grant_type=client_credentials
+          baseURL:        https://0c915174trial.it-cpitrial06.cfapps.us10-001.hana.ondemand.com/api/v1/IntegrationPackages
+          PackageURL:     https://0c915174trial.it-cpitrial06.cfapps.us10-001.hana.ondemand.com/api/v1/IntegrationPackages('{{ item }}')/IntegrationDesigntimeArtifacts
+          ArtifactsURL:   https://0c915174trial.it-cpitrial06.cfapps.us10-001.hana.ondemand.com/api/v1/IntegrationDesigntimeArtifacts(Id='{{id}}',Version='{{version}}')/$value
+          client_id:      xxxx
+          client_secret:  xxxx
