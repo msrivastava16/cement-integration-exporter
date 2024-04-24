@@ -6,6 +6,7 @@ import jinja2
 from jinja2 import Template
 import aiohttp
 import asyncio
+import ssl
 
 
 def write_file(file_path, content):
@@ -35,14 +36,14 @@ def getConfig(args):
 
     if args.environment == 'dev':
         # Do something for the dev environment
-        print("dev selected: " + oauth_url)
+        print("dev selected")
     elif args.environment == 'stage':
         # Do something for the stage environment
         oauth_url = config["all"]["tenants"]["stage"]["oAuthUrl"]
         client_id = config["all"]["tenants"]["stage"]["client_id"]
         client_secret = config["all"]["tenants"]["stage"]["client_secret"]
         base_url = config["all"]["tenants"]["stage"]["baseURL"]
-        package_url = config["all"]["tenants"]["dev"]["PackageURL"]
+        package_url = config["all"]["tenants"]["stage"]["PackageURL"]
         artifacts_url = config["all"]["tenants"]["stage"]["ArtifactsURL"]
         print("stage selected")
     else:
@@ -67,7 +68,7 @@ def fetchCSRFToken(base_url, oauth_token):
 
 #get package ids 
 async def fetch_package_ids(base_url, headers):
-    async with aiohttp.ClientSession(headers=headers) as session:
+    async with aiohttp.ClientSession(connector=aiohttp.TCPConnector(ssl=ssl_context), headers=headers) as session:
         async with session.get(base_url) as response:
             data = await response.json()
             package_ids = [package['Id'] for package in data['d']['results']]
@@ -77,7 +78,7 @@ async def fetch_package_ids(base_url, headers):
 async def download_package(package_id, package_url, artifacts_url, headers):
     template = jinja2.Template(package_url)
     url = template.render(item=package_id)
-    async with aiohttp.ClientSession(headers=headers) as session:
+    async with aiohttp.ClientSession(connector=aiohttp.TCPConnector(ssl=ssl_context), headers=headers) as session:
         async with session.get(url) as response:
             results = (await response.json())['d']['results']
             for result in results:
@@ -107,6 +108,12 @@ oauth_url, client_id, client_secret, base_url, package_url, artifacts_url = getC
 
 oauth_token = getOAuthToken(oauth_url, client_id, client_secret)
 csrf_token = fetchCSRFToken(base_url, oauth_token)
+
+# Disable SSL certificate verification
+ssl_context = ssl.create_default_context()
+ssl_context.check_hostname = False
+ssl_context.verify_mode = ssl.CERT_NONE
+
 
 async def main():
     tasks = []
