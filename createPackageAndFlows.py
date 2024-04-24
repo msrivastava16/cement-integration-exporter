@@ -4,9 +4,8 @@ import yaml
 import argparse
 import jinja2
 from jinja2 import Template
-import aiohttp
-import asyncio
-import ssl
+import csv
+import base64
 
 
 def write_file(file_path, content):
@@ -16,11 +15,6 @@ def write_file(file_path, content):
     with open(file_path, 'wb') as f:
         f.write(content)
     os.remove(lock_file_path)
-
-def create_package_dir(result):
-    package_id = result['PackageId']
-    package_dir_path = f"./Get_All_Packages/{package_id}/"
-    os.makedirs(package_dir_path, exist_ok=True)
 
 #get tenant config
 def getConfig(args):
@@ -66,41 +60,6 @@ def fetchCSRFToken(base_url, oauth_token):
     csrf_token = csrf_response.headers['x-csrf-token']
     return csrf_token
 
-#get package ids 
-async def fetch_package_ids(base_url, headers):
-    base_url = f"{base_url}/IntegrationPackages"
-    async with aiohttp.ClientSession(connector=aiohttp.TCPConnector(ssl=ssl_context), headers=headers) as session:
-        async with session.get(base_url) as response:
-            data = await response.json()
-            package_ids = [package['Id'] for package in data['d']['results']]
-            return package_ids
-
-# download the iflows
-async def download_package(package_id, package_url, artifacts_url, headers):
-    template = jinja2.Template(package_url)
-    url = template.render(item=package_id)
-    async with aiohttp.ClientSession(connector=aiohttp.TCPConnector(ssl=ssl_context), headers=headers) as session:
-        async with session.get(url) as response:
-            results = (await response.json())['d']['results']
-            for result in results:
-                # create directory for packages
-                create_package_dir(result)
-                # Download All flows for package
-                id = result['Id']
-                version = result['Version']
-                template = jinja2.Template(artifacts_url)
-                url = template.render(id=id, version=version)
-                dest_path = f"./Get_All_Packages/{package_id}/"
-                filename = f"{id}.zip"
-                file_path = os.path.join(dest_path, filename)
-                async with session.get(url) as response:
-                    content = await response.content.read()
-                    write_file(file_path, content)
-                    iflow_dir_path = os.path.join(dest_path, id)
-                    os.makedirs(iflow_dir_path, exist_ok=True)
-                    os.system(f"unzip -q -o {file_path} -d {iflow_dir_path}")
-            print("completed:" + package_id)
-
 parser = argparse.ArgumentParser(description='choose you tenant')
 parser.add_argument('environment', choices=[ 'dev', 'stage'], help='The tenant to use')
 args = parser.parse_args()
@@ -110,31 +69,65 @@ oauth_url, client_id, client_secret, base_url, package_url, artifacts_url = getC
 oauth_token = getOAuthToken(oauth_url, client_id, client_secret)
 csrf_token = fetchCSRFToken(base_url, oauth_token)
 
-# Disable SSL certificate verification
-ssl_context = ssl.create_default_context()
-ssl_context.check_hostname = False
-ssl_context.verify_mode = ssl.CERT_NONE
+def post_integration_package(headers):
+    url = f"{base_url}/IntegrationPackages"
+    data = {
+        "Id": "OfficeWorksSFTPInterfaces",
+        "Name": "OfficeWorksSFTPInterfaces",
+        "Description": "OfficeWorksSFTPInterfaces",
+        "ShortText": "OfficeWorksSFTPInterfaces",
+        "Version": "1.0.0",
+        "SupportedPlatform": "SAP Cloud Integration",
+    }
+    print(url)
+    response = requests.post(url, headers=headers, json=data)
+    print(response.text)
+    if response.status_code == 200:
+        print("Integration package successfully created.")
+    else:
+        print("Error creating integration package. Status code:", response.status_code)
 
+def post_integration_artifact(headers):
+    csv_file = "MassiFlowCreate.csv"
+    url = f"{base_url}/IntegrationDesigntimeArtifacts"
+    print(url)
+    with open(csv_file, 'r') as file:
+        reader = csv.DictReader(file)
+        for row in reader:
+            name = f"{row['Source']} to {row['Destination']} - {row['Process']} iFlow"
+            id = f"{row['Source']}to{row['Destination']}{row['Process']}iFlow"
+            data = {
+                "Name": name,
+                "Id": id,
+                "PackageId": "OfficeWorksSFTPInterfaces",
+                "ArtifactContent": ""
+            }
 
-async def main():
-    tasks = []
+            # Read the zip file and encode it in base64
+            with open("Test-iFlow.zip", "rb") as zip_file:
+                zip_content = zip_file.read()
+                encoded_zip = base64.b64encode(zip_content).decode("utf-8")
+                data["ArtifactContent"] = encoded_zip
+
+            response = requests.post(url, headers=headers, json=data)
+
+            if response.status_code == 200:
+                print(f"Integration flow '{name}' successfully created.")
+            else:
+                print(f"Error creating integration flow '{name}'. Status code:", response.status_code)
+
+def main():
     headers = {
         'Content-Type': 'application/json',
         'Accept': 'application/json',
         'Authorization': f'Bearer {oauth_token}',
         'x-csrf-token': csrf_token
     }
-    package_ids = await fetch_package_ids(base_url,headers)
 
-    # package_size = len(package_ids)
-    # index = 1
-    for package_id in package_ids:
-        tasks.append(asyncio.create_task(download_package(
-            package_id, package_url, artifacts_url, headers)))
-        # print(f"triggered {index}/{package_size}")
-        # index = index + 1
+    # Call the function to make the POST request
+    post_integration_package(headers)
 
-    await asyncio.gather(*tasks)
+    post_integration_artifact(headers)
 
 if __name__ == '__main__':
-    asyncio.run(main())
+    main()
