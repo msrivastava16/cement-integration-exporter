@@ -4,14 +4,18 @@ on:
   workflow_dispatch:
     inputs:
       environment:
-        description: 'Environment to run against (dev or stage)'
+        description: 'Environment to run against'
         required: true
+        type: choice
+        options:
+        - dev
+        - stage
         default: 'dev'
 
 jobs:
   download:
     runs-on: ubuntu-latest
-
+    environment: ${{ github.event.inputs.environment }}
     steps:
     - name: Checkout code
       uses: actions/checkout@v3
@@ -24,8 +28,17 @@ jobs:
     - name: Install dependencies
       run: pip install -r requirements.txt
 
+    - name: Debug environment variables
+      run: |
+        if [ -z "${{ secrets.OAUTH_URL }}" ]; then echo "OAUTH_URL is not set"; else echo "OAUTH_URL is set"; fi
+        if [ -z "${{ secrets.CLIENT_ID }}" ]; then echo "CLIENT_ID is not set"; else echo "CLIENT_ID is set"; fi
+        if [ -z "${{ secrets.CLIENT_SECRET }}" ]; then echo "CLIENT_SECRET is not set"; else echo "CLIENT_SECRET is set"; fi
+        if [ -z "${{ secrets.BASE_URL }}" ]; then echo "BASE_URL is not set"; else echo "BASE_URL is set"; fi
+        if [ -z "${{ secrets.PACKAGE_URL }}" ]; then echo "PACKAGE_URL is not set"; else echo "PACKAGE_URL is set"; fi
+        if [ -z "${{ secrets.ARTIFACTS_URL }}" ]; then echo "ARTIFACTS_URL is not set"; else echo "ARTIFACTS_URL is set"; fi
+
     - name: Run iFlow downloader
-      run: python downloadiFlows.py ${{ github.event.inputs.environment }}
+      run: python downloadiFlows.py
       env:
         OAUTH_URL: ${{ secrets.OAUTH_URL }}
         CLIENT_ID: ${{ secrets.CLIENT_ID }}
