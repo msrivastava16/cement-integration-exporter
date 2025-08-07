@@ -1,0 +1,35 @@
+name: iFlow Mass Downloader
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Environment to run against (dev or stage)'
+        required: true
+        default: 'dev'
+
+jobs:
+  download:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.x'
+
+    - name: Install dependencies
+      run: pip install -r requirements.txt
+
+    - name: Run iFlow downloader
+      run: python downloadiFlows.py ${{ github.event.inputs.environment }}
+      env:
+        OAUTH_URL: ${{ secrets.OAUTH_URL }}
+        CLIENT_ID: ${{ secrets.CLIENT_ID }}
+        CLIENT_SECRET: ${{ secrets.CLIENT_SECRET }}
+        BASE_URL: ${{ secrets.BASE_URL }}
+        PACKAGE_URL: ${{ secrets.PACKAGE_URL }}
+        ARTIFACTS_URL: ${{ secrets.ARTIFACTS_URL }}

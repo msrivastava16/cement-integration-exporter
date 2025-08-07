@@ -1,95 +1,49 @@
-# Async Package Downloader
+# iFlow Mass Downloader
 
-This Python script is designed to asynchronously fetch and download packages from a specified base URL using asyncio and aiohttp libraries.
+This Python script is designed to asynchronously fetch and download iFlow packages from a specified base URL.
 
 ## Overview
 
 The script performs the following tasks:
 
-1. Reads configuration from `config.yml` file for OAuth URL, client ID, client secret, base URL, package URL, and artifacts URL.
+1.  Authenticates using OAuth 2.0 client credentials.
+2.  Fetches a CSRF token.
+3.  Fetches all iFlow package IDs.
+4.  Asynchronously downloads all iFlows for each package.
 
-2. Gets an OAuth token using client credentials (client ID and client secret).
-
-3. Fetches a CSRF token from the base URL using the OAuth token.
-
-4. Fetches package IDs from the base URL using the CSRF token.
-
-5. Downloads all iflows for each package asynchronously.
-
-## Instructions
-
-### 1. Environment Setup
-
-Before running the script, ensure you have Python 3.x installed on your system.
-
-### 2. Install Dependencies
+## Dependencies
 
 Install the required Python libraries using pip:
-```bash
-pip install requests aiohttp jinja2 pyyaml
-```
-
-### 3. Configuration
-Create a config.yml file with the following structure:
-
-```yaml
-all:
-  tenants:
-    dev:
-      oAuthUrl: "dev_oauth_url"
-      client_id: "dev_client_id"
-      client_secret: "dev_client_secret"
-      baseURL: "dev_base_url"
-      PackageURL: "dev_package_url"
-      ArtifactsURL: "dev_artifacts_url"
-    stage:
-      oAuthUrl: "stage_oauth_url"
-      client_id: "stage_client_id"
-      client_secret: "stage_client_secret"
-      baseURL: "stage_base_url"
-      PackageURL: "stage_package_url"
-      ArtifactsURL: "stage_artifacts_url"
-```
-Replace the placeholder values with your actual OAuth URLs, client IDs, client secrets, base URLs, package URLs, and artifacts URLs for both the dev and stage environments.
-
-### 4. Execute the Script
-Run the script with the desired environment as an argument (dev or stage):
 
 ```bash
-python async_package_downloader.py dev
-```
-or
-```bash
-python async_package_downloader.py stage
-```
-The script will fetch and download packages from the specified environment accordingly.
-
-> Note: Make sure you have proper permissions and network connectivity to access the specified URLs and download packages.
-
-
-### 5. Setup and execute inside a docker containr
-
-#### 1. Build the Docker Image:
-
-Open a terminal/command prompt, navigate to the directory containing your Dockerfile and Python script, and run the following 
-
-command to build the Docker image:
-```bash
-docker build -t async-package-downloader .
+pip install -r requirements.txt
 ```
 
-Replace async-package-downloader with your desired image name.
+## GitHub Actions Workflow
 
-#### 2. Run the Docker Container:
+This project uses a GitHub Actions workflow to download the iFlows.
 
-Once the image is built, you can run the Docker container using the following command:
+### Triggering the Workflow
 
-```bash
-docker run async-package-downloader
-```
+1.  Go to the "Actions" tab of your GitHub repository.
+2.  In the left sidebar, click on the "iFlow Mass Downloader" workflow.
+3.  Click the "Run workflow" dropdown button.
+4.  Select the environment (`dev` or `stage`) you want to run the workflow against.
+5.  Click the "Run workflow" button.
 
-By default, the script will run with the dev environment. If you want to run it with the stage environment, modify the command like this:
+### Configuration
 
-```bash
-docker run async-package-downloader stage
-```
+This workflow uses secrets to store sensitive information like API keys and URLs. You must configure the following secrets in your GitHub repository settings before running the workflow:
+
+*   `OAUTH_URL`: The OAuth token URL.
+*   `CLIENT_ID`: The client ID for OAuth authentication.
+*   `CLIENT_SECRET`: The client secret for OAuth authentication.
+*   `BASE_URL`: The base URL of the iFlow service.
+*   `PACKAGE_URL`: The URL for fetching iFlow packages.
+*   `ARTIFACTS_URL`: The URL for fetching iFlow artifacts.
+
+To add these secrets:
+
+1.  Go to your GitHub repository's "Settings" tab.
+2.  In the "Security" section of the left sidebar, click on "Secrets and variables" > "Actions".
+3.  Click the "New repository secret" button for each secret listed above and add the corresponding value.
