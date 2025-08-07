@@ -6,8 +6,8 @@ import aiohttp
 import asyncio
 import ssl
 import zipfile
-from dotenv import load_dotenv
-load_dotenv()
+# from dotenv import load_dotenv
+# load_dotenv()
 # Disable SSL certificate verification
 ssl_context = ssl.create_default_context()
 ssl_context.check_hostname = False
