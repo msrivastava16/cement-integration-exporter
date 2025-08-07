@@ -27,6 +27,11 @@ jobs:
 
     - name: Install dependencies
       run: pip install -r requirements.txt
+    
+    - name: Debug environment
+      run: |
+        echo "Environment: ${{ github.event.inputs.environment }}"
+        echo "GitHub environment: $GITHUB_ENVIRONMENT"
 
     - name: Debug environment variables
       run: |
