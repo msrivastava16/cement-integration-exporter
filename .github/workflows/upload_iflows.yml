@@ -1,31 +1,33 @@
-name: Upload iFlows
+name: Upload iFlows from Content Repository
 
 on:
   workflow_dispatch:
     inputs:
-      environment:
-        description: 'Environment to run the script against (dev or stage)'
+      repository:
+        description: 'The repository to restore iFlows from'
         required: true
-        default: 'dev'
-        type: choice
-        options:
-        - dev
-        - stage
+        default: 'msrivastava16/cement-integration'
       branch:
-        description: 'The branch to check out and restore from'
+        description: 'The branch of the content repository to use'
         required: true
         default: 'main'
 
 jobs:
   upload:
     runs-on: ubuntu-latest
-    environment: ${{ github.event.inputs.environment }}
 
     steps:
-    - name: Checkout repository on specific branch
+    - name: Checkout Content Repository
       uses: actions/checkout@v3
       with:
+        repository: ${{ github.event.inputs.repository }}
         ref: ${{ github.event.inputs.branch }}
+        path: content_repo
+
+    - name: Checkout Script Repository
+      uses: actions/checkout@v3
+      with:
+        path: script_repo
 
     - name: Set up Python
       uses: actions/setup-python@v4
@@ -33,16 +35,13 @@ jobs:
         python-version: '3.x'
 
     - name: Install dependencies
-      run: pip install -r requirements.txt
+      run: pip install -r script_repo/requirements.txt
 
     - name: Run uploader script
-      run: python createPackageAndFlows.py ${{ github.event.inputs.environment }}
+      run: |
+        python script_repo/createPackageAndFlows.py --source-dir content_repo/Get_All_Packages
       env:
-        DEV_OAUTH_URL: ${{ secrets.DEV_OAUTH_URL }}
-        DEV_CLIENT_ID: ${{ secrets.DEV_CLIENT_ID }}
-        DEV_CLIENT_SECRET: ${{ secrets.DEV_CLIENT_SECRET }}
-        DEV_BASE_URL: ${{ secrets.DEV_BASE_URL }}
-        STAGE_OAUTH_URL: ${{ secrets.STAGE_OAUTH_URL }}
-        STAGE_CLIENT_ID: ${{ secrets.STAGE_CLIENT_ID }}
-        STAGE_CLIENT_SECRET: ${{ secrets.STAGE_CLIENT_SECRET }}
-        STAGE_BASE_URL: ${{ secrets.STAGE_BASE_URL }}
+        OAUTH_URL: ${{ secrets.OAUTH_URL }}
+        CLIENT_ID: ${{ secrets.CLIENT_ID }}
+        CLIENT_SECRET: ${{ secrets.CLIENT_SECRET }}
+        BASE_URL: ${{ secrets.BASE_URL }}
