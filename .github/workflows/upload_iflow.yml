@@ -1,0 +1,51 @@
+name: Upload iFlows
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Environment to run the script against (dev or stage)'
+        required: true
+        default: 'dev'
+        type: choice
+        options:
+        - dev
+        - stage
+
+jobs:
+  upload:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.x'
+
+    - name: Install dependencies
+      run: pip install -r requirements.txt
+
+    - name: Create config file
+      run: |
+        echo "all:" > config.yml
+        echo "  tenants:" >> config.yml
+        echo "    dev:" >> config.yml
+        echo "      oAuthUrl: ${{ secrets.DEV_OAUTH_URL }}" >> config.yml
+        echo "      client_id: ${{ secrets.DEV_CLIENT_ID }}" >> config.yml
+        echo "      client_secret: ${{ secrets.DEV_CLIENT_SECRET }}" >> config.yml
+        echo "      baseURL: ${{ secrets.DEV_BASE_URL }}" >> config.yml
+        echo "      PackageURL: ${{ secrets.DEV_PACKAGE_URL }}" >> config.yml
+        echo "      ArtifactsURL: ${{ secrets.DEV_ARTIFACTS_URL }}" >> config.yml
+        echo "    stage:" >> config.yml
+        echo "      oAuthUrl: ${{ secrets.STAGE_OAUTH_URL }}" >> config.yml
+        echo "      client_id: ${{ secrets.STAGE_CLIENT_ID }}" >> config.yml
+        echo "      client_secret: ${{ secrets.STAGE_CLIENT_SECRET }}" >> config.yml
+        echo "      baseURL: ${{ secrets.STAGE_BASE_URL }}" >> config.yml
+        echo "      PackageURL: ${{ secrets.STAGE_PACKAGE_URL }}" >> config.yml
+        echo "      ArtifactsURL: ${{ secrets.STAGE_ARTIFACTS_URL }}" >> config.yml
+
+    - name: Run uploader script
+      run: python createPackageAndFlows.py ${{ github.event.inputs.environment }}
