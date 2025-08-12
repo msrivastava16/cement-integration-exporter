@@ -4,9 +4,7 @@ import argparse
 import base64
 import shutil
 import zipfile
-from dotenv import load_dotenv
 
-load_dotenv()
 
 def get_oauth_token(oauth_url, client_id, client_secret):
     payload = {
