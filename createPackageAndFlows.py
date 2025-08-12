@@ -8,20 +8,6 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-def get_config_from_env(environment):
-    prefix = environment.upper()
-    oauth_url = os.environ.get(f"{prefix}_OAUTH_URL")
-    client_id = os.environ.get(f"{prefix}_CLIENT_ID")
-    client_secret = os.environ.get(f"{prefix}_CLIENT_SECRET")
-    base_url = os.environ.get(f"{prefix}_BASE_URL")
-
-    if not all([oauth_url, client_id, client_secret, base_url]):
-        print(f"Error: One or more environment variables for '{environment}' are not set.")
-        exit(1)
-    
-    print(f"{environment} selected")
-    return oauth_url, client_id, client_secret, base_url
-
 def get_oauth_token(oauth_url, client_id, client_secret):
     payload = {
         'grant_type': 'client_credentials',
@@ -102,11 +88,18 @@ def create_iflow_zip_and_encode(iflow_path):
 
 def main():
     parser = argparse.ArgumentParser(description='Create Integration Packages and Artifacts.')
-    parser.add_argument('environment', choices=['dev', 'stage'], help='The tenant to use')
     parser.add_argument('--source-dir', default='Get_All_Packages', help='The directory containing the packages to restore.')
     args = parser.parse_args()
 
-    oauth_url, client_id, client_secret, base_url = get_config_from_env(args.environment)
+    oauth_url = os.environ.get("OAUTH_URL")
+    client_id = os.environ.get("CLIENT_ID")
+    client_secret = os.environ.get("CLIENT_SECRET")
+    base_url = os.environ.get("BASE_URL")
+
+    if not all([oauth_url, client_id, client_secret, base_url]):
+        print("Error: One or more environment variables (OAUTH_URL, CLIENT_ID, CLIENT_SECRET, BASE_URL) are not set.")
+        exit(1)
+
     oauth_token = get_oauth_token(oauth_url, client_id, client_secret)
     csrf_token = fetch_csrf_token(base_url, oauth_token)
 
