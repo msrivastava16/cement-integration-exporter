@@ -3,26 +3,27 @@ name: Upload iFlows from Content Repository
 on:
   workflow_dispatch:
     inputs:
-      repository:
-        description: 'The repository to restore iFlows from'
-        required: true
-        default: 'msrivastava16/cement-integration'
-      branch:
-        description: 'The branch of the content repository to use to restore iflows'
-        required: true
-        default: 'main'
       environment:
-        description: 'Environment to run against'
+        description: 'Environment to run the script against'
         required: true
         type: choice
         options:
         - dev
         - stage
         default: 'dev'
+      repository:
+        description: 'The repository to restore iFlows from'
+        required: true
+        default: 'msrivastava16/cement-integration'
+      branch:
+        description: 'The branch of the content repository to use'
+        required: true
+        default: 'main'
 
 jobs:
   upload:
     runs-on: ubuntu-latest
+    environment: ${{ github.event.inputs.environment }}
 
     steps:
     - name: Checkout Content Repository
@@ -44,14 +45,6 @@ jobs:
 
     - name: Install dependencies
       run: pip install -r script_repo/requirements.txt
-
-    - name: Verify Secrets are Loaded
-      run: |
-        if [ -z "${{ secrets.OAUTH_URL }}" ]; then echo "OAUTH_URL secret is NOT set"; exit 1; else echo "OAUTH_URL secret is set."; fi
-        if [ -z "${{ secrets.CLIENT_ID }}" ]; then echo "CLIENT_ID secret is NOT set"; exit 1; else echo "CLIENT_ID secret is set."; fi
-        if [ -z "${{ secrets.CLIENT_SECRET }}" ]; then echo "CLIENT_SECRET secret is NOT set"; exit 1; else echo "CLIENT_SECRET secret is set."; fi
-        if [ -z "${{ secrets.BASE_URL }}" ]; then echo "BASE_URL secret is NOT set"; exit 1; else echo "BASE_URL secret is set."; fi
-      shell: bash
 
     - name: Run uploader script
       run: |
