@@ -1,4 +1,4 @@
-name: Upload iFlows from Content Repository
+name: iFlow Mass Uploader
 
 on:
   workflow_dispatch:
