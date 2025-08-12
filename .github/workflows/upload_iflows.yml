@@ -8,9 +8,17 @@ on:
         required: true
         default: 'msrivastava16/cement-integration'
       branch:
-        description: 'The branch of the content repository to use'
+        description: 'The branch of the content repository to use to restore iflows'
         required: true
         default: 'main'
+      environment:
+        description: 'Environment to run against'
+        required: true
+        type: choice
+        options:
+        - dev
+        - stage
+        default: 'dev'
 
 jobs:
   upload:
