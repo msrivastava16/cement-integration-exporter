@@ -21,9 +21,9 @@ def write_file(file_path, content):
         f.write(content)
     os.remove(lock_file_path)
 
-def create_package_dir(result):
+def create_package_dir(result, base_output_dir):
     package_id = result['PackageId']
-    package_dir_path = f"./Get_All_Packages/{package_id}/"
+    package_dir_path = os.path.join(base_output_dir, package_id)
     os.makedirs(package_dir_path, exist_ok=True)
 
 def getOAuthToken(oauth_url, client_id, client_secret):
@@ -51,7 +51,7 @@ async def fetch_package_ids(base_url, headers):
             return package_ids
 
 
-async def download_package(package_id, package_url, artifacts_url, headers):
+async def download_package(package_id, package_url, artifacts_url, headers, base_output_dir):
     template = jinja2.Template(package_url)
     url = template.render(item=package_id)
     async with aiohttp.ClientSession(connector=aiohttp.TCPConnector(ssl=ssl_context), headers=headers) as session:
@@ -62,12 +62,12 @@ async def download_package(package_id, package_url, artifacts_url, headers):
                 return
             results = data['d']['results']
             for result in results:
-                create_package_dir(result)
+                create_package_dir(result, base_output_dir)
                 id = result['Id']
                 version = result['Version']
                 template = jinja2.Template(artifacts_url)
                 artifact_url = template.render(id=id, version=version)
-                dest_path = f"./Get_All_Packages/{package_id}/"
+                dest_path = os.path.join(base_output_dir, package_id)
                 filename = f"{id}.zip"
                 file_path = os.path.join(dest_path, filename)
                 async with session.get(artifact_url) as response:
@@ -94,7 +94,7 @@ if not all([oauth_url, client_id, client_secret, base_url, package_url, artifact
 oauth_token = getOAuthToken(oauth_url, client_id, client_secret)
 
 
-async def main():
+async def main(base_output_dir):
     tasks = []
     headers = {
         'Content-Type': 'application/json',
@@ -106,8 +106,9 @@ async def main():
         print("No packages found or error fetching package IDs.")
         return
     for package_id in package_ids:
-        tasks.append(asyncio.create_task(download_package(package_id, package_url, artifacts_url, headers)))
+        tasks.append(asyncio.create_task(download_package(package_id, package_url, artifacts_url, headers, base_output_dir)))
     await asyncio.gather(*tasks)
 
 if __name__ == '__main__':
-    asyncio.run(main())
+    output_dir = os.getenv("OUTPUT_DIR", "./Get_All_Packages")
+    asyncio.run(main(output_dir))
