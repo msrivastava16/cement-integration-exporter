@@ -4,7 +4,8 @@ import argparse
 import base64
 import shutil
 import zipfile
-
+# from dotenv import load_dotenv
+# load_dotenv()
 
 def get_oauth_token(oauth_url, client_id, client_secret):
     payload = {
@@ -83,16 +84,18 @@ def create_iflow_zip_and_encode(iflow_path):
         encoded_zip = base64.b64encode(zip_file.read()).decode("utf-8")
     os.remove(temp_zip)
     return encoded_zip
+# Load env vars
+oauth_url = os.environ.get("OAUTH_URL")
+client_id = os.environ.get("CLIENT_ID")
+client_secret = os.environ.get("CLIENT_SECRET")
+base_url = os.environ.get("BASE_URL")
+package_url = os.environ.get("PACKAGE_URL")
+artifacts_url = os.environ.get("ARTIFACTS_URL")
 
 def main():
     parser = argparse.ArgumentParser(description='Create Integration Packages and Artifacts.')
     parser.add_argument('--source-dir', default='Get_All_Packages', help='The directory containing the packages to restore.')
     args = parser.parse_args()
-
-    oauth_url = os.environ.get("OAUTH_URL")
-    client_id = os.environ.get("CLIENT_ID")
-    client_secret = os.environ.get("CLIENT_SECRET")
-    base_url = os.environ.get("BASE_URL")
 
     if not all([oauth_url, client_id, client_secret, base_url]):
         print("Error: One or more environment variables (OAUTH_URL, CLIENT_ID, CLIENT_SECRET, BASE_URL) are not set.")
