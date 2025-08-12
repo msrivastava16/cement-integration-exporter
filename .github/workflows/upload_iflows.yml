@@ -1,0 +1,48 @@
+name: Upload iFlows
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Environment to run the script against (dev or stage)'
+        required: true
+        default: 'dev'
+        type: choice
+        options:
+        - dev
+        - stage
+      branch:
+        description: 'The branch to check out and restore from'
+        required: true
+        default: 'main'
+
+jobs:
+  upload:
+    runs-on: ubuntu-latest
+    environment: ${{ github.event.inputs.environment }}
+
+    steps:
+    - name: Checkout repository on specific branch
+      uses: actions/checkout@v3
+      with:
+        ref: ${{ github.event.inputs.branch }}
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.x'
+
+    - name: Install dependencies
+      run: pip install -r requirements.txt
+
+    - name: Run uploader script
+      run: python createPackageAndFlows.py ${{ github.event.inputs.environment }}
+      env:
+        DEV_OAUTH_URL: ${{ secrets.DEV_OAUTH_URL }}
+        DEV_CLIENT_ID: ${{ secrets.DEV_CLIENT_ID }}
+        DEV_CLIENT_SECRET: ${{ secrets.DEV_CLIENT_SECRET }}
+        DEV_BASE_URL: ${{ secrets.DEV_BASE_URL }}
+        STAGE_OAUTH_URL: ${{ secrets.STAGE_OAUTH_URL }}
+        STAGE_CLIENT_ID: ${{ secrets.STAGE_CLIENT_ID }}
+        STAGE_CLIENT_SECRET: ${{ secrets.STAGE_CLIENT_SECRET }}
+        STAGE_BASE_URL: ${{ secrets.STAGE_BASE_URL }}
