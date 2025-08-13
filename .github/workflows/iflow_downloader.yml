@@ -11,9 +11,6 @@ on:
         - dev
         - stage
         default: 'dev'
-      approver:
-        description: 'GitHub username of the person to assign as a reviewer'
-        required: true
 
 jobs:
   download:
