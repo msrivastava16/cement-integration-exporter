@@ -11,9 +11,6 @@ on:
         - dev
         - stage
         default: 'dev'
-      approver:
-        description: 'GitHub username of the person to assign as a reviewer'
-        required: true
 
 jobs:
   download:
@@ -75,17 +72,3 @@ jobs:
         git commit -m "Add downloaded iFlows from workflow run on $(date +'%Y-%m-%d %H:%M:%S')" || echo "No changes to commit"
         git push --set-upstream origin ${{ steps.branch.outputs.branch_name }}
       shell: bash
-
-    - name: Create Pull Request
-      uses: peter-evans/create-pull-request@v6
-      with:
-        token: ${{ secrets.TARGET_REPO_PAT }}
-        path: ./target_repo
-        branch: ${{ steps.branch.outputs.branch_name }}
-        base: main # Or your default branch
-        title: 'Automated iFlow Update'
-        body: |
-          This PR was automatically created by the iFlow Mass Downloader workflow.
-          It contains the latest iFlows downloaded from the tenant.
-          Please review and merge.
-        reviewers: ${{ github.event.inputs.approver }}
