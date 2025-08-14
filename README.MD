@@ -31,17 +31,7 @@ This project uses a GitHub Actions workflow to download and export iFlows.
 4.  Select the environment (`dev` or `stage`) you want to run the workflow against.
 5.  Click the "Run workflow" button.
 
-### Exporting to a Different Repository
-
-The workflow is configured to export the downloaded iFlows to a *separate* GitHub repository. A new branch will be created in the target repository with a name based on the date and time of the workflow run (e.g., `iflow-updates-YYYY-MM-DD-HH-MM-SS`).
-
-**Important Configuration for Export:**
-
-In addition to the secrets listed below, you must also:
-
-1.  **Update the Target Repository Path:** In the `.github/workflows/iflow_downloader.yml` file, locate the `Checkout target repository` step and change `your-org/your-target-repo` to the actual organization/username and repository name where you want the iFlows to be committed.
-
-2.  **Add `TARGET_REPO_PAT` Secret:** Create a GitHub Personal Access Token (PAT) with `repo` scope (full control of private repositories) and add it as a GitHub secret named `TARGET_REPO_PAT` in your repository settings. This PAT will be used by the workflow to push to the target repository.
+A new branch and pull request will be created with the downloaded iFlows.
 
 ### Configuration
 
@@ -53,7 +43,6 @@ This workflow uses secrets to store sensitive information like API keys and URLs
 *   `BASE_URL`: The base URL of the iFlow service.
 *   `PACKAGE_URL`: The URL for fetching iFlow packages.
 *   `ARTIFACTS_URL`: The URL for fetching iFlow artifacts.
-*   `TARGET_REPO_PAT`: (New) Personal Access Token with `repo` scope for pushing to the target repository.
 
 To add these secrets:
 
