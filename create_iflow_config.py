@@ -1,50 +1,88 @@
 import argparse
 import os
+import requests
+import json
+from dotenv import load_dotenv
+
+load_dotenv()
+
+def get_oauth_token(oauth_url, client_id, client_secret):
+    payload = {
+        'grant_type': 'client_credentials',
+        'client_id': client_id,
+        'client_secret': client_secret
+    }
+    try:
+        auth_response = requests.post(oauth_url, data=payload)
+        auth_response.raise_for_status()
+        return auth_response.json()['access_token']
+    except requests.exceptions.RequestException as e:
+        print(f"Error getting OAuth token: {e}")
+        return None
 
 def create_iflow_config(iflow_name, env):
     """
     Creates a configuration file for a given iFlow and environment,
-    placing it inside a 'config' folder at the same level as the iFlow directory.
+    placing it inside a 'config' folder.
+    The configuration is fetched from the /IntegrationDesigntimeArtifacts API.
     """
-    base_search_dir = "Get_All_Packages"
-    iflow_dir_path = None
-    package_dir_path = None
+    oauth_url = os.getenv("OAUTH_URL")
+    client_id = os.getenv("CLIENT_ID")
+    client_secret = os.getenv("CLIENT_SECRET")
+    base_url = os.getenv("BASE_URL")
 
-    # Find the directory of the downloaded iFlow
-    for root, dirs, files in os.walk(base_search_dir):
-        if iflow_name in dirs:
-            potential_path = os.path.join(root, iflow_name)
-            # A simple check to verify it's an extracted iFlow directory
-            if os.path.isdir(os.path.join(potential_path, 'src')) or os.path.isdir(os.path.join(potential_path, 'META-INF')):
-                 iflow_dir_path = potential_path
-                 package_dir_path = root
-                 break # Stop after finding the first match
-
-    if not iflow_dir_path:
-        print(f"Error: Could not find the directory for iFlow '{iflow_name}' in '{base_search_dir}'.")
-        print("Please ensure the iFlow was downloaded correctly before running this script.")
+    if not all([oauth_url, client_id, client_secret, base_url]):
+        print("Error: Ensure OAUTH_URL, CLIENT_ID, CLIENT_SECRET, and BASE_URL are set in your .env file.")
         exit(1)
 
-    # Create the config directory next to the iFlow directory, inside the package folder
-    # e.g., Get_All_Packages/SimpleDemoPackage2/iflow2-config/
-    config_dir = os.path.join(package_dir_path, f"{iflow_name}-config")
-    os.makedirs(config_dir, exist_ok=True)
+    token = get_oauth_token(oauth_url, client_id, client_secret)
+    if not token:
+        exit(1)
 
-    # Create the properties file inside the new config directory
-    # e.g., Get_All_Packages/SimpleDemoPackage2/iflow2-config/iflow2-dev.properties
-    config_file_path = os.path.join(config_dir, f"{iflow_name}-{env}.properties")
+    headers = {
+        'Authorization': f'Bearer {token}',
+        'Accept': 'application/json'
+    }
+    
+    # Correctly format the filter query
+    api_url = f"{base_url}/IntegrationDesigntimeArtifacts?$filter=Id eq '{iflow_name}'"
 
-    with open(config_file_path, "w") as f:
-        f.write(f"# Configuration for iFlow '{iflow_name}' in '{env}' environment\n")
-        f.write(f"iflow.name={iflow_name}\n")
-        f.write(f"environment={env}\n")
-        # Add more environment-specific configurations here
+    try:
+        response = requests.get(api_url, headers=headers)
+        response.raise_for_status()
+        data = response.json()
+        
+        if 'd' in data and 'results' in data['d'] and data['d']['results']:
+            iflow_data = data['d']['results'][0]
+            iflow_id = iflow_data.get('Id')
+            iflow_version = iflow_data.get('Version')
 
-    print(f"Successfully created configuration file: {config_file_path}")
+            if not iflow_id or not iflow_version:
+                print("Error: Could not extract 'Id' or 'Version' from API response.")
+                exit(1)
+
+            config_dir = "config"
+            os.makedirs(config_dir, exist_ok=True)
+            
+            filename = f"{iflow_id}_{iflow_version}_{env}.json"
+            file_path = os.path.join(config_dir, filename)
+
+            with open(file_path, 'w') as f:
+                json.dump(iflow_data, f, indent=4)
+
+            print(f"Successfully created configuration file: {file_path}")
+        else:
+            print(f"Error: No iFlow found with the name '{iflow_name}'.")
+            print("API Response:", response.text)
+
+
+    except requests.exceptions.RequestException as e:
+        print(f"Error calling API: {e}")
+        exit(1)
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="Create iFlow configuration file.")
-    parser.add_argument("--iflow", required=True, help="Name of the iFlow")
+    parser = argparse.ArgumentParser(description="Create iFlow configuration file from API response.")
+    parser.add_argument("--iflow", required=True, help="ID of the iFlow")
     parser.add_argument("--env", required=True, help="Environment (e.g., dev, stage, prod)")
     args = parser.parse_args()
 
