@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       iflow_name:
-        description: 'Name of the iFlow to configure'
+        description: 'ID of the iFlow to configure'
         required: true
       environment:
         description: 'Environment for the configuration'
@@ -12,7 +12,8 @@ on:
         type: choice
         options:
         - dev
-        - test
+        - stage
+        - prod
 
 jobs:
   configure_iflow:
@@ -29,10 +30,9 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
 
-      - name: Create environment-specific config
-        id: create_config
+      - name: Download single iFlow
         run: |
-          python create_iflow_config.py --iflow "${{ github.event.inputs.iflow_name }}" --env "${{ github.event.inputs.environment }}"
+          python download_single_iflow.py --iflow "${{ github.event.inputs.iflow_name }}" --output_dir "./Get_All_Packages"
         env:
           OAUTH_URL: ${{ secrets.OAUTH_URL }}
           CLIENT_ID: ${{ secrets.CLIENT_ID }}
@@ -41,12 +41,17 @@ jobs:
           PACKAGE_URL: ${{ secrets.PACKAGE_URL }}
           ARTIFACTS_URL: ${{ secrets.ARTIFACTS_URL }}
 
+      - name: Create environment-specific config
+        run: |
+          python create_iflow_config.py --iflow "${{ github.event.inputs.iflow_name }}" --env "${{ github.event.inputs.environment }}"
+      
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v4
         with:
-          token: ${{ secrets.TARGET_REPO_PAT }}
+          token: ${{ secrets.GITHUB_TOKEN }}
           commit-message: "feat(iflow): Add ${{ github.event.inputs.iflow_name }} config for ${{ github.event.inputs.environment }}"
-          title: "feat(iflow): Add ${{ github.event.inputs.iflow_name }} config for ${{ github.event.inputs.environment }}"
-          body: "This PR adds the environment-specific configuration for the `${{ github.event.inputs.iflow_name }}` iFlow in the `${{ github.event.inputs.environment }}` environment."
+          title: "feat(iflow): Configure ${{ github.event.inputs.iflow_name }} for ${{ github.event.inputs.environment }}"
+          body: |
+            This PR adds the environment-specific configuration and the downloaded artifact for the `${{ github.event.inputs.iflow_name }}` iFlow in the `${{ github.event.inputs.environment }}` environment.
           branch: "feature/iflow-${{ github.event.inputs.iflow_name }}-${{ github.event.inputs.environment }}"
           base: "main"
