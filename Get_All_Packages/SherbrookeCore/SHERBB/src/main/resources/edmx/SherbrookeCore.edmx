@@ -1,0 +1,1221 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="1.0" xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx" xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" xmlns:sap="http://www.sap.com/Protocols/SAPData">
+	<edmx:DataServices m:DataServiceVersion="2.0">
+		<Schema Namespace="SHERBROOKE" xml:lang="en" sap:schema-version="1" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+			<Annotation Term="Core.SchemaVersion" String="1.0.0" xmlns="http://docs.oasis-open.org/odata/ns/edm"/>
+			<EntityType Name="Header" sap:content-version="1">
+				<Key>
+					<PropertyRef Name="ObjectID"/>
+					<PropertyRef Name="ObjectType"/>
+				</Key>
+				<Property Name="ObjectID" Type="Edm.String" Nullable="false" sap:unicode="false" sap:label="Object ID" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="ParentID" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Parent object ID" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="ObjectType" Type="Edm.String" Nullable="false" sap:unicode="false" sap:label="Object Type" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="ObjectSubtype" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Object Sub Type" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Filter01" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Object filter #1" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Filter02" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Object filter #2" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Filter03" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Object filter #3" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Filter04" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Object filter #4" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Filter05" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Object filter #5" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Status" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Header Status" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Message" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Return Message" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="MessageType" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Return Message Type" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Attrib01label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Attribute #01 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Attrib01" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Attribute #01" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Attrib02label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Attribute #02 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Attrib02" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Attribute #02" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Attrib03label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Attribute #03 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Attrib03" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Attribute #03" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Attrib04label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Attribute #04 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Attrib04" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Attribute #04" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Attrib05label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Attribute #05 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Attrib05" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Attribute #05" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Attrib06label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Attribute #06 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Attrib06" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Attribute #06" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Attrib07label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Attribute #07 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Attrib07" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Attribute #07" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Attrib08label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Attribute #08 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Attrib08" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Attribute #08" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Attrib09label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Attribute #09 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Attrib09" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Attribute #09" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Attrib10label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Attribute #10 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Attrib10" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Attribute #10" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Attrib11label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Attribute #11 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Attrib11" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Attribute #11" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Attrib12label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Attribute #12 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Attrib12" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Attribute #12" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Attrib13label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Attribute #13 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Attrib13" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Attribute #13" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Attrib14label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Attribute #14 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Attrib14" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Attribute #14" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Attrib15label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Attribute #15 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Attrib15" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Attribute #15" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Attrib16label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Attribute #16 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Attrib16" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Attribute #16" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Attrib17label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Attribute #17 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Attrib17" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Attribute #17" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Attrib18label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Attribute #18 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Attrib18" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Attribute #18" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Attrib19label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Attribute #19 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Attrib19" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Attribute #19" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Attrib20label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Attribute #20 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Attrib20" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Attribute #20" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Value01label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Value #01 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Value01" Type="Edm.Decimal" Nullable="true" Precision="13" Scale="3" sap:unicode="false" sap:unit="Value01uom" sap:label="Value #01" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Value01uom" Type="Edm.String" Nullable="true" MaxLength="3" sap:unicode="false" sap:label="Value #01 Unit" sap:creatable="false" sap:updatable="false"   sap:semantics="unit-of-measure"/>
+				<Property Name="Value02label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Value #02 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Value02" Type="Edm.Decimal" Nullable="true" Precision="13" Scale="3" sap:unicode="false" sap:unit="Value02uom" sap:label="Value #02" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Value02uom" Type="Edm.String" Nullable="true" MaxLength="3" sap:unicode="false" sap:label="Value #02 Unit" sap:creatable="false" sap:updatable="false"   sap:semantics="unit-of-measure"/>
+				<Property Name="Value03label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Value #03 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Value03" Type="Edm.Decimal" Nullable="true" Precision="13" Scale="3" sap:unicode="false" sap:unit="Value03uom" sap:label="Value #03" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Value03uom" Type="Edm.String" Nullable="true" MaxLength="3" sap:unicode="false" sap:label="Value #03 Unit" sap:creatable="false" sap:updatable="false"   sap:semantics="unit-of-measure"/>
+				<Property Name="Value04label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Value #04 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Value04" Type="Edm.Decimal" Nullable="true" Precision="13" Scale="0" sap:unicode="false" sap:unit="Value04uom" sap:label="Value #04" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Value04uom" Type="Edm.String" Nullable="true" MaxLength="3" sap:unicode="false" sap:label="Value #04 Unit" sap:creatable="false" sap:updatable="false"   sap:semantics="unit-of-measure"/>
+				<Property Name="Value05label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Value #05 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Value05" Type="Edm.Decimal" Nullable="true" Precision="13" Scale="0" sap:unicode="false" sap:unit="Value05uom" sap:label="Value #05" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Value05uom" Type="Edm.String" Nullable="true" MaxLength="3" sap:unicode="false" sap:label="Value #05 Unit" sap:creatable="false" sap:updatable="false"   sap:semantics="unit-of-measure"/>
+				<Property Name="Value06label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Value #06 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Value06" Type="Edm.Decimal" Nullable="true" Precision="13" Scale="0" sap:unicode="false" sap:unit="Value06uom" sap:label="Value #06" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Value06uom" Type="Edm.String" Nullable="true" MaxLength="3" sap:unicode="false" sap:label="Value #06 Unit" sap:creatable="false" sap:updatable="false"   sap:semantics="unit-of-measure"/>
+				<Property Name="Value07label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Value #07 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Value07" Type="Edm.Decimal" Nullable="true" Precision="13" Scale="0" sap:unicode="false" sap:unit="Value07uom" sap:label="Value #07" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Value07uom" Type="Edm.String" Nullable="true" MaxLength="3" sap:unicode="false" sap:label="Value #07 Unit" sap:creatable="false" sap:updatable="false"   sap:semantics="unit-of-measure"/>
+				<Property Name="Value08label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Value #08 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Value08" Type="Edm.Decimal" Nullable="true" Precision="13" Scale="0" sap:unicode="false" sap:unit="Value08uom" sap:label="Value #08" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Value08uom" Type="Edm.String" Nullable="true" MaxLength="3" sap:unicode="false" sap:label="Value #08 Unit" sap:creatable="false" sap:updatable="false"   sap:semantics="unit-of-measure"/>
+				<Property Name="Value09label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Value #09 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Value09" Type="Edm.Decimal" Nullable="true" Precision="13" Scale="0" sap:unicode="false" sap:unit="Value09uom" sap:label="Value #09" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Value09uom" Type="Edm.String" Nullable="true" MaxLength="3" sap:unicode="false" sap:label="Value #09 Unit" sap:creatable="false" sap:updatable="false"   sap:semantics="unit-of-measure"/>
+				<Property Name="Value10label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Value #10 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Value10" Type="Edm.Decimal" Nullable="true" Precision="13" Scale="0" sap:unicode="false" sap:unit="Value10uom" sap:label="Value #10" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Value10uom" Type="Edm.String" Nullable="true" MaxLength="3" sap:unicode="false" sap:label="Value #10 Unit" sap:creatable="false" sap:updatable="false"   sap:semantics="unit-of-measure"/>
+				<Property Name="Value11label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Value #11 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Value11" Type="Edm.Decimal" Nullable="true" Precision="13" Scale="0" sap:unicode="false" sap:unit="Value11uom" sap:label="Value #11" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Value11uom" Type="Edm.String" Nullable="true" MaxLength="3" sap:unicode="false" sap:label="Value #11 Unit" sap:creatable="false" sap:updatable="false"   sap:semantics="unit-of-measure"/>
+				<Property Name="Value12label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Value #12 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Value12" Type="Edm.Decimal" Nullable="true" Precision="13" Scale="0" sap:unicode="false" sap:unit="Value12uom" sap:label="Value #12" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Value12uom" Type="Edm.String" Nullable="true" MaxLength="3" sap:unicode="false" sap:label="Value #12 Unit" sap:creatable="false" sap:updatable="false"   sap:semantics="unit-of-measure"/>
+				<Property Name="Value13label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Value #13 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Value13" Type="Edm.Decimal" Nullable="true" Precision="13" Scale="0" sap:unicode="false" sap:unit="Value13uom" sap:label="Value #13" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Value13uom" Type="Edm.String" Nullable="true" MaxLength="3" sap:unicode="false" sap:label="Value #13 Unit" sap:creatable="false" sap:updatable="false"   sap:semantics="unit-of-measure"/>
+				<Property Name="Value14label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Value #14 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Value14" Type="Edm.Decimal" Nullable="true" Precision="13" Scale="0" sap:unicode="false" sap:unit="Value14uom" sap:label="Value #14" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Value14uom" Type="Edm.String" Nullable="true" MaxLength="3" sap:unicode="false" sap:label="Value #14 Unit" sap:creatable="false" sap:updatable="false"   sap:semantics="unit-of-measure"/>
+				<Property Name="Value15label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Value #15 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Value15" Type="Edm.Decimal" Nullable="true" Precision="13" Scale="0" sap:unicode="false" sap:unit="Value15uom" sap:label="Value #15" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Value15uom" Type="Edm.String" Nullable="true" MaxLength="3" sap:unicode="false" sap:label="Value #15 Unit" sap:creatable="false" sap:updatable="false"   sap:semantics="unit-of-measure"/>
+				<Property Name="Value16label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Value #16 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Value16" Type="Edm.Decimal" Nullable="true" Precision="13" Scale="0" sap:unicode="false" sap:unit="Value16uom" sap:label="Value #16" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Value16uom" Type="Edm.String" Nullable="true" MaxLength="3" sap:unicode="false" sap:label="Value #16 Unit" sap:creatable="false" sap:updatable="false"   sap:semantics="unit-of-measure"/>
+				<Property Name="Value17label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Value #17 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Value17" Type="Edm.Decimal" Nullable="true" Precision="13" Scale="0" sap:unicode="false" sap:unit="Value17uom" sap:label="Value #17" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Value17uom" Type="Edm.String" Nullable="true" MaxLength="3" sap:unicode="false" sap:label="Value #17 Unit" sap:creatable="false" sap:updatable="false"   sap:semantics="unit-of-measure"/>
+				<Property Name="Value18label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Value #18 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Value18" Type="Edm.Decimal" Nullable="true" Precision="13" Scale="0" sap:unicode="false" sap:unit="Value18uom" sap:label="Value #18" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Value18uom" Type="Edm.String" Nullable="true" MaxLength="3" sap:unicode="false" sap:label="Value #18 Unit" sap:creatable="false" sap:updatable="false"   sap:semantics="unit-of-measure"/>
+				<Property Name="Value19label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Value #19 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Value19" Type="Edm.Decimal" Nullable="true" Precision="13" Scale="0" sap:unicode="false" sap:unit="Value19uom" sap:label="Value #19" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Value19uom" Type="Edm.String" Nullable="true" MaxLength="3" sap:unicode="false" sap:label="Value #19 Unit" sap:creatable="false" sap:updatable="false"   sap:semantics="unit-of-measure"/>
+				<Property Name="Value20label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Value #20 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Value20" Type="Edm.Decimal" Nullable="true" Precision="13" Scale="0" sap:unicode="false" sap:unit="Value20uom" sap:label="Value #20" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Value20uom" Type="Edm.String" Nullable="true" MaxLength="3" sap:unicode="false" sap:label="Value #20 Unit" sap:creatable="false" sap:updatable="false"   sap:semantics="unit-of-measure"/>
+				<Property Name="Date01label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Date #01 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Date01" Type="Edm.DateTime" Nullable="true" Precision="7" sap:unicode="false" sap:label="Date #01" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Date02label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Date #02 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Date02" Type="Edm.DateTime" Nullable="true" Precision="7" sap:unicode="false" sap:label="Date #02" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Date03label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Date #03 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Date03" Type="Edm.DateTime" Nullable="true" Precision="7" sap:unicode="false" sap:label="Date #03" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Date04label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Date #04 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Date04" Type="Edm.DateTime" Nullable="true" Precision="7" sap:unicode="false" sap:label="Date #04" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Date05label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Date #05 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Date05" Type="Edm.DateTime" Nullable="true" Precision="7" sap:unicode="false" sap:label="Date #05" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Date06label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Date #06 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Date06" Type="Edm.DateTime" Nullable="true" Precision="7" sap:unicode="false" sap:label="Date #06" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Date07label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Date #07 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Date07" Type="Edm.DateTime" Nullable="true" Precision="7" sap:unicode="false" sap:label="Date #07" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Date08label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Date #08 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Date08" Type="Edm.DateTime" Nullable="true" Precision="7" sap:unicode="false" sap:label="Date #08" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Date09label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Date #09 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Date09" Type="Edm.DateTime" Nullable="true" Precision="7" sap:unicode="false" sap:label="Date #09" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Date10label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Date #10 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Date10" Type="Edm.DateTime" Nullable="true" Precision="7" sap:unicode="false" sap:label="Date #10" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Date11label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Date #11 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Date11" Type="Edm.DateTime" Nullable="true" Precision="7" sap:unicode="false" sap:label="Date #11" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Date12label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Date #12 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Date12" Type="Edm.DateTime" Nullable="true" Precision="7" sap:unicode="false" sap:label="Date #12" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Date13label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Date #13 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Date13" Type="Edm.DateTime" Nullable="true" Precision="7" sap:unicode="false" sap:label="Date #13" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Date14label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Date #14 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Date14" Type="Edm.DateTime" Nullable="true" Precision="7" sap:unicode="false" sap:label="Date #14" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Date15label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Date #15 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Date15" Type="Edm.DateTime" Nullable="true" Precision="7" sap:unicode="false" sap:label="Date #15" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time01label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Time #01 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time01" Type="Edm.Time" Nullable="true" Precision="0" sap:unicode="false" sap:label="Time #01" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time01zone" Type="Edm.String" Nullable="true" MaxLength="6" sap:unicode="false" sap:label="Time #01 Timezone" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time02label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Time #02 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time02" Type="Edm.Time" Nullable="true" Precision="0" sap:unicode="false" sap:label="Time #02" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time02zone" Type="Edm.String" Nullable="true" MaxLength="6" sap:unicode="false" sap:label="Time #02 Timezone" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time03label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Time #03 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time03" Type="Edm.Time" Nullable="true" Precision="0" sap:unicode="false" sap:label="Time #013" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time03zone" Type="Edm.String" Nullable="true" MaxLength="6" sap:unicode="false" sap:label="Time #03 Timezone" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time04label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Time #04 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time04" Type="Edm.Time" Nullable="true" Precision="0" sap:unicode="false" sap:label="Time #04" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time04zone" Type="Edm.String" Nullable="true" MaxLength="6" sap:unicode="false" sap:label="Time #04 Timezone" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time05label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Time #05 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time05" Type="Edm.Time" Nullable="true" Precision="0" sap:unicode="false" sap:label="Time #05" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time05zone" Type="Edm.String" Nullable="true" MaxLength="6" sap:unicode="false" sap:label="Time #05 Timezone" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time06label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Time #06 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time06" Type="Edm.Time" Nullable="true" Precision="0" sap:unicode="false" sap:label="Time #06" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time06zone" Type="Edm.String" Nullable="true" MaxLength="6" sap:unicode="false" sap:label="Time #06 Timezone" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time07label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Time #07 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time07" Type="Edm.Time" Nullable="true" Precision="0" sap:unicode="false" sap:label="Time #07" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time07zone" Type="Edm.String" Nullable="true" MaxLength="6" sap:unicode="false" sap:label="Time #07 Timezone" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time08label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Time #08 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time08" Type="Edm.Time" Nullable="true" Precision="0" sap:unicode="false" sap:label="Time #08" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time08zone" Type="Edm.String" Nullable="true" MaxLength="6" sap:unicode="false" sap:label="Time #08 Timezone" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time09label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Time #09 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time09" Type="Edm.Time" Nullable="true" Precision="0" sap:unicode="false" sap:label="Time #09" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time09zone" Type="Edm.String" Nullable="true" MaxLength="6" sap:unicode="false" sap:label="Time #09 Timezone" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time10label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Time #10 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time10" Type="Edm.Time" Nullable="true" Precision="0" sap:unicode="false" sap:label="Time #10" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time10zone" Type="Edm.String" Nullable="true" MaxLength="6" sap:unicode="false" sap:label="Time #10 Timezone" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time11label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Time #11 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time11" Type="Edm.Time" Nullable="true" Precision="0" sap:unicode="false" sap:label="Time #11" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time11zone" Type="Edm.String" Nullable="true" MaxLength="6" sap:unicode="false" sap:label="Time #11 Timezone" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time12label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Time #12 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time12" Type="Edm.Time" Nullable="true" Precision="0" sap:unicode="false" sap:label="Time #12" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time12zone" Type="Edm.String" Nullable="true" MaxLength="6" sap:unicode="false" sap:label="Time #12 Timezone" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time13label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Time #13 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time13" Type="Edm.Time" Nullable="true" Precision="0" sap:unicode="false" sap:label="Time #13" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time13zone" Type="Edm.String" Nullable="true" MaxLength="6" sap:unicode="false" sap:label="Time #13 Timezone" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time14label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Time #14 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time14" Type="Edm.Time" Nullable="true" Precision="0" sap:unicode="false" sap:label="Time #14" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time14zone" Type="Edm.String" Nullable="true" MaxLength="6" sap:unicode="false" sap:label="Time #14 Timezone" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time15label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Time #15 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time15" Type="Edm.Time" Nullable="true" Precision="0" sap:unicode="false" sap:label="Time #15" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time15zone" Type="Edm.String" Nullable="true" MaxLength="6" sap:unicode="false" sap:label="Time #15 Timezone" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Binary01" Type="Edm.Binary" Nullable="true" sap:unicode="false" sap:label="Binary #01" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Binary01mime" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Binary #01 Mime Type" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Binary02" Type="Edm.Binary" Nullable="true" sap:unicode="false" sap:label="Binary #02" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Binary02mime" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Binary #02 Mime Type" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Binary03" Type="Edm.Binary" Nullable="true" sap:unicode="false" sap:label="Binary #03" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Binary03mime" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Binary #03 Mime Type" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Binary04" Type="Edm.Binary" Nullable="true" sap:unicode="false" sap:label="Binary #04" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Binary04mime" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Binary #04 Mime Type" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Binary05" Type="Edm.Binary" Nullable="true" sap:unicode="false" sap:label="Binary #05" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Binary05mime" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Binary #05 Mime Type" sap:creatable="false" sap:updatable="false"  />
+				<NavigationProperty Name="Items" Relationship="SHERBROOKE.Header2Item" FromRole="FromRole_Header2Item" ToRole="ToRole_Header2Item"/>
+			</EntityType>
+			<EntityType Name="Item" sap:content-version="1">
+				<Key>
+					<PropertyRef Name="ObjectID"/>
+					<PropertyRef Name="ParentID"/>
+					<PropertyRef Name="ObjectType"/>
+				</Key>
+				<Property Name="ObjectID" Type="Edm.String" Nullable="false" sap:unicode="false" sap:label="Object ID" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="ParentID" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Parent object ID" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="ObjectType" Type="Edm.String" Nullable="false" sap:unicode="false" sap:label="Object Type" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="ObjectSubtype" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Object Sub Type" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Filter01" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Object filter #1" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Filter02" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Object filter #2" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Filter03" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Object filter #3" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Filter04" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Object filter #4" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Filter05" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Object filter #5" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Status" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Item Status" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Message" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Return Message" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="MessageType" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Return Message Type" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Attrib01label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Attribute #01 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Attrib01" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Attribute #01" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Attrib02label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Attribute #02 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Attrib02" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Attribute #02" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Attrib03label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Attribute #03 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Attrib03" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Attribute #03" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Attrib04label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Attribute #04 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Attrib04" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Attribute #04" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Attrib05label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Attribute #05 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Attrib05" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Attribute #05" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Attrib06label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Attribute #06 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Attrib06" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Attribute #06" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Attrib07label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Attribute #07 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Attrib07" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Attribute #07" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Attrib08label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Attribute #08 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Attrib08" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Attribute #08" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Attrib09label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Attribute #09 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Attrib09" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Attribute #09" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Attrib10label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Attribute #10 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Attrib10" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Attribute #10" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Attrib11label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Attribute #11 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Attrib11" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Attribute #11" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Attrib12label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Attribute #12 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Attrib12" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Attribute #12" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Attrib13label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Attribute #13 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Attrib13" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Attribute #13" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Attrib14label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Attribute #14 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Attrib14" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Attribute #14" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Attrib15label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Attribute #15 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Attrib15" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Attribute #15" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Attrib16label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Attribute #16 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Attrib16" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Attribute #16" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Attrib17label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Attribute #17 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Attrib17" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Attribute #17" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Attrib18label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Attribute #18 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Attrib18" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Attribute #18" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Attrib19label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Attribute #19 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Attrib19" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Attribute #19" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Attrib20label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Attribute #20 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Attrib20" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Attribute #20" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Value01label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Value #01 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Value01" Type="Edm.Decimal" Nullable="true" Precision="13" Scale="3" sap:unicode="false" sap:unit="Value01uom" sap:label="Value #01" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Value01uom" Type="Edm.String" Nullable="true" MaxLength="3" sap:unicode="false" sap:label="Value #01 Unit" sap:creatable="false" sap:updatable="false"   sap:semantics="unit-of-measure"/>
+				<Property Name="Value02label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Value #02 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Value02" Type="Edm.Decimal" Nullable="true" Precision="13" Scale="3" sap:unicode="false" sap:unit="Value02uom" sap:label="Value #02" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Value02uom" Type="Edm.String" Nullable="true" MaxLength="3" sap:unicode="false" sap:label="Value #02 Unit" sap:creatable="false" sap:updatable="false"   sap:semantics="unit-of-measure"/>
+				<Property Name="Value03label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Value #03 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Value03" Type="Edm.Decimal" Nullable="true" Precision="13" Scale="3" sap:unicode="false" sap:unit="Value03uom" sap:label="Value #03" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Value03uom" Type="Edm.String" Nullable="true" MaxLength="3" sap:unicode="false" sap:label="Value #03 Unit" sap:creatable="false" sap:updatable="false"   sap:semantics="unit-of-measure"/>
+				<Property Name="Value04label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Value #04 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Value04" Type="Edm.Decimal" Nullable="true" Precision="13" Scale="0" sap:unicode="false" sap:unit="Value04uom" sap:label="Value #04" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Value04uom" Type="Edm.String" Nullable="true" MaxLength="3" sap:unicode="false" sap:label="Value #04 Unit" sap:creatable="false" sap:updatable="false"   sap:semantics="unit-of-measure"/>
+				<Property Name="Value05label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Value #05 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Value05" Type="Edm.Decimal" Nullable="true" Precision="13" Scale="0" sap:unicode="false" sap:unit="Value05uom" sap:label="Value #05" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Value05uom" Type="Edm.String" Nullable="true" MaxLength="3" sap:unicode="false" sap:label="Value #05 Unit" sap:creatable="false" sap:updatable="false"   sap:semantics="unit-of-measure"/>
+				<Property Name="Value06label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Value #06 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Value06" Type="Edm.Decimal" Nullable="true" Precision="13" Scale="0" sap:unicode="false" sap:unit="Value06uom" sap:label="Value #06" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Value06uom" Type="Edm.String" Nullable="true" MaxLength="3" sap:unicode="false" sap:label="Value #06 Unit" sap:creatable="false" sap:updatable="false"   sap:semantics="unit-of-measure"/>
+				<Property Name="Value07label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Value #07 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Value07" Type="Edm.Decimal" Nullable="true" Precision="13" Scale="0" sap:unicode="false" sap:unit="Value07uom" sap:label="Value #07" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Value07uom" Type="Edm.String" Nullable="true" MaxLength="3" sap:unicode="false" sap:label="Value #07 Unit" sap:creatable="false" sap:updatable="false"   sap:semantics="unit-of-measure"/>
+				<Property Name="Value08label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Value #08 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Value08" Type="Edm.Decimal" Nullable="true" Precision="13" Scale="0" sap:unicode="false" sap:unit="Value08uom" sap:label="Value #08" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Value08uom" Type="Edm.String" Nullable="true" MaxLength="3" sap:unicode="false" sap:label="Value #08 Unit" sap:creatable="false" sap:updatable="false"   sap:semantics="unit-of-measure"/>
+				<Property Name="Value09label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Value #09 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Value09" Type="Edm.Decimal" Nullable="true" Precision="13" Scale="0" sap:unicode="false" sap:unit="Value09uom" sap:label="Value #09" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Value09uom" Type="Edm.String" Nullable="true" MaxLength="3" sap:unicode="false" sap:label="Value #09 Unit" sap:creatable="false" sap:updatable="false"   sap:semantics="unit-of-measure"/>
+				<Property Name="Value10label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Value #10 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Value10" Type="Edm.Decimal" Nullable="true" Precision="13" Scale="0" sap:unicode="false" sap:unit="Value10uom" sap:label="Value #10" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Value10uom" Type="Edm.String" Nullable="true" MaxLength="3" sap:unicode="false" sap:label="Value #10 Unit" sap:creatable="false" sap:updatable="false"   sap:semantics="unit-of-measure"/>
+				<Property Name="Value11label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Value #11 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Value11" Type="Edm.Decimal" Nullable="true" Precision="13" Scale="0" sap:unicode="false" sap:unit="Value11uom" sap:label="Value #11" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Value11uom" Type="Edm.String" Nullable="true" MaxLength="3" sap:unicode="false" sap:label="Value #11 Unit" sap:creatable="false" sap:updatable="false"   sap:semantics="unit-of-measure"/>
+				<Property Name="Value12label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Value #12 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Value12" Type="Edm.Decimal" Nullable="true" Precision="13" Scale="0" sap:unicode="false" sap:unit="Value12uom" sap:label="Value #12" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Value12uom" Type="Edm.String" Nullable="true" MaxLength="3" sap:unicode="false" sap:label="Value #12 Unit" sap:creatable="false" sap:updatable="false"   sap:semantics="unit-of-measure"/>
+				<Property Name="Value13label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Value #13 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Value13" Type="Edm.Decimal" Nullable="true" Precision="13" Scale="0" sap:unicode="false" sap:unit="Value13uom" sap:label="Value #13" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Value13uom" Type="Edm.String" Nullable="true" MaxLength="3" sap:unicode="false" sap:label="Value #13 Unit" sap:creatable="false" sap:updatable="false"   sap:semantics="unit-of-measure"/>
+				<Property Name="Value14label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Value #14 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Value14" Type="Edm.Decimal" Nullable="true" Precision="13" Scale="0" sap:unicode="false" sap:unit="Value14uom" sap:label="Value #14" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Value14uom" Type="Edm.String" Nullable="true" MaxLength="3" sap:unicode="false" sap:label="Value #14 Unit" sap:creatable="false" sap:updatable="false"   sap:semantics="unit-of-measure"/>
+				<Property Name="Value15label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Value #15 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Value15" Type="Edm.Decimal" Nullable="true" Precision="13" Scale="0" sap:unicode="false" sap:unit="Value15uom" sap:label="Value #15" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Value15uom" Type="Edm.String" Nullable="true" MaxLength="3" sap:unicode="false" sap:label="Value #15 Unit" sap:creatable="false" sap:updatable="false"   sap:semantics="unit-of-measure"/>
+				<Property Name="Value16label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Value #16 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Value16" Type="Edm.Decimal" Nullable="true" Precision="13" Scale="0" sap:unicode="false" sap:unit="Value16uom" sap:label="Value #16" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Value16uom" Type="Edm.String" Nullable="true" MaxLength="3" sap:unicode="false" sap:label="Value #16 Unit" sap:creatable="false" sap:updatable="false"   sap:semantics="unit-of-measure"/>
+				<Property Name="Value17label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Value #17 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Value17" Type="Edm.Decimal" Nullable="true" Precision="13" Scale="0" sap:unicode="false" sap:unit="Value17uom" sap:label="Value #17" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Value17uom" Type="Edm.String" Nullable="true" MaxLength="3" sap:unicode="false" sap:label="Value #17 Unit" sap:creatable="false" sap:updatable="false"   sap:semantics="unit-of-measure"/>
+				<Property Name="Value18label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Value #18 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Value18" Type="Edm.Decimal" Nullable="true" Precision="13" Scale="0" sap:unicode="false" sap:unit="Value18uom" sap:label="Value #18" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Value18uom" Type="Edm.String" Nullable="true" MaxLength="3" sap:unicode="false" sap:label="Value #18 Unit" sap:creatable="false" sap:updatable="false"   sap:semantics="unit-of-measure"/>
+				<Property Name="Value19label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Value #19 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Value19" Type="Edm.Decimal" Nullable="true" Precision="13" Scale="0" sap:unicode="false" sap:unit="Value19uom" sap:label="Value #19" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Value19uom" Type="Edm.String" Nullable="true" MaxLength="3" sap:unicode="false" sap:label="Value #19 Unit" sap:creatable="false" sap:updatable="false"   sap:semantics="unit-of-measure"/>
+				<Property Name="Value20label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Value #20 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Value20" Type="Edm.Decimal" Nullable="true" Precision="13" Scale="0" sap:unicode="false" sap:unit="Value20uom" sap:label="Value #20" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Value20uom" Type="Edm.String" Nullable="true" MaxLength="3" sap:unicode="false" sap:label="Value #20 Unit" sap:creatable="false" sap:updatable="false"   sap:semantics="unit-of-measure"/>
+				<Property Name="Date01label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Date #01 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Date01" Type="Edm.DateTime" Nullable="true" Precision="7" sap:unicode="false" sap:label="Date #01" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Date02label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Date #02 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Date02" Type="Edm.DateTime" Nullable="true" Precision="7" sap:unicode="false" sap:label="Date #02" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Date03label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Date #03 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Date03" Type="Edm.DateTime" Nullable="true" Precision="7" sap:unicode="false" sap:label="Date #03" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Date04label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Date #04 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Date04" Type="Edm.DateTime" Nullable="true" Precision="7" sap:unicode="false" sap:label="Date #04" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Date05label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Date #05 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Date05" Type="Edm.DateTime" Nullable="true" Precision="7" sap:unicode="false" sap:label="Date #05" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Date06label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Date #06 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Date06" Type="Edm.DateTime" Nullable="true" Precision="7" sap:unicode="false" sap:label="Date #06" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Date07label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Date #07 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Date07" Type="Edm.DateTime" Nullable="true" Precision="7" sap:unicode="false" sap:label="Date #07" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Date08label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Date #08 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Date08" Type="Edm.DateTime" Nullable="true" Precision="7" sap:unicode="false" sap:label="Date #08" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Date09label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Date #09 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Date09" Type="Edm.DateTime" Nullable="true" Precision="7" sap:unicode="false" sap:label="Date #09" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Date10label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Date #10 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Date10" Type="Edm.DateTime" Nullable="true" Precision="7" sap:unicode="false" sap:label="Date #10" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Date11label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Date #11 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Date11" Type="Edm.DateTime" Nullable="true" Precision="7" sap:unicode="false" sap:label="Date #11" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Date12label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Date #12 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Date12" Type="Edm.DateTime" Nullable="true" Precision="7" sap:unicode="false" sap:label="Date #12" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Date13label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Date #13 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Date13" Type="Edm.DateTime" Nullable="true" Precision="7" sap:unicode="false" sap:label="Date #13" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Date14label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Date #14 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Date14" Type="Edm.DateTime" Nullable="true" Precision="7" sap:unicode="false" sap:label="Date #14" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Date15label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Date #15 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Date15" Type="Edm.DateTime" Nullable="true" Precision="7" sap:unicode="false" sap:label="Date #15" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time01label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Time #01 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time01" Type="Edm.Time" Nullable="true" Precision="0" sap:unicode="false" sap:label="Time #01" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time01zone" Type="Edm.String" Nullable="true" MaxLength="6" sap:unicode="false" sap:label="Time #01 Timezone" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time02label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Time #02 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time02" Type="Edm.Time" Nullable="true" Precision="0" sap:unicode="false" sap:label="Time #02" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time02zone" Type="Edm.String" Nullable="true" MaxLength="6" sap:unicode="false" sap:label="Time #02 Timezone" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time03label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Time #03 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time03" Type="Edm.Time" Nullable="true" Precision="0" sap:unicode="false" sap:label="Time #013" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time03zone" Type="Edm.String" Nullable="true" MaxLength="6" sap:unicode="false" sap:label="Time #03 Timezone" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time04label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Time #04 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time04" Type="Edm.Time" Nullable="true" Precision="0" sap:unicode="false" sap:label="Time #04" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time04zone" Type="Edm.String" Nullable="true" MaxLength="6" sap:unicode="false" sap:label="Time #04 Timezone" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time05label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Time #05 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time05" Type="Edm.Time" Nullable="true" Precision="0" sap:unicode="false" sap:label="Time #05" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time05zone" Type="Edm.String" Nullable="true" MaxLength="6" sap:unicode="false" sap:label="Time #05 Timezone" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time06label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Time #06 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time06" Type="Edm.Time" Nullable="true" Precision="0" sap:unicode="false" sap:label="Time #06" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time06zone" Type="Edm.String" Nullable="true" MaxLength="6" sap:unicode="false" sap:label="Time #06 Timezone" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time07label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Time #07 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time07" Type="Edm.Time" Nullable="true" Precision="0" sap:unicode="false" sap:label="Time #07" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time07zone" Type="Edm.String" Nullable="true" MaxLength="6" sap:unicode="false" sap:label="Time #07 Timezone" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time08label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Time #08 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time08" Type="Edm.Time" Nullable="true" Precision="0" sap:unicode="false" sap:label="Time #08" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time08zone" Type="Edm.String" Nullable="true" MaxLength="6" sap:unicode="false" sap:label="Time #08 Timezone" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time09label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Time #09 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time09" Type="Edm.Time" Nullable="true" Precision="0" sap:unicode="false" sap:label="Time #09" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time09zone" Type="Edm.String" Nullable="true" MaxLength="6" sap:unicode="false" sap:label="Time #09 Timezone" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time10label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Time #10 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time10" Type="Edm.Time" Nullable="true" Precision="0" sap:unicode="false" sap:label="Time #10" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time10zone" Type="Edm.String" Nullable="true" MaxLength="6" sap:unicode="false" sap:label="Time #10 Timezone" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time11label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Time #11 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time11" Type="Edm.Time" Nullable="true" Precision="0" sap:unicode="false" sap:label="Time #11" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time11zone" Type="Edm.String" Nullable="true" MaxLength="6" sap:unicode="false" sap:label="Time #11 Timezone" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time12label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Time #12 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time12" Type="Edm.Time" Nullable="true" Precision="0" sap:unicode="false" sap:label="Time #12" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time12zone" Type="Edm.String" Nullable="true" MaxLength="6" sap:unicode="false" sap:label="Time #12 Timezone" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time13label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Time #13 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time13" Type="Edm.Time" Nullable="true" Precision="0" sap:unicode="false" sap:label="Time #13" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time13zone" Type="Edm.String" Nullable="true" MaxLength="6" sap:unicode="false" sap:label="Time #13 Timezone" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time14label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Time #14 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time14" Type="Edm.Time" Nullable="true" Precision="0" sap:unicode="false" sap:label="Time #14" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time14zone" Type="Edm.String" Nullable="true" MaxLength="6" sap:unicode="false" sap:label="Time #14 Timezone" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time15label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Time #15 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time15" Type="Edm.Time" Nullable="true" Precision="0" sap:unicode="false" sap:label="Time #15" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time15zone" Type="Edm.String" Nullable="true" MaxLength="6" sap:unicode="false" sap:label="Time #15 Timezone" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Binary01" Type="Edm.Binary" Nullable="true" sap:unicode="false" sap:label="Binary #01" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Binary01mime" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Binary #01 Mime Type" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Binary02" Type="Edm.Binary" Nullable="true" sap:unicode="false" sap:label="Binary #02" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Binary02mime" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Binary #02 Mime Type" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Binary03" Type="Edm.Binary" Nullable="true" sap:unicode="false" sap:label="Binary #03" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Binary03mime" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Binary #03 Mime Type" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Binary04" Type="Edm.Binary" Nullable="true" sap:unicode="false" sap:label="Binary #04" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Binary04mime" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Binary #04 Mime Type" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Binary05" Type="Edm.Binary" Nullable="true" sap:unicode="false" sap:label="Binary #05" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Binary05mime" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Binary #05 Mime Type" sap:creatable="false" sap:updatable="false"  />
+				<NavigationProperty Name="Details" Relationship="SHERBROOKE.Item2Detail" FromRole="FromRole_Item2Detail" ToRole="ToRole_Item2Detail"/>
+			</EntityType>
+			<EntityType Name="Subdetail" sap:content-version="1">
+			<Key>
+					<PropertyRef Name="ObjectID"/>
+					<PropertyRef Name="ParentID"/>
+					<PropertyRef Name="ObjectType"/>
+				</Key>
+				<Property Name="ObjectID" Type="Edm.String" Nullable="false" sap:unicode="false" sap:label="Object ID" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="ParentID" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Parent object ID" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="ObjectType" Type="Edm.String" Nullable="false" sap:unicode="false" sap:label="Object Type" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="ObjectSubtype" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Object Sub Type" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Filter01" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Object filter #1" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Filter02" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Object filter #2" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Filter03" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Object filter #3" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Filter04" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Object filter #4" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Filter05" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Object filter #5" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Status" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Subdetail Status" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Message" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Return Message" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="MessageType" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Return Message Type" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Attrib01label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Attribute #01 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Attrib01" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Attribute #01" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Attrib02label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Attribute #02 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Attrib02" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Attribute #02" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Attrib03label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Attribute #03 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Attrib03" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Attribute #03" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Attrib04label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Attribute #04 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Attrib04" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Attribute #04" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Attrib05label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Attribute #05 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Attrib05" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Attribute #05" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Attrib06label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Attribute #06 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Attrib06" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Attribute #06" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Attrib07label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Attribute #07 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Attrib07" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Attribute #07" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Attrib08label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Attribute #08 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Attrib08" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Attribute #08" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Attrib09label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Attribute #09 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Attrib09" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Attribute #09" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Attrib10label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Attribute #10 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Attrib10" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Attribute #10" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Attrib11label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Attribute #11 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Attrib11" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Attribute #11" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Attrib12label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Attribute #12 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Attrib12" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Attribute #12" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Attrib13label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Attribute #13 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Attrib13" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Attribute #13" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Attrib14label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Attribute #14 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Attrib14" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Attribute #14" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Attrib15label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Attribute #15 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Attrib15" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Attribute #15" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Attrib16label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Attribute #16 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Attrib16" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Attribute #16" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Attrib17label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Attribute #17 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Attrib17" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Attribute #17" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Attrib18label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Attribute #18 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Attrib18" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Attribute #18" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Attrib19label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Attribute #19 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Attrib19" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Attribute #19" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Attrib20label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Attribute #20 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Attrib20" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Attribute #20" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Value01label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Value #01 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Value01" Type="Edm.Decimal" Nullable="true" Precision="13" Scale="3" sap:unicode="false" sap:unit="Value01uom" sap:label="Value #01" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Value01uom" Type="Edm.String" Nullable="true" MaxLength="3" sap:unicode="false" sap:label="Value #01 Unit" sap:creatable="false" sap:updatable="false"   sap:semantics="unit-of-measure"/>
+				<Property Name="Value02label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Value #02 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Value02" Type="Edm.Decimal" Nullable="true" Precision="13" Scale="3" sap:unicode="false" sap:unit="Value02uom" sap:label="Value #02" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Value02uom" Type="Edm.String" Nullable="true" MaxLength="3" sap:unicode="false" sap:label="Value #02 Unit" sap:creatable="false" sap:updatable="false"   sap:semantics="unit-of-measure"/>
+				<Property Name="Value03label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Value #03 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Value03" Type="Edm.Decimal" Nullable="true" Precision="13" Scale="3" sap:unicode="false" sap:unit="Value03uom" sap:label="Value #03" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Value03uom" Type="Edm.String" Nullable="true" MaxLength="3" sap:unicode="false" sap:label="Value #03 Unit" sap:creatable="false" sap:updatable="false"   sap:semantics="unit-of-measure"/>
+				<Property Name="Value04label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Value #04 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Value04" Type="Edm.Decimal" Nullable="true" Precision="13" Scale="0" sap:unicode="false" sap:unit="Value04uom" sap:label="Value #04" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Value04uom" Type="Edm.String" Nullable="true" MaxLength="3" sap:unicode="false" sap:label="Value #04 Unit" sap:creatable="false" sap:updatable="false"   sap:semantics="unit-of-measure"/>
+				<Property Name="Value05label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Value #05 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Value05" Type="Edm.Decimal" Nullable="true" Precision="13" Scale="0" sap:unicode="false" sap:unit="Value05uom" sap:label="Value #05" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Value05uom" Type="Edm.String" Nullable="true" MaxLength="3" sap:unicode="false" sap:label="Value #05 Unit" sap:creatable="false" sap:updatable="false"   sap:semantics="unit-of-measure"/>
+				<Property Name="Value06label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Value #06 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Value06" Type="Edm.Decimal" Nullable="true" Precision="13" Scale="0" sap:unicode="false" sap:unit="Value06uom" sap:label="Value #06" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Value06uom" Type="Edm.String" Nullable="true" MaxLength="3" sap:unicode="false" sap:label="Value #06 Unit" sap:creatable="false" sap:updatable="false"   sap:semantics="unit-of-measure"/>
+				<Property Name="Value07label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Value #07 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Value07" Type="Edm.Decimal" Nullable="true" Precision="13" Scale="0" sap:unicode="false" sap:unit="Value07uom" sap:label="Value #07" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Value07uom" Type="Edm.String" Nullable="true" MaxLength="3" sap:unicode="false" sap:label="Value #07 Unit" sap:creatable="false" sap:updatable="false"   sap:semantics="unit-of-measure"/>
+				<Property Name="Value08label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Value #08 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Value08" Type="Edm.Decimal" Nullable="true" Precision="13" Scale="0" sap:unicode="false" sap:unit="Value08uom" sap:label="Value #08" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Value08uom" Type="Edm.String" Nullable="true" MaxLength="3" sap:unicode="false" sap:label="Value #08 Unit" sap:creatable="false" sap:updatable="false"   sap:semantics="unit-of-measure"/>
+				<Property Name="Value09label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Value #09 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Value09" Type="Edm.Decimal" Nullable="true" Precision="13" Scale="0" sap:unicode="false" sap:unit="Value09uom" sap:label="Value #09" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Value09uom" Type="Edm.String" Nullable="true" MaxLength="3" sap:unicode="false" sap:label="Value #09 Unit" sap:creatable="false" sap:updatable="false"   sap:semantics="unit-of-measure"/>
+				<Property Name="Value10label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Value #10 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Value10" Type="Edm.Decimal" Nullable="true" Precision="13" Scale="0" sap:unicode="false" sap:unit="Value10uom" sap:label="Value #10" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Value10uom" Type="Edm.String" Nullable="true" MaxLength="3" sap:unicode="false" sap:label="Value #10 Unit" sap:creatable="false" sap:updatable="false"   sap:semantics="unit-of-measure"/>
+				<Property Name="Value11label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Value #11 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Value11" Type="Edm.Decimal" Nullable="true" Precision="13" Scale="0" sap:unicode="false" sap:unit="Value11uom" sap:label="Value #11" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Value11uom" Type="Edm.String" Nullable="true" MaxLength="3" sap:unicode="false" sap:label="Value #11 Unit" sap:creatable="false" sap:updatable="false"   sap:semantics="unit-of-measure"/>
+				<Property Name="Value12label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Value #12 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Value12" Type="Edm.Decimal" Nullable="true" Precision="13" Scale="0" sap:unicode="false" sap:unit="Value12uom" sap:label="Value #12" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Value12uom" Type="Edm.String" Nullable="true" MaxLength="3" sap:unicode="false" sap:label="Value #12 Unit" sap:creatable="false" sap:updatable="false"   sap:semantics="unit-of-measure"/>
+				<Property Name="Value13label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Value #13 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Value13" Type="Edm.Decimal" Nullable="true" Precision="13" Scale="0" sap:unicode="false" sap:unit="Value13uom" sap:label="Value #13" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Value13uom" Type="Edm.String" Nullable="true" MaxLength="3" sap:unicode="false" sap:label="Value #13 Unit" sap:creatable="false" sap:updatable="false"   sap:semantics="unit-of-measure"/>
+				<Property Name="Value14label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Value #14 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Value14" Type="Edm.Decimal" Nullable="true" Precision="13" Scale="0" sap:unicode="false" sap:unit="Value14uom" sap:label="Value #14" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Value14uom" Type="Edm.String" Nullable="true" MaxLength="3" sap:unicode="false" sap:label="Value #14 Unit" sap:creatable="false" sap:updatable="false"   sap:semantics="unit-of-measure"/>
+				<Property Name="Value15label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Value #15 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Value15" Type="Edm.Decimal" Nullable="true" Precision="13" Scale="0" sap:unicode="false" sap:unit="Value15uom" sap:label="Value #15" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Value15uom" Type="Edm.String" Nullable="true" MaxLength="3" sap:unicode="false" sap:label="Value #15 Unit" sap:creatable="false" sap:updatable="false"   sap:semantics="unit-of-measure"/>
+				<Property Name="Value16label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Value #16 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Value16" Type="Edm.Decimal" Nullable="true" Precision="13" Scale="0" sap:unicode="false" sap:unit="Value16uom" sap:label="Value #16" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Value16uom" Type="Edm.String" Nullable="true" MaxLength="3" sap:unicode="false" sap:label="Value #16 Unit" sap:creatable="false" sap:updatable="false"   sap:semantics="unit-of-measure"/>
+				<Property Name="Value17label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Value #17 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Value17" Type="Edm.Decimal" Nullable="true" Precision="13" Scale="0" sap:unicode="false" sap:unit="Value17uom" sap:label="Value #17" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Value17uom" Type="Edm.String" Nullable="true" MaxLength="3" sap:unicode="false" sap:label="Value #17 Unit" sap:creatable="false" sap:updatable="false"   sap:semantics="unit-of-measure"/>
+				<Property Name="Value18label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Value #18 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Value18" Type="Edm.Decimal" Nullable="true" Precision="13" Scale="0" sap:unicode="false" sap:unit="Value18uom" sap:label="Value #18" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Value18uom" Type="Edm.String" Nullable="true" MaxLength="3" sap:unicode="false" sap:label="Value #18 Unit" sap:creatable="false" sap:updatable="false"   sap:semantics="unit-of-measure"/>
+				<Property Name="Value19label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Value #19 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Value19" Type="Edm.Decimal" Nullable="true" Precision="13" Scale="0" sap:unicode="false" sap:unit="Value19uom" sap:label="Value #19" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Value19uom" Type="Edm.String" Nullable="true" MaxLength="3" sap:unicode="false" sap:label="Value #19 Unit" sap:creatable="false" sap:updatable="false"   sap:semantics="unit-of-measure"/>
+				<Property Name="Value20label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Value #20 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Value20" Type="Edm.Decimal" Nullable="true" Precision="13" Scale="0" sap:unicode="false" sap:unit="Value20uom" sap:label="Value #20" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Value20uom" Type="Edm.String" Nullable="true" MaxLength="3" sap:unicode="false" sap:label="Value #20 Unit" sap:creatable="false" sap:updatable="false"   sap:semantics="unit-of-measure"/>
+				<Property Name="Date01label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Date #01 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Date01" Type="Edm.DateTime" Nullable="true" Precision="7" sap:unicode="false" sap:label="Date #01" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Date02label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Date #02 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Date02" Type="Edm.DateTime" Nullable="true" Precision="7" sap:unicode="false" sap:label="Date #02" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Date03label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Date #03 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Date03" Type="Edm.DateTime" Nullable="true" Precision="7" sap:unicode="false" sap:label="Date #03" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Date04label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Date #04 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Date04" Type="Edm.DateTime" Nullable="true" Precision="7" sap:unicode="false" sap:label="Date #04" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Date05label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Date #05 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Date05" Type="Edm.DateTime" Nullable="true" Precision="7" sap:unicode="false" sap:label="Date #05" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Date06label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Date #06 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Date06" Type="Edm.DateTime" Nullable="true" Precision="7" sap:unicode="false" sap:label="Date #06" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Date07label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Date #07 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Date07" Type="Edm.DateTime" Nullable="true" Precision="7" sap:unicode="false" sap:label="Date #07" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Date08label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Date #08 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Date08" Type="Edm.DateTime" Nullable="true" Precision="7" sap:unicode="false" sap:label="Date #08" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Date09label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Date #09 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Date09" Type="Edm.DateTime" Nullable="true" Precision="7" sap:unicode="false" sap:label="Date #09" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Date10label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Date #10 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Date10" Type="Edm.DateTime" Nullable="true" Precision="7" sap:unicode="false" sap:label="Date #10" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Date11label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Date #11 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Date11" Type="Edm.DateTime" Nullable="true" Precision="7" sap:unicode="false" sap:label="Date #11" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Date12label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Date #12 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Date12" Type="Edm.DateTime" Nullable="true" Precision="7" sap:unicode="false" sap:label="Date #12" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Date13label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Date #13 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Date13" Type="Edm.DateTime" Nullable="true" Precision="7" sap:unicode="false" sap:label="Date #13" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Date14label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Date #14 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Date14" Type="Edm.DateTime" Nullable="true" Precision="7" sap:unicode="false" sap:label="Date #14" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Date15label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Date #15 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Date15" Type="Edm.DateTime" Nullable="true" Precision="7" sap:unicode="false" sap:label="Date #15" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time01label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Time #01 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time01" Type="Edm.Time" Nullable="true" Precision="0" sap:unicode="false" sap:label="Time #01" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time01zone" Type="Edm.String" Nullable="true" MaxLength="6" sap:unicode="false" sap:label="Time #01 Timezone" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time02label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Time #02 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time02" Type="Edm.Time" Nullable="true" Precision="0" sap:unicode="false" sap:label="Time #02" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time02zone" Type="Edm.String" Nullable="true" MaxLength="6" sap:unicode="false" sap:label="Time #02 Timezone" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time03label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Time #03 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time03" Type="Edm.Time" Nullable="true" Precision="0" sap:unicode="false" sap:label="Time #013" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time03zone" Type="Edm.String" Nullable="true" MaxLength="6" sap:unicode="false" sap:label="Time #03 Timezone" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time04label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Time #04 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time04" Type="Edm.Time" Nullable="true" Precision="0" sap:unicode="false" sap:label="Time #04" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time04zone" Type="Edm.String" Nullable="true" MaxLength="6" sap:unicode="false" sap:label="Time #04 Timezone" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time05label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Time #05 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time05" Type="Edm.Time" Nullable="true" Precision="0" sap:unicode="false" sap:label="Time #05" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time05zone" Type="Edm.String" Nullable="true" MaxLength="6" sap:unicode="false" sap:label="Time #05 Timezone" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time06label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Time #06 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time06" Type="Edm.Time" Nullable="true" Precision="0" sap:unicode="false" sap:label="Time #06" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time06zone" Type="Edm.String" Nullable="true" MaxLength="6" sap:unicode="false" sap:label="Time #06 Timezone" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time07label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Time #07 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time07" Type="Edm.Time" Nullable="true" Precision="0" sap:unicode="false" sap:label="Time #07" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time07zone" Type="Edm.String" Nullable="true" MaxLength="6" sap:unicode="false" sap:label="Time #07 Timezone" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time08label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Time #08 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time08" Type="Edm.Time" Nullable="true" Precision="0" sap:unicode="false" sap:label="Time #08" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time08zone" Type="Edm.String" Nullable="true" MaxLength="6" sap:unicode="false" sap:label="Time #08 Timezone" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time09label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Time #09 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time09" Type="Edm.Time" Nullable="true" Precision="0" sap:unicode="false" sap:label="Time #09" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time09zone" Type="Edm.String" Nullable="true" MaxLength="6" sap:unicode="false" sap:label="Time #09 Timezone" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time10label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Time #10 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time10" Type="Edm.Time" Nullable="true" Precision="0" sap:unicode="false" sap:label="Time #10" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time10zone" Type="Edm.String" Nullable="true" MaxLength="6" sap:unicode="false" sap:label="Time #10 Timezone" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time11label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Time #11 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time11" Type="Edm.Time" Nullable="true" Precision="0" sap:unicode="false" sap:label="Time #11" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time11zone" Type="Edm.String" Nullable="true" MaxLength="6" sap:unicode="false" sap:label="Time #11 Timezone" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time12label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Time #12 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time12" Type="Edm.Time" Nullable="true" Precision="0" sap:unicode="false" sap:label="Time #12" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time12zone" Type="Edm.String" Nullable="true" MaxLength="6" sap:unicode="false" sap:label="Time #12 Timezone" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time13label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Time #13 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time13" Type="Edm.Time" Nullable="true" Precision="0" sap:unicode="false" sap:label="Time #13" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time13zone" Type="Edm.String" Nullable="true" MaxLength="6" sap:unicode="false" sap:label="Time #13 Timezone" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time14label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Time #14 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time14" Type="Edm.Time" Nullable="true" Precision="0" sap:unicode="false" sap:label="Time #14" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time14zone" Type="Edm.String" Nullable="true" MaxLength="6" sap:unicode="false" sap:label="Time #14 Timezone" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time15label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Time #15 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time15" Type="Edm.Time" Nullable="true" Precision="0" sap:unicode="false" sap:label="Time #15" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time15zone" Type="Edm.String" Nullable="true" MaxLength="6" sap:unicode="false" sap:label="Time #15 Timezone" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Binary01" Type="Edm.Binary" Nullable="true" sap:unicode="false" sap:label="Binary #01" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Binary01mime" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Binary #01 Mime Type" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Binary02" Type="Edm.Binary" Nullable="true" sap:unicode="false" sap:label="Binary #02" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Binary02mime" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Binary #02 Mime Type" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Binary03" Type="Edm.Binary" Nullable="true" sap:unicode="false" sap:label="Binary #03" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Binary03mime" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Binary #03 Mime Type" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Binary04" Type="Edm.Binary" Nullable="true" sap:unicode="false" sap:label="Binary #04" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Binary04mime" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Binary #04 Mime Type" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Binary05" Type="Edm.Binary" Nullable="true" sap:unicode="false" sap:label="Binary #05" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Binary05mime" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Binary #05 Mime Type" sap:creatable="false" sap:updatable="false"  />
+			</EntityType>
+			<EntityType Name="Detail" sap:content-version="1">
+				<Key>
+					<PropertyRef Name="ObjectID"/>
+					<PropertyRef Name="ParentID"/>
+					<PropertyRef Name="ObjectType"/>
+				</Key>
+			<Property Name="ObjectID" Type="Edm.String" Nullable="false" sap:unicode="false" sap:label="Object ID" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="ParentID" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Parent object ID" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="ObjectType" Type="Edm.String" Nullable="false" sap:unicode="false" sap:label="Object Type" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="ObjectSubtype" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Object Sub Type" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Filter01" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Object filter #1" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Filter02" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Object filter #2" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Filter03" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Object filter #3" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Filter04" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Object filter #4" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Filter05" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Object filter #5" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Status" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Detail Status" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Message" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Return Message" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="MessageType" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Return Message Type" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Attrib01label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Attribute #01 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Attrib01" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Attribute #01" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Attrib02label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Attribute #02 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Attrib02" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Attribute #02" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Attrib03label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Attribute #03 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Attrib03" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Attribute #03" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Attrib04label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Attribute #04 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Attrib04" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Attribute #04" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Attrib05label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Attribute #05 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Attrib05" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Attribute #05" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Attrib06label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Attribute #06 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Attrib06" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Attribute #06" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Attrib07label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Attribute #07 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Attrib07" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Attribute #07" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Attrib08label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Attribute #08 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Attrib08" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Attribute #08" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Attrib09label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Attribute #09 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Attrib09" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Attribute #09" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Attrib10label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Attribute #10 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Attrib10" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Attribute #10" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Attrib11label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Attribute #11 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Attrib11" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Attribute #11" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Attrib12label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Attribute #12 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Attrib12" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Attribute #12" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Attrib13label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Attribute #13 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Attrib13" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Attribute #13" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Attrib14label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Attribute #14 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Attrib14" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Attribute #14" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Attrib15label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Attribute #15 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Attrib15" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Attribute #15" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Attrib16label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Attribute #16 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Attrib16" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Attribute #16" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Attrib17label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Attribute #17 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Attrib17" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Attribute #17" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Attrib18label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Attribute #18 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Attrib18" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Attribute #18" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Attrib19label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Attribute #19 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Attrib19" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Attribute #19" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Attrib20label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Attribute #20 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Attrib20" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Attribute #20" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Value01label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Value #01 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Value01" Type="Edm.Decimal" Nullable="true" Precision="13" Scale="3" sap:unicode="false" sap:unit="Value01uom" sap:label="Value #01" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Value01uom" Type="Edm.String" Nullable="true" MaxLength="3" sap:unicode="false" sap:label="Value #01 Unit" sap:creatable="false" sap:updatable="false"   sap:semantics="unit-of-measure"/>
+				<Property Name="Value02label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Value #02 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Value02" Type="Edm.Decimal" Nullable="true" Precision="13" Scale="3" sap:unicode="false" sap:unit="Value02uom" sap:label="Value #02" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Value02uom" Type="Edm.String" Nullable="true" MaxLength="3" sap:unicode="false" sap:label="Value #02 Unit" sap:creatable="false" sap:updatable="false"   sap:semantics="unit-of-measure"/>
+				<Property Name="Value03label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Value #03 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Value03" Type="Edm.Decimal" Nullable="true" Precision="13" Scale="3" sap:unicode="false" sap:unit="Value03uom" sap:label="Value #03" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Value03uom" Type="Edm.String" Nullable="true" MaxLength="3" sap:unicode="false" sap:label="Value #03 Unit" sap:creatable="false" sap:updatable="false"   sap:semantics="unit-of-measure"/>
+				<Property Name="Value04label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Value #04 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Value04" Type="Edm.Decimal" Nullable="true" Precision="13" Scale="0" sap:unicode="false" sap:unit="Value04uom" sap:label="Value #04" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Value04uom" Type="Edm.String" Nullable="true" MaxLength="3" sap:unicode="false" sap:label="Value #04 Unit" sap:creatable="false" sap:updatable="false"   sap:semantics="unit-of-measure"/>
+				<Property Name="Value05label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Value #05 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Value05" Type="Edm.Decimal" Nullable="true" Precision="13" Scale="0" sap:unicode="false" sap:unit="Value05uom" sap:label="Value #05" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Value05uom" Type="Edm.String" Nullable="true" MaxLength="3" sap:unicode="false" sap:label="Value #05 Unit" sap:creatable="false" sap:updatable="false"   sap:semantics="unit-of-measure"/>
+				<Property Name="Value06label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Value #06 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Value06" Type="Edm.Decimal" Nullable="true" Precision="13" Scale="0" sap:unicode="false" sap:unit="Value06uom" sap:label="Value #06" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Value06uom" Type="Edm.String" Nullable="true" MaxLength="3" sap:unicode="false" sap:label="Value #06 Unit" sap:creatable="false" sap:updatable="false"   sap:semantics="unit-of-measure"/>
+				<Property Name="Value07label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Value #07 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Value07" Type="Edm.Decimal" Nullable="true" Precision="13" Scale="0" sap:unicode="false" sap:unit="Value07uom" sap:label="Value #07" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Value07uom" Type="Edm.String" Nullable="true" MaxLength="3" sap:unicode="false" sap:label="Value #07 Unit" sap:creatable="false" sap:updatable="false"   sap:semantics="unit-of-measure"/>
+				<Property Name="Value08label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Value #08 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Value08" Type="Edm.Decimal" Nullable="true" Precision="13" Scale="0" sap:unicode="false" sap:unit="Value08uom" sap:label="Value #08" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Value08uom" Type="Edm.String" Nullable="true" MaxLength="3" sap:unicode="false" sap:label="Value #08 Unit" sap:creatable="false" sap:updatable="false"   sap:semantics="unit-of-measure"/>
+				<Property Name="Value09label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Value #09 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Value09" Type="Edm.Decimal" Nullable="true" Precision="13" Scale="0" sap:unicode="false" sap:unit="Value09uom" sap:label="Value #09" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Value09uom" Type="Edm.String" Nullable="true" MaxLength="3" sap:unicode="false" sap:label="Value #09 Unit" sap:creatable="false" sap:updatable="false"   sap:semantics="unit-of-measure"/>
+				<Property Name="Value10label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Value #10 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Value10" Type="Edm.Decimal" Nullable="true" Precision="13" Scale="0" sap:unicode="false" sap:unit="Value10uom" sap:label="Value #10" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Value10uom" Type="Edm.String" Nullable="true" MaxLength="3" sap:unicode="false" sap:label="Value #10 Unit" sap:creatable="false" sap:updatable="false"   sap:semantics="unit-of-measure"/>
+				<Property Name="Value11label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Value #11 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Value11" Type="Edm.Decimal" Nullable="true" Precision="13" Scale="0" sap:unicode="false" sap:unit="Value11uom" sap:label="Value #11" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Value11uom" Type="Edm.String" Nullable="true" MaxLength="3" sap:unicode="false" sap:label="Value #11 Unit" sap:creatable="false" sap:updatable="false"   sap:semantics="unit-of-measure"/>
+				<Property Name="Value12label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Value #12 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Value12" Type="Edm.Decimal" Nullable="true" Precision="13" Scale="0" sap:unicode="false" sap:unit="Value12uom" sap:label="Value #12" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Value12uom" Type="Edm.String" Nullable="true" MaxLength="3" sap:unicode="false" sap:label="Value #12 Unit" sap:creatable="false" sap:updatable="false"   sap:semantics="unit-of-measure"/>
+				<Property Name="Value13label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Value #13 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Value13" Type="Edm.Decimal" Nullable="true" Precision="13" Scale="0" sap:unicode="false" sap:unit="Value13uom" sap:label="Value #13" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Value13uom" Type="Edm.String" Nullable="true" MaxLength="3" sap:unicode="false" sap:label="Value #13 Unit" sap:creatable="false" sap:updatable="false"   sap:semantics="unit-of-measure"/>
+				<Property Name="Value14label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Value #14 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Value14" Type="Edm.Decimal" Nullable="true" Precision="13" Scale="0" sap:unicode="false" sap:unit="Value14uom" sap:label="Value #14" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Value14uom" Type="Edm.String" Nullable="true" MaxLength="3" sap:unicode="false" sap:label="Value #14 Unit" sap:creatable="false" sap:updatable="false"   sap:semantics="unit-of-measure"/>
+				<Property Name="Value15label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Value #15 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Value15" Type="Edm.Decimal" Nullable="true" Precision="13" Scale="0" sap:unicode="false" sap:unit="Value15uom" sap:label="Value #15" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Value15uom" Type="Edm.String" Nullable="true" MaxLength="3" sap:unicode="false" sap:label="Value #15 Unit" sap:creatable="false" sap:updatable="false"   sap:semantics="unit-of-measure"/>
+				<Property Name="Value16label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Value #16 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Value16" Type="Edm.Decimal" Nullable="true" Precision="13" Scale="0" sap:unicode="false" sap:unit="Value16uom" sap:label="Value #16" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Value16uom" Type="Edm.String" Nullable="true" MaxLength="3" sap:unicode="false" sap:label="Value #16 Unit" sap:creatable="false" sap:updatable="false"   sap:semantics="unit-of-measure"/>
+				<Property Name="Value17label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Value #17 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Value17" Type="Edm.Decimal" Nullable="true" Precision="13" Scale="0" sap:unicode="false" sap:unit="Value17uom" sap:label="Value #17" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Value17uom" Type="Edm.String" Nullable="true" MaxLength="3" sap:unicode="false" sap:label="Value #17 Unit" sap:creatable="false" sap:updatable="false"   sap:semantics="unit-of-measure"/>
+				<Property Name="Value18label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Value #18 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Value18" Type="Edm.Decimal" Nullable="true" Precision="13" Scale="0" sap:unicode="false" sap:unit="Value18uom" sap:label="Value #18" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Value18uom" Type="Edm.String" Nullable="true" MaxLength="3" sap:unicode="false" sap:label="Value #18 Unit" sap:creatable="false" sap:updatable="false"   sap:semantics="unit-of-measure"/>
+				<Property Name="Value19label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Value #19 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Value19" Type="Edm.Decimal" Nullable="true" Precision="13" Scale="0" sap:unicode="false" sap:unit="Value19uom" sap:label="Value #19" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Value19uom" Type="Edm.String" Nullable="true" MaxLength="3" sap:unicode="false" sap:label="Value #19 Unit" sap:creatable="false" sap:updatable="false"   sap:semantics="unit-of-measure"/>
+				<Property Name="Value20label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Value #20 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Value20" Type="Edm.Decimal" Nullable="true" Precision="13" Scale="0" sap:unicode="false" sap:unit="Value20uom" sap:label="Value #20" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Value20uom" Type="Edm.String" Nullable="true" MaxLength="3" sap:unicode="false" sap:label="Value #20 Unit" sap:creatable="false" sap:updatable="false"   sap:semantics="unit-of-measure"/>
+				<Property Name="Date01label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Date #01 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Date01" Type="Edm.DateTime" Nullable="true" Precision="7" sap:unicode="false" sap:label="Date #01" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Date02label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Date #02 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Date02" Type="Edm.DateTime" Nullable="true" Precision="7" sap:unicode="false" sap:label="Date #02" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Date03label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Date #03 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Date03" Type="Edm.DateTime" Nullable="true" Precision="7" sap:unicode="false" sap:label="Date #03" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Date04label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Date #04 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Date04" Type="Edm.DateTime" Nullable="true" Precision="7" sap:unicode="false" sap:label="Date #04" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Date05label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Date #05 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Date05" Type="Edm.DateTime" Nullable="true" Precision="7" sap:unicode="false" sap:label="Date #05" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Date06label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Date #06 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Date06" Type="Edm.DateTime" Nullable="true" Precision="7" sap:unicode="false" sap:label="Date #06" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Date07label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Date #07 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Date07" Type="Edm.DateTime" Nullable="true" Precision="7" sap:unicode="false" sap:label="Date #07" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Date08label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Date #08 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Date08" Type="Edm.DateTime" Nullable="true" Precision="7" sap:unicode="false" sap:label="Date #08" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Date09label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Date #09 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Date09" Type="Edm.DateTime" Nullable="true" Precision="7" sap:unicode="false" sap:label="Date #09" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Date10label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Date #10 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Date10" Type="Edm.DateTime" Nullable="true" Precision="7" sap:unicode="false" sap:label="Date #10" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Date11label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Date #11 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Date11" Type="Edm.DateTime" Nullable="true" Precision="7" sap:unicode="false" sap:label="Date #11" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Date12label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Date #12 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Date12" Type="Edm.DateTime" Nullable="true" Precision="7" sap:unicode="false" sap:label="Date #12" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Date13label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Date #13 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Date13" Type="Edm.DateTime" Nullable="true" Precision="7" sap:unicode="false" sap:label="Date #13" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Date14label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Date #14 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Date14" Type="Edm.DateTime" Nullable="true" Precision="7" sap:unicode="false" sap:label="Date #14" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Date15label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Date #15 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Date15" Type="Edm.DateTime" Nullable="true" Precision="7" sap:unicode="false" sap:label="Date #15" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time01label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Time #01 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time01" Type="Edm.Time" Nullable="true" Precision="0" sap:unicode="false" sap:label="Time #01" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time01zone" Type="Edm.String" Nullable="true" MaxLength="6" sap:unicode="false" sap:label="Time #01 Timezone" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time02label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Time #02 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time02" Type="Edm.Time" Nullable="true" Precision="0" sap:unicode="false" sap:label="Time #02" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time02zone" Type="Edm.String" Nullable="true" MaxLength="6" sap:unicode="false" sap:label="Time #02 Timezone" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time03label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Time #03 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time03" Type="Edm.Time" Nullable="true" Precision="0" sap:unicode="false" sap:label="Time #013" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time03zone" Type="Edm.String" Nullable="true" MaxLength="6" sap:unicode="false" sap:label="Time #03 Timezone" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time04label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Time #04 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time04" Type="Edm.Time" Nullable="true" Precision="0" sap:unicode="false" sap:label="Time #04" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time04zone" Type="Edm.String" Nullable="true" MaxLength="6" sap:unicode="false" sap:label="Time #04 Timezone" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time05label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Time #05 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time05" Type="Edm.Time" Nullable="true" Precision="0" sap:unicode="false" sap:label="Time #05" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time05zone" Type="Edm.String" Nullable="true" MaxLength="6" sap:unicode="false" sap:label="Time #05 Timezone" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time06label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Time #06 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time06" Type="Edm.Time" Nullable="true" Precision="0" sap:unicode="false" sap:label="Time #06" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time06zone" Type="Edm.String" Nullable="true" MaxLength="6" sap:unicode="false" sap:label="Time #06 Timezone" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time07label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Time #07 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time07" Type="Edm.Time" Nullable="true" Precision="0" sap:unicode="false" sap:label="Time #07" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time07zone" Type="Edm.String" Nullable="true" MaxLength="6" sap:unicode="false" sap:label="Time #07 Timezone" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time08label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Time #08 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time08" Type="Edm.Time" Nullable="true" Precision="0" sap:unicode="false" sap:label="Time #08" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time08zone" Type="Edm.String" Nullable="true" MaxLength="6" sap:unicode="false" sap:label="Time #08 Timezone" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time09label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Time #09 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time09" Type="Edm.Time" Nullable="true" Precision="0" sap:unicode="false" sap:label="Time #09" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time09zone" Type="Edm.String" Nullable="true" MaxLength="6" sap:unicode="false" sap:label="Time #09 Timezone" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time10label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Time #10 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time10" Type="Edm.Time" Nullable="true" Precision="0" sap:unicode="false" sap:label="Time #10" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time10zone" Type="Edm.String" Nullable="true" MaxLength="6" sap:unicode="false" sap:label="Time #10 Timezone" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time11label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Time #11 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time11" Type="Edm.Time" Nullable="true" Precision="0" sap:unicode="false" sap:label="Time #11" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time11zone" Type="Edm.String" Nullable="true" MaxLength="6" sap:unicode="false" sap:label="Time #11 Timezone" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time12label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Time #12 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time12" Type="Edm.Time" Nullable="true" Precision="0" sap:unicode="false" sap:label="Time #12" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time12zone" Type="Edm.String" Nullable="true" MaxLength="6" sap:unicode="false" sap:label="Time #12 Timezone" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time13label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Time #13 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time13" Type="Edm.Time" Nullable="true" Precision="0" sap:unicode="false" sap:label="Time #13" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time13zone" Type="Edm.String" Nullable="true" MaxLength="6" sap:unicode="false" sap:label="Time #13 Timezone" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time14label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Time #14 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time14" Type="Edm.Time" Nullable="true" Precision="0" sap:unicode="false" sap:label="Time #14" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time14zone" Type="Edm.String" Nullable="true" MaxLength="6" sap:unicode="false" sap:label="Time #14 Timezone" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time15label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Time #15 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time15" Type="Edm.Time" Nullable="true" Precision="0" sap:unicode="false" sap:label="Time #15" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time15zone" Type="Edm.String" Nullable="true" MaxLength="6" sap:unicode="false" sap:label="Time #15 Timezone" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Binary01" Type="Edm.Binary" Nullable="true" sap:unicode="false" sap:label="Binary #01" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Binary01mime" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Binary #01 Mime Type" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Binary02" Type="Edm.Binary" Nullable="true" sap:unicode="false" sap:label="Binary #02" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Binary02mime" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Binary #02 Mime Type" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Binary03" Type="Edm.Binary" Nullable="true" sap:unicode="false" sap:label="Binary #03" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Binary03mime" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Binary #03 Mime Type" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Binary04" Type="Edm.Binary" Nullable="true" sap:unicode="false" sap:label="Binary #04" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Binary04mime" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Binary #04 Mime Type" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Binary05" Type="Edm.Binary" Nullable="true" sap:unicode="false" sap:label="Binary #05" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Binary05mime" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Binary #05 Mime Type" sap:creatable="false" sap:updatable="false"  />
+				<NavigationProperty Name="Subdetails" Relationship="SHERBROOKE.Detail2Subdetail" FromRole="FromRole_Detail2Subdetail" ToRole="ToRole_Detail2Subdetail"/>
+			</EntityType>
+			<EntityType Name="Barcode" sap:content-version="1">
+				<Key>
+					<PropertyRef Name="ObjectID"/>
+					<PropertyRef Name="ObjectType"/>
+				</Key>
+			    <Property Name="ObjectID" Type="Edm.String" Nullable="false" sap:unicode="false" sap:label="Object ID" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="ParentID" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Parent object ID" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="ObjectType" Type="Edm.String" Nullable="false" sap:unicode="false" sap:label="Object Type" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="ObjectSubtype" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Object Sub Type" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Filter01" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Object filter #1" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Filter02" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Object filter #2" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Filter03" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Object filter #3" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Filter04" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Object filter #4" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Filter05" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Object filter #5" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Status" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Detail Status" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Message" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Return Message" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="MessageType" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Return Message Type" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Attrib01label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Attribute #01 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Attrib01" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Attribute #01" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Attrib02label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Attribute #02 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Attrib02" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Attribute #02" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Attrib03label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Attribute #03 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Attrib03" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Attribute #03" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Attrib04label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Attribute #04 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Attrib04" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Attribute #04" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Attrib05label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Attribute #05 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Attrib05" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Attribute #05" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Attrib06label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Attribute #06 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Attrib06" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Attribute #06" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Attrib07label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Attribute #07 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Attrib07" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Attribute #07" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Attrib08label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Attribute #08 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Attrib08" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Attribute #08" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Attrib09label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Attribute #09 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Attrib09" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Attribute #09" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Attrib10label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Attribute #10 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Attrib10" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Attribute #10" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Attrib11label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Attribute #11 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Attrib11" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Attribute #11" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Attrib12label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Attribute #12 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Attrib12" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Attribute #12" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Attrib13label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Attribute #13 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Attrib13" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Attribute #13" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Attrib14label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Attribute #14 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Attrib14" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Attribute #14" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Attrib15label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Attribute #15 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Attrib15" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Attribute #15" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Attrib16label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Attribute #16 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Attrib16" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Attribute #16" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Attrib17label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Attribute #17 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Attrib17" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Attribute #17" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Attrib18label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Attribute #18 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Attrib18" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Attribute #18" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Attrib19label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Attribute #19 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Attrib19" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Attribute #19" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Attrib20label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Attribute #20 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Attrib20" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Attribute #20" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Value01label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Value #01 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Value01" Type="Edm.Decimal" Nullable="true" Precision="13" Scale="3" sap:unicode="false" sap:unit="Value01uom" sap:label="Value #01" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Value01uom" Type="Edm.String" Nullable="true" MaxLength="3" sap:unicode="false" sap:label="Value #01 Unit" sap:creatable="false" sap:updatable="false"   sap:semantics="unit-of-measure"/>
+				<Property Name="Value02label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Value #02 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Value02" Type="Edm.Decimal" Nullable="true" Precision="13" Scale="3" sap:unicode="false" sap:unit="Value02uom" sap:label="Value #02" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Value02uom" Type="Edm.String" Nullable="true" MaxLength="3" sap:unicode="false" sap:label="Value #02 Unit" sap:creatable="false" sap:updatable="false"   sap:semantics="unit-of-measure"/>
+				<Property Name="Value03label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Value #03 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Value03" Type="Edm.Decimal" Nullable="true" Precision="13" Scale="3" sap:unicode="false" sap:unit="Value03uom" sap:label="Value #03" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Value03uom" Type="Edm.String" Nullable="true" MaxLength="3" sap:unicode="false" sap:label="Value #03 Unit" sap:creatable="false" sap:updatable="false"   sap:semantics="unit-of-measure"/>
+				<Property Name="Value04label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Value #04 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Value04" Type="Edm.Decimal" Nullable="true" Precision="13" Scale="0" sap:unicode="false" sap:unit="Value04uom" sap:label="Value #04" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Value04uom" Type="Edm.String" Nullable="true" MaxLength="3" sap:unicode="false" sap:label="Value #04 Unit" sap:creatable="false" sap:updatable="false"   sap:semantics="unit-of-measure"/>
+				<Property Name="Value05label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Value #05 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Value05" Type="Edm.Decimal" Nullable="true" Precision="13" Scale="0" sap:unicode="false" sap:unit="Value05uom" sap:label="Value #05" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Value05uom" Type="Edm.String" Nullable="true" MaxLength="3" sap:unicode="false" sap:label="Value #05 Unit" sap:creatable="false" sap:updatable="false"   sap:semantics="unit-of-measure"/>
+				<Property Name="Value06label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Value #06 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Value06" Type="Edm.Decimal" Nullable="true" Precision="13" Scale="0" sap:unicode="false" sap:unit="Value06uom" sap:label="Value #06" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Value06uom" Type="Edm.String" Nullable="true" MaxLength="3" sap:unicode="false" sap:label="Value #06 Unit" sap:creatable="false" sap:updatable="false"   sap:semantics="unit-of-measure"/>
+				<Property Name="Value07label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Value #07 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Value07" Type="Edm.Decimal" Nullable="true" Precision="13" Scale="0" sap:unicode="false" sap:unit="Value07uom" sap:label="Value #07" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Value07uom" Type="Edm.String" Nullable="true" MaxLength="3" sap:unicode="false" sap:label="Value #07 Unit" sap:creatable="false" sap:updatable="false"   sap:semantics="unit-of-measure"/>
+				<Property Name="Value08label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Value #08 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Value08" Type="Edm.Decimal" Nullable="true" Precision="13" Scale="0" sap:unicode="false" sap:unit="Value08uom" sap:label="Value #08" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Value08uom" Type="Edm.String" Nullable="true" MaxLength="3" sap:unicode="false" sap:label="Value #08 Unit" sap:creatable="false" sap:updatable="false"   sap:semantics="unit-of-measure"/>
+				<Property Name="Value09label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Value #09 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Value09" Type="Edm.Decimal" Nullable="true" Precision="13" Scale="0" sap:unicode="false" sap:unit="Value09uom" sap:label="Value #09" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Value09uom" Type="Edm.String" Nullable="true" MaxLength="3" sap:unicode="false" sap:label="Value #09 Unit" sap:creatable="false" sap:updatable="false"   sap:semantics="unit-of-measure"/>
+				<Property Name="Value10label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Value #10 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Value10" Type="Edm.Decimal" Nullable="true" Precision="13" Scale="0" sap:unicode="false" sap:unit="Value10uom" sap:label="Value #10" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Value10uom" Type="Edm.String" Nullable="true" MaxLength="3" sap:unicode="false" sap:label="Value #10 Unit" sap:creatable="false" sap:updatable="false"   sap:semantics="unit-of-measure"/>
+				<Property Name="Value11label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Value #11 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Value11" Type="Edm.Decimal" Nullable="true" Precision="13" Scale="0" sap:unicode="false" sap:unit="Value11uom" sap:label="Value #11" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Value11uom" Type="Edm.String" Nullable="true" MaxLength="3" sap:unicode="false" sap:label="Value #11 Unit" sap:creatable="false" sap:updatable="false"   sap:semantics="unit-of-measure"/>
+				<Property Name="Value12label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Value #12 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Value12" Type="Edm.Decimal" Nullable="true" Precision="13" Scale="0" sap:unicode="false" sap:unit="Value12uom" sap:label="Value #12" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Value12uom" Type="Edm.String" Nullable="true" MaxLength="3" sap:unicode="false" sap:label="Value #12 Unit" sap:creatable="false" sap:updatable="false"   sap:semantics="unit-of-measure"/>
+				<Property Name="Value13label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Value #13 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Value13" Type="Edm.Decimal" Nullable="true" Precision="13" Scale="0" sap:unicode="false" sap:unit="Value13uom" sap:label="Value #13" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Value13uom" Type="Edm.String" Nullable="true" MaxLength="3" sap:unicode="false" sap:label="Value #13 Unit" sap:creatable="false" sap:updatable="false"   sap:semantics="unit-of-measure"/>
+				<Property Name="Value14label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Value #14 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Value14" Type="Edm.Decimal" Nullable="true" Precision="13" Scale="0" sap:unicode="false" sap:unit="Value14uom" sap:label="Value #14" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Value14uom" Type="Edm.String" Nullable="true" MaxLength="3" sap:unicode="false" sap:label="Value #14 Unit" sap:creatable="false" sap:updatable="false"   sap:semantics="unit-of-measure"/>
+				<Property Name="Value15label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Value #15 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Value15" Type="Edm.Decimal" Nullable="true" Precision="13" Scale="0" sap:unicode="false" sap:unit="Value15uom" sap:label="Value #15" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Value15uom" Type="Edm.String" Nullable="true" MaxLength="3" sap:unicode="false" sap:label="Value #15 Unit" sap:creatable="false" sap:updatable="false"   sap:semantics="unit-of-measure"/>
+				<Property Name="Value16label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Value #16 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Value16" Type="Edm.Decimal" Nullable="true" Precision="13" Scale="0" sap:unicode="false" sap:unit="Value16uom" sap:label="Value #16" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Value16uom" Type="Edm.String" Nullable="true" MaxLength="3" sap:unicode="false" sap:label="Value #16 Unit" sap:creatable="false" sap:updatable="false"   sap:semantics="unit-of-measure"/>
+				<Property Name="Value17label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Value #17 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Value17" Type="Edm.Decimal" Nullable="true" Precision="13" Scale="0" sap:unicode="false" sap:unit="Value17uom" sap:label="Value #17" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Value17uom" Type="Edm.String" Nullable="true" MaxLength="3" sap:unicode="false" sap:label="Value #17 Unit" sap:creatable="false" sap:updatable="false"   sap:semantics="unit-of-measure"/>
+				<Property Name="Value18label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Value #18 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Value18" Type="Edm.Decimal" Nullable="true" Precision="13" Scale="0" sap:unicode="false" sap:unit="Value18uom" sap:label="Value #18" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Value18uom" Type="Edm.String" Nullable="true" MaxLength="3" sap:unicode="false" sap:label="Value #18 Unit" sap:creatable="false" sap:updatable="false"   sap:semantics="unit-of-measure"/>
+				<Property Name="Value19label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Value #19 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Value19" Type="Edm.Decimal" Nullable="true" Precision="13" Scale="0" sap:unicode="false" sap:unit="Value19uom" sap:label="Value #19" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Value19uom" Type="Edm.String" Nullable="true" MaxLength="3" sap:unicode="false" sap:label="Value #19 Unit" sap:creatable="false" sap:updatable="false"   sap:semantics="unit-of-measure"/>
+				<Property Name="Value20label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Value #20 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Value20" Type="Edm.Decimal" Nullable="true" Precision="13" Scale="0" sap:unicode="false" sap:unit="Value20uom" sap:label="Value #20" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Value20uom" Type="Edm.String" Nullable="true" MaxLength="3" sap:unicode="false" sap:label="Value #20 Unit" sap:creatable="false" sap:updatable="false"   sap:semantics="unit-of-measure"/>
+				<Property Name="Date01label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Date #01 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Date01" Type="Edm.DateTime" Nullable="true" Precision="7" sap:unicode="false" sap:label="Date #01" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Date02label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Date #02 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Date02" Type="Edm.DateTime" Nullable="true" Precision="7" sap:unicode="false" sap:label="Date #02" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Date03label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Date #03 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Date03" Type="Edm.DateTime" Nullable="true" Precision="7" sap:unicode="false" sap:label="Date #03" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Date04label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Date #04 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Date04" Type="Edm.DateTime" Nullable="true" Precision="7" sap:unicode="false" sap:label="Date #04" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Date05label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Date #05 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Date05" Type="Edm.DateTime" Nullable="true" Precision="7" sap:unicode="false" sap:label="Date #05" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Date06label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Date #06 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Date06" Type="Edm.DateTime" Nullable="true" Precision="7" sap:unicode="false" sap:label="Date #06" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Date07label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Date #07 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Date07" Type="Edm.DateTime" Nullable="true" Precision="7" sap:unicode="false" sap:label="Date #07" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Date08label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Date #08 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Date08" Type="Edm.DateTime" Nullable="true" Precision="7" sap:unicode="false" sap:label="Date #08" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Date09label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Date #09 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Date09" Type="Edm.DateTime" Nullable="true" Precision="7" sap:unicode="false" sap:label="Date #09" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Date10label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Date #10 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Date10" Type="Edm.DateTime" Nullable="true" Precision="7" sap:unicode="false" sap:label="Date #10" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Date11label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Date #11 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Date11" Type="Edm.DateTime" Nullable="true" Precision="7" sap:unicode="false" sap:label="Date #11" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Date12label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Date #12 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Date12" Type="Edm.DateTime" Nullable="true" Precision="7" sap:unicode="false" sap:label="Date #12" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Date13label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Date #13 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Date13" Type="Edm.DateTime" Nullable="true" Precision="7" sap:unicode="false" sap:label="Date #13" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Date14label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Date #14 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Date14" Type="Edm.DateTime" Nullable="true" Precision="7" sap:unicode="false" sap:label="Date #14" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Date15label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Date #15 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Date15" Type="Edm.DateTime" Nullable="true" Precision="7" sap:unicode="false" sap:label="Date #15" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time01label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Time #01 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time01" Type="Edm.Time" Nullable="true" Precision="0" sap:unicode="false" sap:label="Time #01" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time01zone" Type="Edm.String" Nullable="true" MaxLength="6" sap:unicode="false" sap:label="Time #01 Timezone" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time02label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Time #02 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time02" Type="Edm.Time" Nullable="true" Precision="0" sap:unicode="false" sap:label="Time #02" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time02zone" Type="Edm.String" Nullable="true" MaxLength="6" sap:unicode="false" sap:label="Time #02 Timezone" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time03label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Time #03 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time03" Type="Edm.Time" Nullable="true" Precision="0" sap:unicode="false" sap:label="Time #013" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time03zone" Type="Edm.String" Nullable="true" MaxLength="6" sap:unicode="false" sap:label="Time #03 Timezone" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time04label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Time #04 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time04" Type="Edm.Time" Nullable="true" Precision="0" sap:unicode="false" sap:label="Time #04" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time04zone" Type="Edm.String" Nullable="true" MaxLength="6" sap:unicode="false" sap:label="Time #04 Timezone" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time05label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Time #05 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time05" Type="Edm.Time" Nullable="true" Precision="0" sap:unicode="false" sap:label="Time #05" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time05zone" Type="Edm.String" Nullable="true" MaxLength="6" sap:unicode="false" sap:label="Time #05 Timezone" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time06label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Time #06 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time06" Type="Edm.Time" Nullable="true" Precision="0" sap:unicode="false" sap:label="Time #06" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time06zone" Type="Edm.String" Nullable="true" MaxLength="6" sap:unicode="false" sap:label="Time #06 Timezone" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time07label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Time #07 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time07" Type="Edm.Time" Nullable="true" Precision="0" sap:unicode="false" sap:label="Time #07" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time07zone" Type="Edm.String" Nullable="true" MaxLength="6" sap:unicode="false" sap:label="Time #07 Timezone" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time08label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Time #08 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time08" Type="Edm.Time" Nullable="true" Precision="0" sap:unicode="false" sap:label="Time #08" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time08zone" Type="Edm.String" Nullable="true" MaxLength="6" sap:unicode="false" sap:label="Time #08 Timezone" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time09label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Time #09 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time09" Type="Edm.Time" Nullable="true" Precision="0" sap:unicode="false" sap:label="Time #09" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time09zone" Type="Edm.String" Nullable="true" MaxLength="6" sap:unicode="false" sap:label="Time #09 Timezone" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time10label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Time #10 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time10" Type="Edm.Time" Nullable="true" Precision="0" sap:unicode="false" sap:label="Time #10" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time10zone" Type="Edm.String" Nullable="true" MaxLength="6" sap:unicode="false" sap:label="Time #10 Timezone" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time11label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Time #11 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time11" Type="Edm.Time" Nullable="true" Precision="0" sap:unicode="false" sap:label="Time #11" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time11zone" Type="Edm.String" Nullable="true" MaxLength="6" sap:unicode="false" sap:label="Time #11 Timezone" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time12label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Time #12 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time12" Type="Edm.Time" Nullable="true" Precision="0" sap:unicode="false" sap:label="Time #12" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time12zone" Type="Edm.String" Nullable="true" MaxLength="6" sap:unicode="false" sap:label="Time #12 Timezone" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time13label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Time #13 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time13" Type="Edm.Time" Nullable="true" Precision="0" sap:unicode="false" sap:label="Time #13" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time13zone" Type="Edm.String" Nullable="true" MaxLength="6" sap:unicode="false" sap:label="Time #13 Timezone" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time14label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Time #14 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time14" Type="Edm.Time" Nullable="true" Precision="0" sap:unicode="false" sap:label="Time #14" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time14zone" Type="Edm.String" Nullable="true" MaxLength="6" sap:unicode="false" sap:label="Time #14 Timezone" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time15label" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Time #15 Label" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time15" Type="Edm.Time" Nullable="true" Precision="0" sap:unicode="false" sap:label="Time #15" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Time15zone" Type="Edm.String" Nullable="true" MaxLength="6" sap:unicode="false" sap:label="Time #15 Timezone" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Binary01" Type="Edm.Binary" Nullable="true" sap:unicode="false" sap:label="Binary #01" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Binary01mime" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Binary #01 Mime Type" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Binary02" Type="Edm.Binary" Nullable="true" sap:unicode="false" sap:label="Binary #02" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Binary02mime" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Binary #02 Mime Type" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Binary03" Type="Edm.Binary" Nullable="true" sap:unicode="false" sap:label="Binary #03" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Binary03mime" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Binary #03 Mime Type" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Binary04" Type="Edm.Binary" Nullable="true" sap:unicode="false" sap:label="Binary #04" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Binary04mime" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Binary #04 Mime Type" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Binary05" Type="Edm.Binary" Nullable="true" sap:unicode="false" sap:label="Binary #05" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Binary05mime" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Binary #05 Mime Type" sap:creatable="false" sap:updatable="false"  />
+			</EntityType>
+			
+			<EntityType Name="DynamicTile"
+			            sap:content-version="1">
+				<Key>
+					<PropertyRef Name="title"/>
+				</Key>
+				<Property Name="ObjectType" Type="Edm.String" Nullable="false" sap:unicode="false" sap:label="Object Type" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Filter01" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Object filter #1" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Filter02" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Object filter #2" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Filter03" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Object filter #3" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Filter04" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Object filter #4" sap:creatable="false" sap:updatable="false"  />
+				<Property Name="Filter05" Type="Edm.String" Nullable="true" sap:unicode="false" sap:label="Object filter #5" sap:creatable="false" sap:updatable="false"  />
+
+				<Property Name="icon"
+				          Type="Edm.String"
+				          Nullable="true"
+				          MaxLength="40"
+				          sap:unicode="false"
+				          sap:label="Text, 40 Characters Long"
+				          sap:creatable="false"
+				          sap:updatable="false"
+				          sap:sortable="false"
+				          sap:filterable="false"/>
+				<Property Name="info"
+				          Type="Edm.String"
+				          Nullable="true"
+				          MaxLength="40"
+				          sap:unicode="false"
+				          sap:label="Text, 40 Characters Long"
+				          sap:creatable="false"
+				          sap:updatable="false"
+				          sap:sortable="false"
+				          sap:filterable="false"/>
+				<Property Name="infoState"
+				          Type="Edm.String"
+				          Nullable="true"
+				          MaxLength="40"
+				          sap:unicode="false"
+				          sap:label="Text, 40 Characters Long"
+				          sap:creatable="false"
+				          sap:updatable="false"
+				          sap:sortable="false"
+				          sap:filterable="false"/>
+				<Property Name="number"
+				          Type="Edm.String"
+				          Nullable="true"
+				          MaxLength="40"
+				          sap:unicode="false"
+				          sap:label="Text, 40 Characters Long"
+				          sap:creatable="false"
+				          sap:updatable="false"
+				          sap:sortable="false"
+				          sap:filterable="false"/>
+				<Property Name="numberDigits"
+				          Type="Edm.String"
+				          Nullable="true"
+				          MaxLength="40"
+				          sap:unicode="false"
+				          sap:label="Text, 40 Characters Long"
+				          sap:creatable="false"
+				          sap:updatable="false"
+				          sap:sortable="false"
+				          sap:filterable="false"/>
+				<Property Name="numberFactor"
+				          Type="Edm.String"
+				          Nullable="true"
+				          MaxLength="40"
+				          sap:unicode="false"
+				          sap:label="Text, 40 Characters Long"
+				          sap:creatable="false"
+				          sap:updatable="false"
+				          sap:sortable="false"
+				          sap:filterable="false"/>
+				<Property Name="numberState"
+				          Type="Edm.String"
+				          Nullable="true"
+				          MaxLength="40"
+				          sap:unicode="false"
+				          sap:label="Text, 40 Characters Long"
+				          sap:creatable="false"
+				          sap:updatable="false"
+				          sap:sortable="false"
+				          sap:filterable="false"/>
+				<Property Name="numberUnit"
+				          Type="Edm.String"
+				          Nullable="true"
+				          MaxLength="40"
+				          sap:unicode="false"
+				          sap:label="Text, 40 Characters Long"
+				          sap:creatable="false"
+				          sap:updatable="false"
+				          sap:sortable="false"
+				          sap:filterable="false"/>
+				<Property Name="stateArrow"
+				          Type="Edm.String"
+				          Nullable="true"
+				          MaxLength="40"
+				          sap:unicode="false"
+				          sap:label="Text, 40 Characters Long"
+				          sap:creatable="false"
+				          sap:updatable="false"
+				          sap:sortable="false"
+				          sap:filterable="false"/>
+				<Property Name="subtitle"
+				          Type="Edm.String"
+				          Nullable="true"
+				          MaxLength="40"
+				          sap:unicode="false"
+				          sap:label="Text, 40 Characters Long"
+				          sap:creatable="false"
+				          sap:updatable="false"
+				          sap:sortable="false"
+				          sap:filterable="false"/>
+				<Property Name="targetParams"
+				          Type="Edm.String"
+				          Nullable="true"
+				          MaxLength="40"
+				          sap:unicode="false"
+				          sap:label="Text, 40 Characters Long"
+				          sap:creatable="false"
+				          sap:updatable="false"
+				          sap:sortable="false"
+				          sap:filterable="false"/>
+				<Property Name="title"
+				          Type="Edm.String"
+				          Nullable="true"
+				          MaxLength="40"
+				          sap:unicode="false"
+				          sap:label="Text, 40 Characters Long"
+				          sap:creatable="false"
+				          sap:updatable="false"
+				          sap:sortable="false"
+				          sap:filterable="false"/>
+			</EntityType>
+			<Association Name="Item2Detail" sap:content-version="1">
+				<End Type="SHERBROOKE.Item" Multiplicity="1" Role="FromRole_Item2Detail"/>
+				<End Type="SHERBROOKE.Detail" Multiplicity="*" Role="ToRole_Item2Detail"/>
+				<ReferentialConstraint>
+					<Principal Role="FromRole_Item2Detail">
+						<PropertyRef Name="ObjectID"/>
+					</Principal>
+					<Dependent Role="ToRole_Item2Detail">
+						<PropertyRef Name="ParentID"/>
+					</Dependent>
+				</ReferentialConstraint>
+			</Association>
+			<Association Name="Detail2Subdetail" sap:content-version="1">
+				<End Type="SHERBROOKE.Detail" Multiplicity="1" Role="FromRole_Detail2Subdetail"/>
+				<End Type="SHERBROOKE.Subdetail" Multiplicity="*" Role="ToRole_Detail2Subdetail"/>
+				<ReferentialConstraint>
+					<Principal Role="FromRole_Detail2Subdetail">
+						<PropertyRef Name="ObjectID"/>
+					</Principal>
+					<Dependent Role="ToRole_Detail2Subdetail">
+						<PropertyRef Name="ParentID"/>
+					</Dependent>
+				</ReferentialConstraint>
+			</Association>
+			<Association Name="Header2Item" sap:content-version="1">
+				<End Type="SHERBROOKE.Header" Multiplicity="1" Role="FromRole_Header2Item"/>
+				<End Type="SHERBROOKE.Item" Multiplicity="*" Role="ToRole_Header2Item"/>
+				<ReferentialConstraint>
+					<Principal Role="FromRole_Header2Item">
+						<PropertyRef Name="ObjectID"/>
+					</Principal>
+					<Dependent Role="ToRole_Header2Item">
+						<PropertyRef Name="ParentID"/>
+					</Dependent>
+				</ReferentialConstraint>
+			</Association>
+			<EntityContainer Name="SHERBROOKE_Entities" m:IsDefaultEntityContainer="true" sap:supported-formats="atom json xlsx">
+				<EntitySet Name="Headers" EntityType="SHERBROOKE.Header" sap:searchable="true" sap:content-version="1"/>
+				<EntitySet Name="Items" EntityType="SHERBROOKE.Item" sap:searchable="true" sap:content-version="1"/>
+				<EntitySet Name="Subdetails" EntityType="SHERBROOKE.Subdetail" sap:searchable="true" sap:content-version="1"/>
+				<EntitySet Name="Details" EntityType="SHERBROOKE.Detail" sap:searchable="true" sap:content-version="1"/>
+				<EntitySet Name="Barcodes" EntityType="SHERBROOKE.Barcode" sap:searchable="true" sap:content-version="1"/>
+				<EntitySet Name="DynamicTiles" EntityType="SHERBROOKE.DynamicTile" sap:searchable="true" sap:content-version="1"/>
+				<AssociationSet Name="Item2Details" Association="SHERBROOKE.Item2Detail" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+					<End EntitySet="Items" Role="FromRole_Item2Detail"/>
+					<End EntitySet="Details" Role="ToRole_Item2Detail"/>
+				</AssociationSet>
+				<AssociationSet Name="Detail2Subdetails" Association="SHERBROOKE.Detail2Subdetail" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+					<End EntitySet="Details" Role="FromRole_Detail2Subdetail"/>
+					<End EntitySet="Subdetails" Role="ToRole_Detail2Subdetail"/>
+				</AssociationSet>
+				<AssociationSet Name="Header2Items" Association="SHERBROOKE.Header2Item" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+					<End EntitySet="Headers" Role="FromRole_Header2Item"/>
+					<End EntitySet="Items" Role="ToRole_Header2Item"/>
+				</AssociationSet>
+			</EntityContainer>
+			<atom:link rel="self" href="http://SPBWDV01.domain1.local:8085/sap/opu/odata/sap/SHERBROOKE/$metadata" xmlns:atom="http://www.w3.org/2005/Atom"/>
+			<atom:link rel="latest-version" href="http://SPBWDV01.domain1.local:8085/sap/opu/odata/sap/SHERBROOKE/$metadata" xmlns:atom="http://www.w3.org/2005/Atom"/>
+		</Schema>
+	</edmx:DataServices>
+</edmx:Edmx>
