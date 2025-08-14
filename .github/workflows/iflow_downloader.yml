@@ -19,6 +19,8 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v3
+      with:
+        path: iflowmassdownloader
 
     - name: Set up Python
       uses: actions/setup-python@v4
@@ -26,10 +28,10 @@ jobs:
         python-version: '3.x'
 
     - name: Install dependencies
-      run: pip install -r requirements.txt
+      run: pip install -r iflowmassdownloader/requirements.txt
     
     - name: Run iFlow downloader
-      run: python downloadiFlows.py
+      run: python iflowmassdownloader/downloadiFlows.py
       env:
         OAUTH_URL: ${{ secrets.OAUTH_URL }}
         CLIENT_ID: ${{ secrets.CLIENT_ID }}
@@ -37,14 +39,36 @@ jobs:
         BASE_URL: ${{ secrets.BASE_URL }}
         PACKAGE_URL: ${{ secrets.PACKAGE_URL }}
         ARTIFACTS_URL: ${{ secrets.ARTIFACTS_URL }}
-        OUTPUT_DIR: ./Get_All_Packages
+        OUTPUT_DIR: ./downloaded_iflows
 
-    - name: Create Pull Request
-      uses: peter-evans/create-pull-request@v4
+    - name: Checkout target repository
+      uses: actions/checkout@v3
       with:
-        token: ${{ secrets.GITHUB_TOKEN }}
-        commit-message: "feat(iflows): Update iFlows from workflow run"
-        title: "feat(iflows): Update iFlows"
-        body: "This PR contains the latest iFlows downloaded from the `${{ github.event.inputs.environment }}` environment."
-        branch: "iflow-updates-${{ github.run_id }}"
-        base: "main"
+        repository: msrivastava16/cement-integration
+        token: ${{ secrets.TARGET_REPO_PAT }}
+        path: target_repo
+
+    - name: Create and switch to new branch
+      id: branch
+      run: |
+        cd target_repo
+        BRANCH_NAME="iflow-updates-$(date +'%Y-%m-%d-%H-%M-%S')"
+        git checkout -b "$BRANCH_NAME"
+        echo "branch_name=$BRANCH_NAME" >> $GITHUB_OUTPUT
+        echo "Created and switched to branch: $BRANCH_NAME"
+      shell: bash
+
+    - name: Copy downloaded iFlows to target repository
+      run: |
+        mkdir -p target_repo/Get_All_Packages
+        cp -r downloaded_iflows/* target_repo/Get_All_Packages/
+
+    - name: Commit and push to target repository
+      run: |
+        cd target_repo
+        git config user.name "GitHub Actions Bot"
+        git config user.email "actions@github.com"
+        git add .
+        git commit -m "Add downloaded iFlows from workflow run on $(date +'%Y-%m-%d %H:%M:%S')" || echo "No changes to commit"
+        git push --set-upstream origin ${{ steps.branch.outputs.branch_name }}
+      shell: bash
