@@ -54,18 +54,14 @@ def create_iflow_config(iflow_name, env):
         data = response.json()
         
         if 'd' in data and 'results' in data['d'] and data['d']['results']:
-            iflow_data = data['d']['results'][0]
-            iflow_id = iflow_data.get('Id')
-            iflow_version = iflow_data.get('Version')
-
-            if not iflow_id or not iflow_version:
-                print("Error: Could not extract 'Id' or 'Version' from API response.")
-                exit(1)
+            config_data = data['d']['results']
+            iflow_version = 'active'
+            #iflow_version = iflow_data.get('Version')            
 
             config_dir = "config"
             os.makedirs(config_dir, exist_ok=True)
             
-            filename = f"{iflow_id}_{iflow_version}_{env}.json"
+            filename = f"{iflow_name}_{iflow_version}_{env}.json"
             file_path = os.path.join(config_dir, filename)
 
             with open(file_path, 'w') as f:
