@@ -45,7 +45,8 @@ def create_iflow_config(iflow_name, env):
     }
     
     # Correctly format the filter query
-    api_url = f"{base_url}/IntegrationDesigntimeArtifacts?$filter=Id eq '{iflow_name}'"
+    #api_url = f"{base_url}/IntegrationDesigntimeArtifacts?$filter=Id eq '{iflow_name}'"
+    api_url = f"{base_url}/IntegrationDesigntimeArtifacts(Id='{iflow_name}',Version='active')/Configurations?$format=json"
 
     try:
         response = requests.get(api_url, headers=headers)
