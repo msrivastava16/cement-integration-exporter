@@ -65,7 +65,7 @@ def create_iflow_config(iflow_name, env):
             file_path = os.path.join(config_dir, filename)
 
             with open(file_path, 'w') as f:
-                json.dump(iflow_data, f, indent=4)
+                json.dump(config_data, f, indent=4)
 
             print(f"Successfully created configuration file: {file_path}")
         else:
