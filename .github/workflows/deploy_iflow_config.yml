@@ -9,10 +9,8 @@ on:
 jobs:
   deploy_iflow_config:
     if: |
-      (github.event.issue.pull_request && startsWith(github.event.comment.body, '/deploy')) ||
-      (github.event.pull_request.merged == true && 
-       contains(github.event.pull_request.body, 'deploy') && 
-       contains(github.event.pull_request.body, 'TEST'))
+      (github.event.issue.pull_request && contains(github.event.comment.body, 'deploy') && contains(github.event.comment.body, 'TEST')) ||
+      (github.event.issue.pull_request && startsWith(github.event.comment.body, '/deploy'))
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -23,16 +21,10 @@ jobs:
       - name: Get PR information
         id: get_pr_info
         run: |
-          if [ "${{ github.event_name }}" = "issue_comment" ]; then
-            PR_URL=$(jq -r ".issue.pull_request.url" "$GITHUB_EVENT_PATH")
-            PR_BRANCH=$(curl -s -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" $PR_URL | jq -r ".head.ref")
-            PR_MERGED=$(curl -s -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" $PR_URL | jq -r ".merged")
-            COMMENT_BODY="${{ github.event.comment.body }}"
-          else
-            PR_BRANCH="${{ github.event.pull_request.head.ref }}"
-            PR_MERGED="true"
-            COMMENT_BODY="${{ github.event.pull_request.body }}"
-          fi
+          PR_URL=$(jq -r ".issue.pull_request.url" "$GITHUB_EVENT_PATH")
+          PR_BRANCH=$(curl -s -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" $PR_URL | jq -r ".head.ref")
+          PR_MERGED=$(curl -s -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" $PR_URL | jq -r ".merged")
+          COMMENT_BODY="${{ github.event.comment.body }}"
           
           echo "branch=$PR_BRANCH" >> $GITHUB_OUTPUT
           echo "merged=$PR_MERGED" >> $GITHUB_OUTPUT
