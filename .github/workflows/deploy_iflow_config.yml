@@ -65,6 +65,21 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
 
+      - name: Debug Environment Variables
+        run: |
+          echo "TMS_OAUTH_URL length: ${#TMS_OAUTH_URL}"
+          echo "TMS_CLIENT_ID length: ${#TMS_CLIENT_ID}"
+          echo "TMS_BASE_URL length: ${#TMS_BASE_URL}"
+          echo "Branch: ${{ steps.get_pr_info.outputs.branch }}"
+          echo "Merged: ${{ steps.get_pr_info.outputs.merged }}"
+          echo "Deploy Env: ${{ steps.parse_params.outputs.deploy_env }}"
+          echo "Workflow triggered because: deploy_env='${{ steps.parse_params.outputs.deploy_env }}' and merged='${{ steps.get_pr_info.outputs.merged }}'"
+        env:
+          TMS_OAUTH_URL: ${{ secrets.TMS_OAUTH_URL }}
+          TMS_CLIENT_ID: ${{ secrets.TMS_CLIENT_ID }}
+          TMS_CLIENT_SECRET: ${{ secrets.TMS_CLIENT_SECRET }}
+          TMS_BASE_URL: ${{ secrets.TMS_BASE_URL }}
+
       - name: Step 1 - Create Transport Request
         id: create_transport
         if: steps.parse_params.outputs.deploy_env == 'TEST' && steps.get_pr_info.outputs.merged == 'true'
