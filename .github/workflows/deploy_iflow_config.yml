@@ -124,21 +124,29 @@ jobs:
                   'Content-Type': 'application/json'
               }
               
-              # Create transport request (not import yet)
-              transport_data = {
-                  'description': f'Transport {iflow_name} to TEST - PR #{os.getenv(\"GITHUB_RUN_NUMBER\", \"unknown\")}',
-                  'owner': 'GitHub Actions'
+              # Create transport request using TMS export API
+              export_data = {
+                  'nodeName': 'DEV_NODE',
+                  'contentType': 'MTA',
+                  'storageType': 'FILE', 
+                  'entries': [
+                      {
+                          'uri': iflow_name
+                      }
+                  ],
+                  'description': f'Export iFlow {iflow_name} to TEST - PR #{os.getenv(\"GITHUB_RUN_NUMBER\", \"unknown\")}',
+                  'namedUser': 'GitHub Actions'
               }
               
               try:
-                  # Use TMS export endpoint to create transport request
-                  node_id = os.getenv('TMS_EXPORT_NODE_ID', 'DEV')  # Starting node
-                  export_url = f'{tms_url}/v2/nodes/{node_id}/exports'
+                  # Use correct TMS export endpoint
+                  export_url = f'{tms_url}/nodes/export'
                   
-                  print(f'Creating transport via export from node: {node_id}', file=sys.stderr)
+                  print(f'Creating transport via export to DEV_NODE', file=sys.stderr)
                   print(f'Export URL: {export_url}', file=sys.stderr)
+                  print(f'Export data: {json.dumps(export_data, indent=2)}', file=sys.stderr)
                   
-                  response = requests.post(export_url, headers=headers, json=transport_data, timeout=60)
+                  response = requests.post(export_url, headers=headers, json=export_data, timeout=60)
                   
                   if response.status_code in [200, 201]:
                       result = response.json()
