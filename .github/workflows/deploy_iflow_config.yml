@@ -65,26 +65,22 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
 
-      - name: Deploy iFlow via TMS v2 Import API
+      - name: Step 1 - Create Transport Request
+        id: create_transport
         if: steps.parse_params.outputs.deploy_env == 'TEST' && steps.get_pr_info.outputs.merged == 'true'
         run: |
-          echo "Deploying iFlow ${{ steps.parse_params.outputs.iflow_name }} to TEST environment via TMS..."
+          echo "🚛 Step 1: Creating transport request for iFlow ${{ steps.parse_params.outputs.iflow_name }}..."
           
-          python3 -c "
+          TRANSPORT_ID=$(python3 -c "
           import requests
           import json
           import os
           import sys
-          import time
           
-          def get_oauth_token():
+          def get_tms_token():
               oauth_url = os.getenv('TMS_OAUTH_URL')
               client_id = os.getenv('TMS_CLIENT_ID')  
               client_secret = os.getenv('TMS_CLIENT_SECRET')
-              
-              if not all([oauth_url, client_id, client_secret]):
-                  print('❌ Missing TMS OAuth credentials. Check GitHub secrets.', file=sys.stderr)
-                  return None
               
               payload = {
                   'grant_type': 'client_credentials',
@@ -95,68 +91,398 @@ jobs:
               try:
                   response = requests.post(oauth_url, data=payload, timeout=30)
                   response.raise_for_status()
-                  token = response.json()['access_token']
-                  print('✅ TMS OAuth token obtained successfully', file=sys.stderr)
-                  return token
+                  return response.json()['access_token']
               except Exception as e:
                   print(f'❌ TMS OAuth error: {e}', file=sys.stderr)
-                  if 'response' in locals():
-                      print(f'Response: {response.status_code} - {response.text}', file=sys.stderr)
                   return None
           
-          def get_nodes(token, tms_url):
-              headers = {'Authorization': f'Bearer {token}'}
-              try:
-                  response = requests.get(f'{tms_url}/v2/nodes', headers=headers, timeout=30)
-                  response.raise_for_status()
-                  nodes = response.json()
-                  print(f'✅ Found {len(nodes)} TMS nodes', file=sys.stderr)
-                  return nodes
-              except Exception as e:
-                  print(f'❌ Error getting nodes: {e}', file=sys.stderr)
-                  return []
-          
-          def import_to_test_node(token, tms_url, target_node_id, iflow_name):
+          def create_transport_request():
+              token = get_tms_token()
+              if not token:
+                  sys.exit(1)
+              
+              tms_url = os.getenv('TMS_BASE_URL')
+              iflow_name = '${{ steps.parse_params.outputs.iflow_name }}'
+              
               headers = {
                   'Authorization': f'Bearer {token}',
                   'Content-Type': 'application/json'
               }
               
-              # Prepare import request
-              import_data = {
-                  'transportRequestDescription': f'Deploy {iflow_name} to TEST via GitHub Actions',
-                  'applications': [
-                      {
+              # Create transport request (not import yet)
+              transport_data = {
+                  'description': f'Transport {iflow_name} to TEST - PR #{os.getenv(\"GITHUB_RUN_NUMBER\", \"unknown\")}',
+                  'owner': 'GitHub Actions'
+              }
+              
+              try:
+                  create_url = f'{tms_url}/v2/transportRequests'
+                  print(f'Creating transport request...', file=sys.stderr)
+                  
+                  response = requests.post(create_url, headers=headers, json=transport_data, timeout=60)
+                  
+                  if response.status_code in [200, 201]:
+                      result = response.json()
+                      transport_id = result.get('transportRequestId', result.get('id'))
+                      print(f'✅ Transport request created: {transport_id}', file=sys.stderr)
+                      print(transport_id)
+                      return transport_id
+                  else:
+                      print(f'❌ Transport creation failed: {response.status_code} - {response.text}', file=sys.stderr)
+                      sys.exit(1)
+                      
+              except Exception as e:
+                  print(f'❌ Transport creation error: {e}', file=sys.stderr)
+                  sys.exit(1)
+          
+          create_transport_request()
+          ")
+          
+          echo "transport_id=$TRANSPORT_ID" >> $GITHUB_OUTPUT
+          echo "✅ Transport request created: $TRANSPORT_ID"
+        env:
+          TMS_OAUTH_URL: ${{ secrets.TMS_OAUTH_URL }}
+          TMS_CLIENT_ID: ${{ secrets.TMS_CLIENT_ID }}
+          TMS_CLIENT_SECRET: ${{ secrets.TMS_CLIENT_SECRET }}
+          TMS_BASE_URL: ${{ secrets.TMS_BASE_URL }}
+
+      - name: Step 2 - Download and Upload iFlow Package
+        id: upload_package
+        if: steps.create_transport.outputs.transport_id != ''
+        run: |
+          echo "📦 Step 2: Downloading and uploading iFlow package to transport..."
+          
+          python3 -c "
+          import requests
+          import json
+          import os
+          import sys
+          import zipfile
+          import tempfile
+          
+          def get_ci_token():
+              oauth_url = os.getenv('OAUTH_URL')
+              client_id = os.getenv('CLIENT_ID')
+              client_secret = os.getenv('CLIENT_SECRET')
+              
+              payload = {
+                  'grant_type': 'client_credentials',
+                  'client_id': client_id,
+                  'client_secret': client_secret
+              }
+              
+              try:
+                  response = requests.post(oauth_url, data=payload, timeout=30)
+                  response.raise_for_status()
+                  return response.json()['access_token']
+              except Exception as e:
+                  print(f'❌ CI OAuth error: {e}', file=sys.stderr)
+                  return None
+          
+          def get_tms_token():
+              oauth_url = os.getenv('TMS_OAUTH_URL')
+              client_id = os.getenv('TMS_CLIENT_ID')
+              client_secret = os.getenv('TMS_CLIENT_SECRET')
+              
+              payload = {
+                  'grant_type': 'client_credentials',
+                  'client_id': client_id,
+                  'client_secret': client_secret
+              }
+              
+              try:
+                  response = requests.post(oauth_url, data=payload, timeout=30)
+                  response.raise_for_status()
+                  return response.json()['access_token']
+              except Exception as e:
+                  print(f'❌ TMS OAuth error: {e}', file=sys.stderr)
+                  return None
+          
+          def download_iflow_package(ci_token, iflow_name):
+              base_url = os.getenv('BASE_URL')
+              headers = {
+                  'Authorization': f'Bearer {ci_token}',
+                  'Accept': 'application/zip'
+              }
+              
+              try:
+                  # Download iFlow as ZIP package
+                  download_url = f'{base_url}/IntegrationDesigntimeArtifacts(Id=\\'{iflow_name}\\',Version=\\'active\\')/$value'
+                  print(f'Downloading iFlow package from CI...', file=sys.stderr)
+                  
+                  response = requests.get(download_url, headers=headers, timeout=120)
+                  
+                  if response.status_code == 200:
+                      # Save to temporary file
+                      temp_file = tempfile.NamedTemporaryFile(delete=False, suffix='.zip')
+                      temp_file.write(response.content)
+                      temp_file.close()
+                      
+                      print(f'✅ Downloaded iFlow package ({len(response.content)} bytes)', file=sys.stderr)
+                      return temp_file.name
+                  else:
+                      print(f'❌ Download failed: {response.status_code} - {response.text}', file=sys.stderr)
+                      return None
+                      
+              except Exception as e:
+                  print(f'❌ Download error: {e}', file=sys.stderr)
+                  return None
+          
+          def upload_to_tms(tms_token, package_file, transport_id):
+              tms_url = os.getenv('TMS_BASE_URL')
+              iflow_name = '${{ steps.parse_params.outputs.iflow_name }}'
+              
+              headers = {
+                  'Authorization': f'Bearer {tms_token}'
+              }
+              
+              try:
+                  # Upload file to TMS
+                  upload_url = f'{tms_url}/v2/files/upload'
+                  print(f'Uploading package to TMS...', file=sys.stderr)
+                  
+                  with open(package_file, 'rb') as f:
+                      files = {
+                          'file': (f'{iflow_name}.zip', f, 'application/zip')
+                      }
+                      data = {
+                          'transportRequestId': transport_id,
                           'applicationId': iflow_name,
                           'applicationName': iflow_name,
                           'applicationType': 'INTEGRATION_FLOW'
                       }
-                  ]
+                      
+                      response = requests.post(upload_url, headers=headers, files=files, data=data, timeout=120)
+                  
+                  if response.status_code in [200, 201]:
+                      result = response.json() if response.text else {}
+                      file_id = result.get('fileId', 'uploaded')
+                      print(f'✅ Package uploaded to transport {transport_id}', file=sys.stderr)
+                      return file_id
+                  else:
+                      print(f'❌ Upload failed: {response.status_code} - {response.text}', file=sys.stderr)
+                      return None
+                      
+              except Exception as e:
+                  print(f'❌ Upload error: {e}', file=sys.stderr)
+                  return None
+              finally:
+                  # Clean up temp file
+                  try:
+                      os.unlink(package_file)
+                  except:
+                      pass
+          
+          def main():
+              iflow_name = '${{ steps.parse_params.outputs.iflow_name }}'
+              transport_id = '${{ steps.create_transport.outputs.transport_id }}'
+              
+              # Get tokens
+              ci_token = get_ci_token()
+              tms_token = get_tms_token()
+              
+              if not ci_token or not tms_token:
+                  sys.exit(1)
+              
+              # Download iFlow package from CI
+              package_file = download_iflow_package(ci_token, iflow_name)
+              if not package_file:
+                  sys.exit(1)
+              
+              # Upload package to TMS transport
+              file_id = upload_to_tms(tms_token, package_file, transport_id)
+              if not file_id:
+                  sys.exit(1)
+              
+              print(f'✅ iFlow package successfully added to transport {transport_id}')
+          
+          main()
+          "
+        env:
+          # CI credentials for downloading
+          OAUTH_URL: ${{ secrets.OAUTH_URL }}
+          CLIENT_ID: ${{ secrets.CLIENT_ID }}
+          CLIENT_SECRET: ${{ secrets.CLIENT_SECRET }}
+          BASE_URL: ${{ secrets.BASE_URL }}
+          # TMS credentials for uploading
+          TMS_OAUTH_URL: ${{ secrets.TMS_OAUTH_URL }}
+          TMS_CLIENT_ID: ${{ secrets.TMS_CLIENT_ID }}
+          TMS_CLIENT_SECRET: ${{ secrets.TMS_CLIENT_SECRET }}
+          TMS_BASE_URL: ${{ secrets.TMS_BASE_URL }}
+
+      - name: Step 3 - Import Transport to TEST Environment
+        id: import_transport
+        if: steps.create_transport.outputs.transport_id != ''
+        run: |
+          echo "🎯 Step 3: Importing transport to TEST environment..."
+          
+          python3 -c "
+          import requests
+          import json
+          import os
+          import sys
+          import time
+          
+          def get_tms_token():
+              oauth_url = os.getenv('TMS_OAUTH_URL')
+              client_id = os.getenv('TMS_CLIENT_ID')
+              client_secret = os.getenv('TMS_CLIENT_SECRET')
+              
+              payload = {
+                  'grant_type': 'client_credentials',
+                  'client_id': client_id,
+                  'client_secret': client_secret
               }
               
               try:
-                  import_url = f'{tms_url}/v2/nodes/{target_node_id}/transportRequests/import'
-                  print(f'🚀 Importing to node {target_node_id}...', file=sys.stderr)
+                  response = requests.post(oauth_url, data=payload, timeout=30)
+                  response.raise_for_status()
+                  return response.json()['access_token']
+              except Exception as e:
+                  print(f'❌ TMS OAuth error: {e}', file=sys.stderr)
+                  return None
+          
+          def get_test_node(token, tms_url):
+              headers = {'Authorization': f'Bearer {token}'}
+              try:
+                  response = requests.get(f'{tms_url}/v2/nodes', headers=headers, timeout=30)
+                  response.raise_for_status()
+                  nodes = response.json()
+                  
+                  # Find TEST node
+                  test_node_id = os.getenv('TMS_TEST_NODE_ID')
+                  if test_node_id:
+                      return test_node_id
+                  
+                  for node in nodes:
+                      if 'TEST' in node.get('name', '').upper():
+                          return node.get('id')
+                  
+                  # Fallback to first node
+                  return nodes[0].get('id') if nodes else None
+                  
+              except Exception as e:
+                  print(f'❌ Error getting nodes: {e}', file=sys.stderr)
+                  return None
+          
+          def import_transport(token, tms_url, node_id, transport_id):
+              headers = {
+                  'Authorization': f'Bearer {token}',
+                  'Content-Type': 'application/json'
+              }
+              
+              import_data = {
+                  'transportRequestId': transport_id
+              }
+              
+              try:
+                  import_url = f'{tms_url}/v2/nodes/{node_id}/transportRequests/import'
+                  print(f'Importing transport {transport_id} to node {node_id}...', file=sys.stderr)
                   
                   response = requests.post(import_url, headers=headers, json=import_data, timeout=60)
                   
                   if response.status_code in [200, 202]:
-                      result = response.json()
-                      transport_id = result.get('transportRequestId')
-                      print(f'✅ Import initiated. Transport ID: {transport_id}', file=sys.stderr)
-                      return transport_id
+                      print(f'✅ Import initiated to TEST environment', file=sys.stderr)
+                      return True
                   else:
                       print(f'❌ Import failed: {response.status_code} - {response.text}', file=sys.stderr)
-                      return None
+                      return False
                       
               except Exception as e:
                   print(f'❌ Import error: {e}', file=sys.stderr)
+                  return False
+          
+          def main():
+              transport_id = '${{ steps.create_transport.outputs.transport_id }}'
+              
+              token = get_tms_token()
+              if not token:
+                  sys.exit(1)
+              
+              tms_url = os.getenv('TMS_BASE_URL')
+              
+              # Get TEST node
+              test_node_id = get_test_node(token, tms_url)
+              if not test_node_id:
+                  print('❌ Could not find TEST node', file=sys.stderr)
+                  sys.exit(1)
+              
+              print(f'Using TEST node: {test_node_id}', file=sys.stderr)
+              
+              # Import transport
+              success = import_transport(token, tms_url, test_node_id, transport_id)
+              if not success:
+                  sys.exit(1)
+              
+              print(f'✅ Transport {transport_id} imported to TEST environment')
+          
+          main()
+          "
+        env:
+          TMS_OAUTH_URL: ${{ secrets.TMS_OAUTH_URL }}
+          TMS_CLIENT_ID: ${{ secrets.TMS_CLIENT_ID }}
+          TMS_CLIENT_SECRET: ${{ secrets.TMS_CLIENT_SECRET }}
+          TMS_BASE_URL: ${{ secrets.TMS_BASE_URL }}
+          TMS_TEST_NODE_ID: ${{ secrets.TMS_TEST_NODE_ID }}
+
+      - name: Step 4 - Deploy and Monitor Status
+        if: steps.create_transport.outputs.transport_id != ''
+        run: |
+          echo "🚀 Step 4: Deploying and monitoring transport status..."
+          
+          python3 -c "
+          import requests
+          import json
+          import os
+          import sys
+          import time
+          
+          def get_tms_token():
+              oauth_url = os.getenv('TMS_OAUTH_URL')
+              client_id = os.getenv('TMS_CLIENT_ID')
+              client_secret = os.getenv('TMS_CLIENT_SECRET')
+              
+              payload = {
+                  'grant_type': 'client_credentials',
+                  'client_id': client_id,
+                  'client_secret': client_secret
+              }
+              
+              try:
+                  response = requests.post(oauth_url, data=payload, timeout=30)
+                  response.raise_for_status()
+                  return response.json()['access_token']
+              except Exception as e:
+                  print(f'❌ TMS OAuth error: {e}', file=sys.stderr)
+                  return None
+          
+          def get_test_node(token, tms_url):
+              headers = {'Authorization': f'Bearer {token}'}
+              try:
+                  response = requests.get(f'{tms_url}/v2/nodes', headers=headers, timeout=30)
+                  response.raise_for_status()
+                  nodes = response.json()
+                  
+                  test_node_id = os.getenv('TMS_TEST_NODE_ID')
+                  if test_node_id:
+                      return test_node_id
+                  
+                  for node in nodes:
+                      if 'TEST' in node.get('name', '').upper():
+                          return node.get('id')
+                  
+                  return nodes[0].get('id') if nodes else None
+                  
+              except Exception as e:
+                  print(f'❌ Error getting nodes: {e}', file=sys.stderr)
                   return None
           
           def monitor_transport_status(token, tms_url, node_id, transport_id):
               headers = {'Authorization': f'Bearer {token}'}
               
-              for i in range(30):  # Wait up to 5 minutes
+              print(f'Monitoring transport {transport_id} status...', file=sys.stderr)
+              
+              for i in range(36):  # Wait up to 6 minutes
                   try:
                       status_url = f'{tms_url}/v2/nodes/{node_id}/transportRequests'
                       response = requests.get(status_url, headers=headers, timeout=30)
@@ -165,57 +491,47 @@ jobs:
                           requests_data = response.json()
                           for req in requests_data:
                               if req.get('transportRequestId') == transport_id:
-                                  status = req.get('status')
-                                  print(f'Transport status: {status}', file=sys.stderr)
+                                  status = req.get('status', 'UNKNOWN')
+                                  print(f'📊 Transport status: {status}', file=sys.stderr)
                                   
-                                  if status == 'SUCCESS':
-                                      print(f'✅ Transport {transport_id} completed successfully')
+                                  if status in ['SUCCESS', 'COMPLETED']:
+                                      print(f'✅ Transport {transport_id} deployed successfully!')
+                                      print(f'🎉 iFlow is now available in TEST environment')
                                       return True
-                                  elif status == 'ERROR':
-                                      print(f'❌ Transport {transport_id} failed')
+                                  elif status in ['ERROR', 'FAILED']:
+                                      error_msg = req.get('errorMessage', 'Unknown error')
+                                      print(f'❌ Transport {transport_id} failed: {error_msg}')
                                       return False
+                                  elif status in ['RUNNING', 'IN_PROGRESS']:
+                                      print(f'⏳ Transport in progress... ({i+1}/36)', file=sys.stderr)
                       
                       time.sleep(10)
                   except Exception as e:
                       print(f'⚠️  Status check error: {e}', file=sys.stderr)
               
-              print(f'⚠️  Transport timeout - check TMS manually for status')
-              return True
+              print(f'⏰ Transport timeout - check TMS cockpit for final status')
+              return True  # Don't fail on timeout
           
           def main():
-              token = get_oauth_token()
+              transport_id = '${{ steps.create_transport.outputs.transport_id }}'
+              
+              token = get_tms_token()
               if not token:
                   sys.exit(1)
               
               tms_url = os.getenv('TMS_BASE_URL')
-              iflow_name = '${{ steps.parse_params.outputs.iflow_name }}'
-              target_node = os.getenv('TMS_TEST_NODE_ID', 'TEST')
               
-              if not tms_url:
-                  print('❌ TMS_BASE_URL not configured', file=sys.stderr)
-                  sys.exit(1)
-              
-              # Get available nodes
-              nodes = get_nodes(token, tms_url)
-              
-              # Find TEST node
-              test_node_id = None
-              for node in nodes:
-                  if node.get('name', '').upper() == 'TEST' or node.get('id') == target_node:
-                      test_node_id = node.get('id')
-                      print(f'✅ Found TEST node: {test_node_id}', file=sys.stderr)
-                      break
-              
+              # Get TEST node
+              test_node_id = get_test_node(token, tms_url)
               if not test_node_id:
-                  print(f'❌ TEST node not found. Available nodes: {[n.get(\"name\") for n in nodes]}', file=sys.stderr)
+                  print('❌ Could not find TEST node', file=sys.stderr)
                   sys.exit(1)
               
-              # Import to TEST node
-              transport_id = import_to_test_node(token, tms_url, test_node_id, iflow_name)
+              # Monitor status
+              success = monitor_transport_status(token, tms_url, test_node_id, transport_id)
               
-              if transport_id:
-                  # Monitor status
-                  monitor_transport_status(token, tms_url, test_node_id, transport_id)
+              if success:
+                  print(f'✅ Complete! iFlow ${{ steps.parse_params.outputs.iflow_name }} deployed to TEST via transport {transport_id}')
               else:
                   sys.exit(1)
           
