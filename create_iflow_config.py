@@ -20,7 +20,7 @@ def get_oauth_token(oauth_url, client_id, client_secret):
         print(f"Error getting OAuth token: {e}")
         return None
 
-def create_iflow_config(iflow_name, env):
+def create_iflow_config(iflow_name, env, output_dir="."):
     """
     Creates a configuration file for a given iFlow and environment,
     placing it inside a 'config' folder.
@@ -58,7 +58,7 @@ def create_iflow_config(iflow_name, env):
             iflow_version = 'active'
             #iflow_version = iflow_data.get('Version')            
 
-            config_dir = "config"
+            config_dir = os.path.join(output_dir, "config")
             os.makedirs(config_dir, exist_ok=True)
             
             filename = f"{iflow_name}_{iflow_version}_{env}.json"
@@ -81,6 +81,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Create iFlow configuration file from API response.")
     parser.add_argument("--iflow", required=True, help="ID of the iFlow")
     parser.add_argument("--env", required=True, help="Environment (e.g., dev, stage, prod)")
+    parser.add_argument("--output_dir", default=".", help="Output directory for the configuration file")
     args = parser.parse_args()
 
-    create_iflow_config(args.iflow, args.env)
+    create_iflow_config(args.iflow, args.env, args.output_dir)

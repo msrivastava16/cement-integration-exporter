@@ -12,7 +12,6 @@ on:
         type: choice
         options:
         - dev
-        - stage
         - prod
 
 jobs:
@@ -44,7 +43,8 @@ jobs:
 
       - name: Create environment-specific config
         run: |
-          python create_iflow_config.py --iflow "${{ github.event.inputs.iflow_name }}" --env "${{ github.event.inputs.environment }}"
+          IFLOW_PATH=$(find ./Get_All_Packages -type d -name "${{ github.event.inputs.iflow_name }}")
+          python create_iflow_config.py --iflow "${{ github.event.inputs.iflow_name }}" --env "${{ github.event.inputs.environment }}" --output_dir "$IFLOW_PATH"
       
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v4
