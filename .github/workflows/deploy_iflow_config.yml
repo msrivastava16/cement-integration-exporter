@@ -131,20 +131,38 @@ jobs:
               }
               
               try:
-                  create_url = f'{tms_url}/v2/transportRequests'
-                  print(f'Creating transport request...', file=sys.stderr)
+                  # Use TMS export endpoint to create transport request
+                  node_id = os.getenv('TMS_EXPORT_NODE_ID', 'DEV')  # Starting node
+                  export_url = f'{tms_url}/v2/nodes/{node_id}/exports'
                   
-                  response = requests.post(create_url, headers=headers, json=transport_data, timeout=60)
+                  print(f'Creating transport via export from node: {node_id}', file=sys.stderr)
+                  print(f'Export URL: {export_url}', file=sys.stderr)
+                  
+                  response = requests.post(export_url, headers=headers, json=transport_data, timeout=60)
                   
                   if response.status_code in [200, 201]:
                       result = response.json()
                       transport_id = result.get('transportRequestId', result.get('id'))
-                      print(f'✅ Transport request created: {transport_id}', file=sys.stderr)
+                      print(f'✅ Transport request created via export: {transport_id}', file=sys.stderr)
                       print(transport_id)
                       return transport_id
                   else:
-                      print(f'❌ Transport creation failed: {response.status_code} - {response.text}', file=sys.stderr)
-                      sys.exit(1)
+                      print(f'❌ Export failed: {response.status_code} - {response.text}', file=sys.stderr)
+                      # Fallback to direct transport creation
+                      print('Trying fallback: direct transport creation...', file=sys.stderr)
+                      
+                      create_url = f'{tms_url}/v2/transportRequests'
+                      response2 = requests.post(create_url, headers=headers, json=transport_data, timeout=60)
+                      
+                      if response2.status_code in [200, 201]:
+                          result = response2.json()
+                          transport_id = result.get('transportRequestId', result.get('id'))
+                          print(f'✅ Transport request created (fallback): {transport_id}', file=sys.stderr)
+                          print(transport_id)
+                          return transport_id
+                      else:
+                          print(f'❌ Fallback also failed: {response2.status_code} - {response2.text}', file=sys.stderr)
+                          sys.exit(1)
                       
               except Exception as e:
                   print(f'❌ Transport creation error: {e}', file=sys.stderr)
