@@ -3,10 +3,16 @@ name: Deploy iFlow Config
 on:
   issue_comment:
     types: [created]
+  pull_request:
+    types: [closed]
 
 jobs:
   deploy_iflow_config:
-    if: github.event.issue.pull_request && startsWith(github.event.comment.body, '/deploy')
+    if: |
+      (github.event.issue.pull_request && startsWith(github.event.comment.body, '/deploy')) ||
+      (github.event.pull_request.merged == true && 
+       contains(github.event.pull_request.body, 'deploy') && 
+       contains(github.event.pull_request.body, 'TEST'))
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -14,17 +20,50 @@ jobs:
         with:
           ref: main
 
-      - name: Get PR branch
-        id: get_pr_branch
+      - name: Get PR information
+        id: get_pr_info
         run: |
-          PR_URL=$(jq -r ".issue.pull_request.url" "$GITHUB_EVENT_PATH")
-          PR_BRANCH=$(curl -s -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" $PR_URL | jq -r ".head.ref")
-          echo "::set-output name=branch::$PR_BRANCH"
+          if [ "${{ github.event_name }}" = "issue_comment" ]; then
+            PR_URL=$(jq -r ".issue.pull_request.url" "$GITHUB_EVENT_PATH")
+            PR_BRANCH=$(curl -s -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" $PR_URL | jq -r ".head.ref")
+            PR_MERGED=$(curl -s -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" $PR_URL | jq -r ".merged")
+            COMMENT_BODY="${{ github.event.comment.body }}"
+          else
+            PR_BRANCH="${{ github.event.pull_request.head.ref }}"
+            PR_MERGED="true"
+            COMMENT_BODY="${{ github.event.pull_request.body }}"
+          fi
+          
+          echo "branch=$PR_BRANCH" >> $GITHUB_OUTPUT
+          echo "merged=$PR_MERGED" >> $GITHUB_OUTPUT
+          echo "comment_body=$COMMENT_BODY" >> $GITHUB_OUTPUT
+
+      - name: Parse deployment parameters
+        id: parse_params
+        run: |
+          BRANCH="${{ steps.get_pr_info.outputs.branch }}"
+          COMMENT="${{ steps.get_pr_info.outputs.comment_body }}"
+          
+          # Extract iFlow name and environment from branch name
+          # Example: feature/iflow-my-iflow-dev -> my-iflow, dev
+          IFLOW_NAME=$(echo "$BRANCH" | cut -d'-' -f3)
+          ENVIRONMENT=$(echo "$BRANCH" | cut -d'-' -f4)
+          
+          # Check if TEST environment is specified in comment
+          if echo "$COMMENT" | grep -i "deploy.*TEST\|TEST.*deploy" > /dev/null; then
+            DEPLOY_ENV="TEST"
+          else
+            DEPLOY_ENV="$ENVIRONMENT"
+          fi
+          
+          echo "iflow_name=$IFLOW_NAME" >> $GITHUB_OUTPUT
+          echo "environment=$ENVIRONMENT" >> $GITHUB_OUTPUT
+          echo "deploy_env=$DEPLOY_ENV" >> $GITHUB_OUTPUT
 
       - name: Checkout PR branch
         uses: actions/checkout@v3
         with:
-          ref: ${{ steps.get_pr_branch.outputs.branch }}
+          ref: ${{ steps.get_pr_info.outputs.branch }}
 
       - name: Set up Python
         uses: actions/setup-python@v4
@@ -34,22 +73,234 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
 
-      - name: Deploy iFlow config
+      - name: Create CTMS Transport Request
+        id: create_transport
+        if: steps.parse_params.outputs.deploy_env == 'TEST' && steps.get_pr_info.outputs.merged == 'true'
         run: |
-          # Add your deployment logic here
-          # For example, you could use the configuration file to update a system
-          echo "Deploying iFlow configuration..."
-          # The configuration file can be found in the config/iflows directory
-          # The name of the file will be in the format <iflow_name>-<environment>.properties
-          # You can parse the iflow_name and environment from the branch name
-          # Example: feature/iflow-my-iflow-dev -> my-iflow, dev
-          IFLOW_NAME=$(echo "${{ steps.get_pr_branch.outputs.branch }}" | cut -d'-' -f3)
-          ENVIRONMENT=$(echo "${{ steps.get_pr_branch.outputs.branch }}" | cut -d'-' -f4)
-          CONFIG_FILE="config/iflows/${IFLOW_NAME}-${ENVIRONMENT}.properties"
+          echo "Creating CTMS transport request for ${{ steps.parse_params.outputs.iflow_name }}..."
+          
+          # Create transport request via CTMS API
+          TRANSPORT_ID=$(python3 -c "
+          import requests
+          import json
+          import os
+          import sys
+          
+          def get_oauth_token():
+              payload = {
+                  'grant_type': 'client_credentials',
+                  'client_id': os.getenv('CLIENT_ID'),
+                  'client_secret': os.getenv('CLIENT_SECRET')
+              }
+              try:
+                  response = requests.post(os.getenv('OAUTH_URL'), data=payload)
+                  response.raise_for_status()
+                  return response.json()['access_token']
+              except Exception as e:
+                  print(f'Error getting token: {e}', file=sys.stderr)
+                  return None
+          
+          def create_transport_request():
+              token = get_oauth_token()
+              if not token:
+                  sys.exit(1)
+              
+              headers = {
+                  'Authorization': f'Bearer {token}',
+                  'Content-Type': 'application/json',
+                  'Accept': 'application/json'
+              }
+              
+              transport_data = {
+                  'Description': f'Deploy iFlow ${{ steps.parse_params.outputs.iflow_name }} to TEST',
+                  'Type': 'IFLOW_DEPLOYMENT',
+                  'TargetEnvironment': 'TEST',
+                  'Artifacts': [
+                      {
+                          'Name': '${{ steps.parse_params.outputs.iflow_name }}',
+                          'Type': 'INTEGRATION_FLOW',
+                          'Version': 'active'
+                      }
+                  ]
+              }
+              
+              try:
+                  # Create transport request
+                  ctms_url = f\"{os.getenv('BASE_URL')}/TransportRequests\"
+                  response = requests.post(ctms_url, headers=headers, json=transport_data)
+                  response.raise_for_status()
+                  
+                  transport_id = response.json().get('Id')
+                  print(f'transport_id={transport_id}', file=sys.stderr)
+                  print(transport_id)
+                  return transport_id
+              except Exception as e:
+                  print(f'Error creating transport: {e}', file=sys.stderr)
+                  sys.exit(1)
+          
+          create_transport_request()
+          ")
+          
+          echo "transport_id=$TRANSPORT_ID" >> $GITHUB_OUTPUT
+          echo "Created transport request: $TRANSPORT_ID"
+        env:
+          OAUTH_URL: ${{ secrets.OAUTH_URL }}
+          CLIENT_ID: ${{ secrets.CLIENT_ID }}
+          CLIENT_SECRET: ${{ secrets.CLIENT_SECRET }}
+          BASE_URL: ${{ secrets.BASE_URL }}
+
+      - name: Approve Transport Request
+        id: approve_transport
+        if: steps.create_transport.outputs.transport_id != ''
+        run: |
+          echo "Approving transport request ${{ steps.create_transport.outputs.transport_id }}..."
+          
+          python3 -c "
+          import requests
+          import os
+          import sys
+          
+          def get_oauth_token():
+              payload = {
+                  'grant_type': 'client_credentials',
+                  'client_id': os.getenv('CLIENT_ID'),
+                  'client_secret': os.getenv('CLIENT_SECRET')
+              }
+              try:
+                  response = requests.post(os.getenv('OAUTH_URL'), data=payload)
+                  response.raise_for_status()
+                  return response.json()['access_token']
+              except Exception as e:
+                  print(f'Error getting token: {e}', file=sys.stderr)
+                  return None
+          
+          def approve_transport():
+              token = get_oauth_token()
+              if not token:
+                  sys.exit(1)
+              
+              headers = {
+                  'Authorization': f'Bearer {token}',
+                  'Content-Type': 'application/json'
+              }
+              
+              try:
+                  # Approve transport request
+                  transport_id = '${{ steps.create_transport.outputs.transport_id }}'
+                  approve_url = f\"{os.getenv('BASE_URL')}/TransportRequests('{transport_id}')/approve\"
+                  
+                  response = requests.post(approve_url, headers=headers)
+                  response.raise_for_status()
+                  
+                  print(f'Transport request {transport_id} approved successfully')
+              except Exception as e:
+                  print(f'Error approving transport: {e}', file=sys.stderr)
+                  sys.exit(1)
+          
+          approve_transport()
+          "
+        env:
+          OAUTH_URL: ${{ secrets.OAUTH_URL }}
+          CLIENT_ID: ${{ secrets.CLIENT_ID }}
+          CLIENT_SECRET: ${{ secrets.CLIENT_SECRET }}
+          BASE_URL: ${{ secrets.BASE_URL }}
+
+      - name: Deploy Transport Request
+        if: steps.create_transport.outputs.transport_id != ''
+        run: |
+          echo "Deploying transport request ${{ steps.create_transport.outputs.transport_id }}..."
+          
+          python3 -c "
+          import requests
+          import os
+          import sys
+          import time
+          
+          def get_oauth_token():
+              payload = {
+                  'grant_type': 'client_credentials',
+                  'client_id': os.getenv('CLIENT_ID'),
+                  'client_secret': os.getenv('CLIENT_SECRET')
+              }
+              try:
+                  response = requests.post(os.getenv('OAUTH_URL'), data=payload)
+                  response.raise_for_status()
+                  return response.json()['access_token']
+              except Exception as e:
+                  print(f'Error getting token: {e}', file=sys.stderr)
+                  return None
+          
+          def deploy_transport():
+              token = get_oauth_token()
+              if not token:
+                  sys.exit(1)
+              
+              headers = {
+                  'Authorization': f'Bearer {token}',
+                  'Content-Type': 'application/json'
+              }
+              
+              try:
+                  transport_id = '${{ steps.create_transport.outputs.transport_id }}'
+                  
+                  # Deploy transport request
+                  deploy_url = f\"{os.getenv('BASE_URL')}/TransportRequests('{transport_id}')/deploy\"
+                  response = requests.post(deploy_url, headers=headers)
+                  response.raise_for_status()
+                  
+                  print(f'Transport request {transport_id} deployment initiated')
+                  
+                  # Monitor deployment status
+                  status_url = f\"{os.getenv('BASE_URL')}/TransportRequests('{transport_id}')\"
+                  
+                  for i in range(30):  # Wait up to 5 minutes
+                      time.sleep(10)
+                      status_response = requests.get(status_url, headers=headers)
+                      status_response.raise_for_status()
+                      
+                      status = status_response.json().get('Status')
+                      print(f'Deployment status: {status}')
+                      
+                      if status == 'DEPLOYED':
+                          print(f'Transport request {transport_id} deployed successfully')
+                          break
+                      elif status == 'FAILED':
+                          print(f'Transport request {transport_id} deployment failed')
+                          sys.exit(1)
+                  else:
+                      print(f'Deployment timeout - check status manually')
+                      
+              except Exception as e:
+                  print(f'Error deploying transport: {e}', file=sys.stderr)
+                  sys.exit(1)
+          
+          deploy_transport()
+          "
+        env:
+          OAUTH_URL: ${{ secrets.OAUTH_URL }}
+          CLIENT_ID: ${{ secrets.CLIENT_ID }}
+          CLIENT_SECRET: ${{ secrets.CLIENT_SECRET }}
+          BASE_URL: ${{ secrets.BASE_URL }}
+
+      - name: Standard iFlow Config Deployment
+        if: steps.parse_params.outputs.deploy_env != 'TEST' || steps.get_pr_info.outputs.merged != 'true'
+        run: |
+          echo "Deploying iFlow configuration for ${{ steps.parse_params.outputs.deploy_env }} environment..."
+          
+          IFLOW_NAME="${{ steps.parse_params.outputs.iflow_name }}"
+          ENVIRONMENT="${{ steps.parse_params.outputs.deploy_env }}"
+          CONFIG_FILE="config/${IFLOW_NAME}_active_${ENVIRONMENT}.json"
+          
           echo "Config file: $CONFIG_FILE"
-          # Add your deployment commands here
-          # For example:
-          # python deploy.py --config $CONFIG_FILE
+          
+          if [ -f "$CONFIG_FILE" ]; then
+            echo "Configuration file found, proceeding with deployment..."
+            python create_iflow_config.py --iflow "$IFLOW_NAME" --env "$ENVIRONMENT"
+          else
+            echo "Configuration file not found: $CONFIG_FILE"
+            echo "Creating new configuration..."
+            python create_iflow_config.py --iflow "$IFLOW_NAME" --env "$ENVIRONMENT"
+          fi
         env:
           OAUTH_URL: ${{ secrets.OAUTH_URL }}
           CLIENT_ID: ${{ secrets.CLIENT_ID }}
