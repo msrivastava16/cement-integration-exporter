@@ -6,7 +6,7 @@
             "type": "com.sap.hci.api.Configuration"
         },
         "ParameterKey": "Configurable1",
-        "ParameterValue": "ConfigurableTest",
+        "ParameterValue": "new value test",
         "DataType": "xsd:string",
         "Description": null
     },
