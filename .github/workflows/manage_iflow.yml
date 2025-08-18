@@ -28,8 +28,10 @@ jobs:
     runs-on: ubuntu-latest
     environment: ${{ github.event.inputs.environment }}
     steps:
-      - name: Checkout repository
+      - name: Checkout repository  
         uses: actions/checkout@v3
+        with:
+          ref: main
 
       - name: Set up Python
         uses: actions/setup-python@v4
@@ -182,6 +184,7 @@ jobs:
             **iFlow**: `${{ github.event.inputs.iflow_name }}`
             **Version**: `${{ github.event.inputs.version }}`
             **Source Environment**: `${{ steps.set_env.outputs.env_name }}`
+            **Source Branch**: `main` (all feature branches created from main)
             **Target Branch**: `${{ steps.set_env.outputs.target_branch }}`
             **Auto-deploy**: `${{ github.event.inputs.deploy }}`
             
