@@ -1,4 +1,4 @@
-name: Deploy to DEV Environment (Direct)
+name: Deploy to DEV Environment - FIXED v2
 
 on:
   pull_request:
@@ -14,11 +14,12 @@ jobs:
       (github.event.issue.pull_request && contains(github.event.comment.body, 'deploy'))
     runs-on: ubuntu-latest
     steps:
-      - name: Debug - Verify Clean Workflow
+      - name: Debug - Verify Clean Workflow v2  
         run: |
-          echo "🔍 Running CLEAN DEV workflow (no transport creation)"
-          echo "📋 Workflow: deploy_to_dev.yml (Direct deployment version)"
-          echo "🚀 Using: /DeployIntegrationDesigntimeArtifact API"
+          echo "✅ FIXED WORKFLOW v2 - NO TRANSPORT CREATION"
+          echo "📋 File: deploy_to_dev.yml (CLEAN VERSION)"
+          echo "🚀 API: /DeployIntegrationDesigntimeArtifact ONLY"
+          echo "❌ NO TMS/transport calls in this workflow"
 
       - name: Checkout repository
         uses: actions/checkout@v3
