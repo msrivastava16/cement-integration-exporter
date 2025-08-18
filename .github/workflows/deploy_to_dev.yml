@@ -39,19 +39,6 @@ jobs:
           echo "merged=$PR_MERGED" >> $GITHUB_OUTPUT
           echo "deploy_trigger=$DEPLOY_TRIGGER" >> $GITHUB_OUTPUT
 
-      - name: Parse iFlow information
-        id: parse_iflow
-        run: |
-          BRANCH="${{ steps.get_pr_info.outputs.branch }}"
-          
-          # Extract iFlow name from branch: feature/iflow-{name}-{env}
-          IFLOW_NAME=$(echo "$BRANCH" | cut -d'-' -f3)
-          ENVIRONMENT="dev"
-          
-          echo "iflow_name=$IFLOW_NAME" >> $GITHUB_OUTPUT
-          echo "environment=$ENVIRONMENT" >> $GITHUB_OUTPUT
-          echo "config_file=config/${IFLOW_NAME}_active_dev.json" >> $GITHUB_OUTPUT
-
       - name: Checkout PR branch
         uses: actions/checkout@v3
         with:
