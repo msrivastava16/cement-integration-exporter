@@ -11,8 +11,7 @@ jobs:
   deploy_to_dev:
     if: |
       (github.event.pull_request.merged == true && github.event.pull_request.base.ref == 'develop') ||
-      (github.event.issue.pull_request && contains(github.event.comment.body, 'deploy') && 
-       github.event.issue.pull_request.base.ref == 'develop')
+      (github.event.issue.pull_request && contains(github.event.comment.body, 'deploy'))
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
