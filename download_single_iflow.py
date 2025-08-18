@@ -27,7 +27,7 @@ def getOAuthToken(oauth_url, client_id, client_secret):
         print(f"Error getting OAuth token: {e}")
         return None
 
-async def find_and_download_iflow(iflow_name, package_url, artifacts_url, headers, base_output_dir):
+async def find_and_download_iflow(iflow_name, version, package_url, artifacts_url, headers, base_output_dir):
     """Finds a specific iFlow across all packages and downloads it."""
     base_url = f"{os.environ.get('BASE_URL')}/IntegrationPackages"
     async with aiohttp.ClientSession(connector=aiohttp.TCPConnector(ssl=ssl_context), headers=headers) as session:
@@ -52,11 +52,14 @@ async def find_and_download_iflow(iflow_name, package_url, artifacts_url, header
                     
                     for result in data['d']['results']:
                         if result['Id'] == iflow_name:
+                            # Use specified version or default to active version
+                            iflow_version = version if version != 'active' else result['Version']
+                            
                             dest_path = os.path.join(base_output_dir, result['PackageId'])
                             os.makedirs(dest_path, exist_ok=True)
                             
                             artifact_template = jinja2.Template(artifacts_url)
-                            artifact_url = artifact_template.render(id=result['Id'], version=result['Version'])
+                            artifact_url = artifact_template.render(id=result['Id'], version=iflow_version)
                             
                             async with session.get(artifact_url) as artifact_response:
                                 artifact_response.raise_for_status()
@@ -71,7 +74,7 @@ async def find_and_download_iflow(iflow_name, package_url, artifacts_url, header
                                 with zipfile.ZipFile(file_path, 'r') as zip_ref:
                                     zip_ref.extractall(iflow_dir_path)
                                 
-                                print(f"Successfully downloaded iFlow '{result['Id']}' from package '{result['PackageId']}'")
+                                print(f"Successfully downloaded iFlow '{result['Id']}' (version: {iflow_version}) from package '{result['PackageId']}'")
                                 return True
             except aiohttp.ClientError as e:
                 print(f"Error processing package {package_id}: {e}")
@@ -84,6 +87,7 @@ async def main():
     """Main function to parse arguments and start the download."""
     parser = argparse.ArgumentParser(description="Download a single iFlow artifact.")
     parser.add_argument("--iflow", required=True, help="The ID of the iFlow to download.")
+    parser.add_argument("--version", default="active", help="The version of the iFlow to download (default: active).")
     parser.add_argument("--output_dir", default="./Get_All_Packages", help="The base directory to save the iFlow.")
     args = parser.parse_args()
 
@@ -109,7 +113,7 @@ async def main():
         'X-CSRF-Token': 'fetch'
     }
 
-    if not await find_and_download_iflow(args.iflow, package_url, artifacts_url, headers, args.output_dir):
+    if not await find_and_download_iflow(args.iflow, args.version, package_url, artifacts_url, headers, args.output_dir):
         exit(1)
 
 if __name__ == '__main__':

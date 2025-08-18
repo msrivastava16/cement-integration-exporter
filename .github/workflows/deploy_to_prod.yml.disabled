@@ -1,4 +1,4 @@
-name: Deploy to PROD Environment
+name: Deploy to TEST Environment
 
 on:
   pull_request:
@@ -6,7 +6,7 @@ on:
     branches: [main]
 
 jobs:
-  create_prod_transport:
+  deploy_to_test:
     if: github.event.pull_request.merged == true && github.event.pull_request.base.ref == 'main'
     runs-on: ubuntu-latest
     environment: production  # GitHub Environment with approval
@@ -23,11 +23,11 @@ jobs:
           
           # Extract iFlow name from branch: feature/iflow-{name}-{env}
           IFLOW_NAME=$(echo "$BRANCH" | cut -d'-' -f3)
-          ENVIRONMENT="prod"
+          ENVIRONMENT="test"
           
           echo "iflow_name=$IFLOW_NAME" >> $GITHUB_OUTPUT
           echo "environment=$ENVIRONMENT" >> $GITHUB_OUTPUT
-          echo "config_file=config/${IFLOW_NAME}_active_prod.json" >> $GITHUB_OUTPUT
+          echo "config_file=config/${IFLOW_NAME}_active_test.json" >> $GITHUB_OUTPUT
 
       - name: Checkout PR branch
         uses: actions/checkout@v3
