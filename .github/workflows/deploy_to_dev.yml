@@ -1,4 +1,4 @@
-name: Deploy to DEV Environment (Direct)
+name: Deploy to DEV Environment (Direct )
 
 on:
   pull_request:
