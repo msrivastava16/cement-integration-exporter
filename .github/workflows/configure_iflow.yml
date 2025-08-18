@@ -13,6 +13,11 @@ on:
         options:
         - dev
         - prod
+      auto_deploy:
+        description: 'Auto-deploy after merge (DEV only)'
+        required: true
+        type: boolean
+        default: false
 
 jobs:
   configure_iflow:
@@ -54,5 +59,12 @@ jobs:
           title: "feat(iflow): Configure ${{ github.event.inputs.iflow_name }} for ${{ github.event.inputs.environment }}"
           body: |
             This PR adds the environment-specific configuration and the downloaded artifact for the `${{ github.event.inputs.iflow_name }}` iFlow in the `${{ github.event.inputs.environment }}` environment.
+            
+            **Deployment Settings:**
+            - Environment: `${{ github.event.inputs.environment }}`
+            - Auto-deploy: `${{ github.event.inputs.auto_deploy }}`
+            
+            ${{ github.event.inputs.environment == 'dev' && github.event.inputs.auto_deploy == 'true' && '🚀 **Will auto-deploy to DEV after merge**' || github.event.inputs.environment == 'dev' && github.event.inputs.auto_deploy == 'false' && '⏸️ **Will create transport only (no auto-deploy)**' || github.event.inputs.environment == 'prod' && '🔒 **PROD deployment requires manual approval**' }}
           branch: "feature/iflow-${{ github.event.inputs.iflow_name }}-${{ github.event.inputs.environment }}"
-          base: "main"
+          base: ${{ github.event.inputs.environment == 'dev' && 'develop' || 'main' }}
+          labels: ${{ github.event.inputs.auto_deploy == 'true' && 'deploy' || 'transport-only' }}

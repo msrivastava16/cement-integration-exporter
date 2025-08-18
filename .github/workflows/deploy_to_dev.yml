@@ -154,8 +154,25 @@ jobs:
           TMS_CLIENT_SECRET: ${{ secrets.TMS_CLIENT_SECRET }}
           TMS_BASE_URL: ${{ secrets.TMS_BASE_URL }}
 
+      - name: Check deployment preference
+        id: check_deploy
+        run: |
+          if [[ "${{ steps.get_pr_info.outputs.deploy_trigger }}" == "comment" ]]; then
+            # For comment trigger, always deploy
+            echo "should_deploy=true" >> $GITHUB_OUTPUT
+            echo "deploy_reason=comment_trigger" >> $GITHUB_OUTPUT
+          elif [[ "${{ contains(github.event.pull_request.labels.*.name, 'deploy') }}" == "true" ]]; then
+            # PR has "deploy" label - auto deploy
+            echo "should_deploy=true" >> $GITHUB_OUTPUT
+            echo "deploy_reason=auto_deploy_enabled" >> $GITHUB_OUTPUT
+          else
+            # Default to transport only
+            echo "should_deploy=false" >> $GITHUB_OUTPUT
+            echo "deploy_reason=transport_only" >> $GITHUB_OUTPUT
+          fi
+
       - name: Deploy to DEV (Auto)
-        if: steps.get_pr_info.outputs.deploy_trigger == 'comment'
+        if: steps.check_deploy.outputs.should_deploy == 'true'
         run: |
           echo "🚀 Auto-deploying transport ${{ steps.create_transport.outputs.transport_id }} to DEV..."
           
@@ -250,9 +267,15 @@ jobs:
           TMS_CLIENT_SECRET: ${{ secrets.TMS_CLIENT_SECRET }}
           TMS_BASE_URL: ${{ secrets.TMS_BASE_URL }}
 
-      - name: Manual Deploy Instructions
-        if: steps.get_pr_info.outputs.deploy_trigger == 'merge'
+      - name: Deployment Status Summary
         run: |
-          echo "📋 Transport request ${{ steps.create_transport.outputs.transport_id }} created for DEV deployment"
-          echo "💡 To deploy automatically, comment 'deploy' on this PR"
-          echo "🔗 Or deploy manually via TMS cockpit using transport ID: ${{ steps.create_transport.outputs.transport_id }}"
+          echo "📋 Transport request ${{ steps.create_transport.outputs.transport_id }} created for DEV"
+          echo "🏷️  Deployment decision: ${{ steps.check_deploy.outputs.deploy_reason }}"
+          
+          if [[ "${{ steps.check_deploy.outputs.should_deploy }}" == "true" ]]; then
+            echo "✅ Deployment completed automatically"
+          else
+            echo "⏸️  Transport created only (no deployment)"
+            echo "💡 To deploy: comment 'deploy' on the PR or deploy manually via TMS"
+            echo "🔗 Transport ID: ${{ steps.create_transport.outputs.transport_id }}"
+          fi
