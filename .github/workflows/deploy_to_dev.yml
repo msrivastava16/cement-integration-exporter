@@ -101,8 +101,11 @@ jobs:
           
           def get_oauth_token():
               oauth_url = os.getenv('OAUTH_URL')
-              client_id = os.getenv('CLIENT_ID')
+              client_id = os.getenv('CLIENT_ID')  
               client_secret = os.getenv('CLIENT_SECRET')
+              
+              print(f'Debug OAuth URL: {oauth_url or \"EMPTY\"}', file=sys.stderr)
+              print(f'Debug Client ID: {client_id[:10] if client_id else \"EMPTY\"}...', file=sys.stderr)
               
               payload = {
                   'grant_type': 'client_credentials',
