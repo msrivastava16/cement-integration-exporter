@@ -1,0 +1,228 @@
+name: Manage iFlow
+
+on:
+  workflow_dispatch:
+    inputs:
+      iflow_name:
+        description: 'iFlow name to manage'
+        required: true
+      version:
+        description: 'iFlow version'
+        required: false
+        default: 'active'
+      environment:
+        description: 'Source environment'
+        required: true
+        type: choice
+        options:
+        - dev
+        - test
+      deploy:
+        description: 'Auto-deploy after merge'
+        required: true
+        type: boolean
+        default: false
+
+jobs:
+  manage_iflow:
+    runs-on: ubuntu-latest
+    environment: ${{ github.event.inputs.environment }}
+    steps:
+      - name: Checkout repository  
+        uses: actions/checkout@v3
+        with:
+          ref: main
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Set environment variables
+        id: set_env
+        run: |
+          if [[ "${{ github.event.inputs.environment }}" == "dev" ]]; then
+            echo "target_branch=develop" >> $GITHUB_OUTPUT
+            echo "env_suffix=dev" >> $GITHUB_OUTPUT
+            echo "env_name=DEV" >> $GITHUB_OUTPUT
+          else
+            echo "target_branch=main" >> $GITHUB_OUTPUT
+            echo "env_suffix=test" >> $GITHUB_OUTPUT
+            echo "env_name=TEST" >> $GITHUB_OUTPUT
+          fi
+          
+          echo "branch_name=feature/iflow-${{ github.event.inputs.iflow_name }}-${{ github.event.inputs.environment }}" >> $GITHUB_OUTPUT
+          echo "deploy_label=${{ github.event.inputs.deploy == 'true' && 'deploy' || 'transport-only' }}" >> $GITHUB_OUTPUT
+
+      - name: Download iFlow from ${{ steps.set_env.outputs.env_name }}
+        run: |
+          echo "📥 Downloading iFlow '${{ github.event.inputs.iflow_name }}' (version: ${{ github.event.inputs.version }}) from ${{ steps.set_env.outputs.env_name }}..."
+          
+          python download_single_iflow.py \
+            --iflow "${{ github.event.inputs.iflow_name }}" \
+            --version "${{ github.event.inputs.version }}" \
+            --output_dir "./Get_All_Packages"
+        env:
+          OAUTH_URL: ${{ secrets.OAUTH_URL }}
+          CLIENT_ID: ${{ secrets.CLIENT_ID }}
+          CLIENT_SECRET: ${{ secrets.CLIENT_SECRET }}
+          BASE_URL: ${{ secrets.BASE_URL }}
+          PACKAGE_URL: ${{ secrets.PACKAGE_URL }}
+          ARTIFACTS_URL: ${{ secrets.ARTIFACTS_URL }}
+
+      - name: Create environment-specific config
+        run: |
+          echo "⚙️  Creating config for ${{ steps.set_env.outputs.env_name }} environment..."
+          
+          if [[ "${{ github.event.inputs.environment }}" == "dev" ]]; then
+            echo "📋 DEV environment: No transport will be created (direct deployment only)"
+          fi
+          
+          IFLOW_PATH=$(find ./Get_All_Packages -type d -name "${{ github.event.inputs.iflow_name }}")
+          python create_iflow_config.py \
+            --iflow "${{ github.event.inputs.iflow_name }}" \
+            --env "${{ steps.set_env.outputs.env_suffix }}" \
+            --output_dir "$IFLOW_PATH"
+
+      - name: Create Transport Request (TEST only)
+        if: github.event.inputs.environment == 'test'
+        id: create_transport
+        run: |
+          echo "🚛 Creating transport request for ${{ github.event.inputs.iflow_name }} to TEST environment..."
+          echo "⚠️  NOTE: NO transport creation for DEV environment (direct deployment only)"
+          
+          TRANSPORT_ID=$(python3 -c "
+          import requests
+          import json
+          import os
+          import sys
+          
+          def get_tms_token():
+              oauth_url = os.getenv('TMS_OAUTH_URL')
+              client_id = os.getenv('TMS_CLIENT_ID')
+              client_secret = os.getenv('TMS_CLIENT_SECRET')
+              
+              payload = {
+                  'grant_type': 'client_credentials',
+                  'client_id': client_id,
+                  'client_secret': client_secret
+              }
+              
+              try:
+                  response = requests.post(oauth_url, data=payload, timeout=30)
+                  response.raise_for_status()
+                  return response.json()['access_token']
+              except Exception as e:
+                  print(f'❌ TMS OAuth error: {e}', file=sys.stderr)
+                  return None
+          
+          def create_transport_request():
+              token = get_tms_token()
+              if not token:
+                  sys.exit(1)
+              
+              tms_url = os.getenv('TMS_BASE_URL')
+              iflow_name = '${{ github.event.inputs.iflow_name }}'
+              
+              headers = {
+                  'Authorization': f'Bearer {token}',
+                  'Content-Type': 'application/json'
+              }
+              
+              # Create transport request using TMS export API
+              export_data = {
+                  'nodeName': 'DEV_NODE',
+                  'contentType': 'MTA',
+                  'storageType': 'FILE', 
+                  'entries': [
+                      {
+                          'uri': iflow_name
+                      }
+                  ],
+                  'description': f'Promote {iflow_name} from DEV to TEST - Workflow trigger',
+                  'namedUser': 'GitHub Actions'
+              }
+              
+              try:
+                  export_url = f'{tms_url}/nodes/export'
+                  print(f'Creating transport via: {export_url}', file=sys.stderr)
+                  
+                  response = requests.post(export_url, headers=headers, json=export_data, timeout=60)
+                  
+                  if response.status_code in [200, 201]:
+                      result = response.json()
+                      transport_id = result.get('transportRequestId', result.get('id'))
+                      print(f'✅ Transport request created: {transport_id}', file=sys.stderr)
+                      print(transport_id)
+                      return transport_id
+                  else:
+                      print(f'❌ Transport creation failed: {response.status_code} - {response.text}', file=sys.stderr)
+                      sys.exit(1)
+                      
+              except Exception as e:
+                  print(f'❌ Transport creation error: {e}', file=sys.stderr)
+                  sys.exit(1)
+          
+          create_transport_request()
+          ")
+          
+          echo "transport_id=$TRANSPORT_ID" >> $GITHUB_OUTPUT
+          echo "✅ Transport request created: $TRANSPORT_ID"
+        env:
+          TMS_OAUTH_URL: ${{ secrets.TMS_OAUTH_URL }}
+          TMS_CLIENT_ID: ${{ secrets.TMS_CLIENT_ID }}
+          TMS_CLIENT_SECRET: ${{ secrets.TMS_CLIENT_SECRET }}
+          TMS_BASE_URL: ${{ secrets.TMS_BASE_URL }}
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: "feat(iflow): Add ${{ github.event.inputs.iflow_name }} from ${{ steps.set_env.outputs.env_name }}"
+          title: "feat(iflow): ${{ github.event.inputs.iflow_name }} from ${{ steps.set_env.outputs.env_name }}"
+          body: |
+            ## iFlow Management
+            
+            **iFlow**: `${{ github.event.inputs.iflow_name }}`
+            **Version**: `${{ github.event.inputs.version }}`
+            **Source Environment**: `${{ steps.set_env.outputs.env_name }}`
+            **Source Branch**: `main` (all feature branches created from main)
+            **Target Branch**: `${{ steps.set_env.outputs.target_branch }}`
+            **Auto-deploy**: `${{ github.event.inputs.deploy }}`
+            
+            ${{ github.event.inputs.environment == 'dev' && github.event.inputs.deploy == 'true' && '🚀 **Will auto-deploy to DEV after merge**' || github.event.inputs.environment == 'dev' && github.event.inputs.deploy == 'false' && '⏸️ **Will create transport only (no auto-deploy)**' || github.event.inputs.environment == 'test' && format('🚛 **Transport ID**: {0}', steps.create_transport.outputs.transport_id) }}
+            
+            ${{ github.event.inputs.environment == 'test' && github.event.inputs.deploy == 'true' && '🔒 **Will deploy to TEST after approval**' || github.event.inputs.environment == 'test' && github.event.inputs.deploy == 'false' && '⏸️ **Transport created only (no auto-deploy)**' }}
+            
+            ---
+            
+            ### Next Steps:
+            ${{ github.event.inputs.environment == 'dev' && '1. Review and merge to **develop** branch' || '1. Review and merge to **main** branch' }}
+            ${{ github.event.inputs.deploy == 'true' && '2. Automatic deployment will proceed after merge' || '2. Manual deployment required (transport created)' }}
+            
+          branch: ${{ steps.set_env.outputs.branch_name }}
+          base: ${{ steps.set_env.outputs.target_branch }}
+          labels: ${{ steps.set_env.outputs.deploy_label }}
+
+      - name: Summary
+        run: |
+          echo "## 📋 Workflow Summary"
+          echo ""
+          echo "**iFlow**: ${{ github.event.inputs.iflow_name }}"
+          echo "**Version**: ${{ github.event.inputs.version }}"
+          echo "**Environment**: ${{ steps.set_env.outputs.env_name }}"
+          echo "**Target Branch**: ${{ steps.set_env.outputs.target_branch }}"
+          echo "**Deploy**: ${{ github.event.inputs.deploy }}"
+          echo "**Branch**: ${{ steps.set_env.outputs.branch_name }}"
+          echo ""
+          
+          if [[ "${{ github.event.inputs.environment }}" == "test" ]]; then
+            echo "**Transport ID**: ${{ steps.create_transport.outputs.transport_id }}"
+          fi
+          
+          echo ""
+          echo "✅ Pull request created successfully!"
+          echo "🔗 Review and merge the PR to proceed with deployment workflow"
