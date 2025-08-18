@@ -1,0 +1,46 @@
+[
+    {
+        "__metadata": {
+            "id": "https://8e7ed624trial.it-cpitrial06.cfapps.us10-001.hana.ondemand.com:443/api/v1/Configurations('Configurable1')",
+            "uri": "https://8e7ed624trial.it-cpitrial06.cfapps.us10-001.hana.ondemand.com:443/api/v1/Configurations('Configurable1')",
+            "type": "com.sap.hci.api.Configuration"
+        },
+        "ParameterKey": "Configurable1",
+        "ParameterValue": "new value test",
+        "DataType": "xsd:string",
+        "Description": null
+    },
+    {
+        "__metadata": {
+            "id": "https://8e7ed624trial.it-cpitrial06.cfapps.us10-001.hana.ondemand.com:443/api/v1/Configurations('config2')",
+            "uri": "https://8e7ed624trial.it-cpitrial06.cfapps.us10-001.hana.ondemand.com:443/api/v1/Configurations('config2')",
+            "type": "com.sap.hci.api.Configuration"
+        },
+        "ParameterKey": "config2",
+        "ParameterValue": "/test123",
+        "DataType": "xsd:string",
+        "Description": null
+    },
+    {
+        "__metadata": {
+            "id": "https://8e7ed624trial.it-cpitrial06.cfapps.us10-001.hana.ondemand.com:443/api/v1/Configurations('config3')",
+            "uri": "https://8e7ed624trial.it-cpitrial06.cfapps.us10-001.hana.ondemand.com:443/api/v1/Configurations('config3')",
+            "type": "com.sap.hci.api.Configuration"
+        },
+        "ParameterKey": "config3",
+        "ParameterValue": "RoleBased",
+        "DataType": "xsd:string",
+        "Description": null
+    },
+    {
+        "__metadata": {
+            "id": "https://8e7ed624trial.it-cpitrial06.cfapps.us10-001.hana.ondemand.com:443/api/v1/Configurations('SAP_ProfileId')",
+            "uri": "https://8e7ed624trial.it-cpitrial06.cfapps.us10-001.hana.ondemand.com:443/api/v1/Configurations('SAP_ProfileId')",
+            "type": "com.sap.hci.api.Configuration"
+        },
+        "ParameterKey": "SAP_ProfileId",
+        "ParameterValue": "iflmap",
+        "DataType": "xsd:string",
+        "Description": null
+    }
+]

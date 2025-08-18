@@ -1,0 +1,281 @@
+name: Deploy to DEV Environment
+
+on:
+  pull_request:
+    types: [closed]
+    branches: [develop]
+  issue_comment:
+    types: [created]
+
+jobs:
+  deploy_to_dev:
+    if: |
+      (github.event.pull_request.merged == true && github.event.pull_request.base.ref == 'develop') ||
+      (github.event.issue.pull_request && contains(github.event.comment.body, 'deploy') && 
+       github.event.issue.pull_request.base.ref == 'develop')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          ref: develop
+
+      - name: Get PR information
+        id: get_pr_info
+        run: |
+          if [ "${{ github.event_name }}" = "issue_comment" ]; then
+            PR_URL=$(jq -r ".issue.pull_request.url" "$GITHUB_EVENT_PATH")
+            PR_BRANCH=$(curl -s -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" $PR_URL | jq -r ".head.ref")
+            PR_MERGED=$(curl -s -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" $PR_URL | jq -r ".merged")
+            COMMENT_BODY="${{ github.event.comment.body }}"
+            DEPLOY_TRIGGER="comment"
+          else
+            PR_BRANCH="${{ github.event.pull_request.head.ref }}"
+            PR_MERGED="true"
+            COMMENT_BODY=""
+            DEPLOY_TRIGGER="merge"
+          fi
+          
+          echo "branch=$PR_BRANCH" >> $GITHUB_OUTPUT
+          echo "merged=$PR_MERGED" >> $GITHUB_OUTPUT
+          echo "deploy_trigger=$DEPLOY_TRIGGER" >> $GITHUB_OUTPUT
+
+      - name: Parse iFlow information
+        id: parse_iflow
+        run: |
+          BRANCH="${{ steps.get_pr_info.outputs.branch }}"
+          
+          # Extract iFlow name from branch: feature/iflow-{name}-{env}
+          IFLOW_NAME=$(echo "$BRANCH" | cut -d'-' -f3)
+          ENVIRONMENT="dev"
+          
+          echo "iflow_name=$IFLOW_NAME" >> $GITHUB_OUTPUT
+          echo "environment=$ENVIRONMENT" >> $GITHUB_OUTPUT
+          echo "config_file=config/${IFLOW_NAME}_active_dev.json" >> $GITHUB_OUTPUT
+
+      - name: Checkout PR branch
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ steps.get_pr_info.outputs.branch }}
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Create Transport Request to DEV
+        id: create_transport
+        run: |
+          echo "🚛 Creating transport request for ${{ steps.parse_iflow.outputs.iflow_name }} to DEV..."
+          
+          TRANSPORT_ID=$(python3 -c "
+          import requests
+          import json
+          import os
+          import sys
+          
+          def get_tms_token():
+              oauth_url = os.getenv('TMS_OAUTH_URL')
+              client_id = os.getenv('TMS_CLIENT_ID')
+              client_secret = os.getenv('TMS_CLIENT_SECRET')
+              
+              payload = {
+                  'grant_type': 'client_credentials',
+                  'client_id': client_id,
+                  'client_secret': client_secret
+              }
+              
+              try:
+                  response = requests.post(oauth_url, data=payload, timeout=30)
+                  response.raise_for_status()
+                  return response.json()['access_token']
+              except Exception as e:
+                  print(f'❌ TMS OAuth error: {e}', file=sys.stderr)
+                  return None
+          
+          def create_transport_request():
+              token = get_tms_token()
+              if not token:
+                  sys.exit(1)
+              
+              tms_url = os.getenv('TMS_BASE_URL')
+              iflow_name = '${{ steps.parse_iflow.outputs.iflow_name }}'
+              
+              headers = {
+                  'Authorization': f'Bearer {token}',
+                  'Content-Type': 'application/json'
+              }
+              
+              # Create transport request using TMS export API for DEV
+              export_data = {
+                  'nodeName': 'DEV_NODE',
+                  'contentType': 'MTA',
+                  'storageType': 'FILE', 
+                  'entries': [
+                      {
+                          'uri': iflow_name
+                      }
+                  ],
+                  'description': f'Deploy {iflow_name} to DEV - PR #${{ github.event.number }}',
+                  'namedUser': 'GitHub Actions DEV'
+              }
+              
+              try:
+                  export_url = f'{tms_url}/nodes/export'
+                  print(f'Creating DEV transport via: {export_url}', file=sys.stderr)
+                  
+                  response = requests.post(export_url, headers=headers, json=export_data, timeout=60)
+                  
+                  if response.status_code in [200, 201]:
+                      result = response.json()
+                      transport_id = result.get('transportRequestId', result.get('id'))
+                      print(f'✅ DEV transport request created: {transport_id}', file=sys.stderr)
+                      print(transport_id)
+                      return transport_id
+                  else:
+                      print(f'❌ DEV transport creation failed: {response.status_code} - {response.text}', file=sys.stderr)
+                      sys.exit(1)
+                      
+              except Exception as e:
+                  print(f'❌ Transport creation error: {e}', file=sys.stderr)
+                  sys.exit(1)
+          
+          create_transport_request()
+          ")
+          
+          echo "transport_id=$TRANSPORT_ID" >> $GITHUB_OUTPUT
+          echo "✅ DEV Transport request created: $TRANSPORT_ID"
+        env:
+          TMS_OAUTH_URL: ${{ secrets.TMS_OAUTH_URL }}
+          TMS_CLIENT_ID: ${{ secrets.TMS_CLIENT_ID }}
+          TMS_CLIENT_SECRET: ${{ secrets.TMS_CLIENT_SECRET }}
+          TMS_BASE_URL: ${{ secrets.TMS_BASE_URL }}
+
+      - name: Check deployment preference
+        id: check_deploy
+        run: |
+          if [[ "${{ steps.get_pr_info.outputs.deploy_trigger }}" == "comment" ]]; then
+            # For comment trigger, always deploy
+            echo "should_deploy=true" >> $GITHUB_OUTPUT
+            echo "deploy_reason=comment_trigger" >> $GITHUB_OUTPUT
+          elif [[ "${{ contains(github.event.pull_request.labels.*.name, 'deploy') }}" == "true" ]]; then
+            # PR has "deploy" label - auto deploy
+            echo "should_deploy=true" >> $GITHUB_OUTPUT
+            echo "deploy_reason=auto_deploy_enabled" >> $GITHUB_OUTPUT
+          else
+            # Default to transport only
+            echo "should_deploy=false" >> $GITHUB_OUTPUT
+            echo "deploy_reason=transport_only" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Deploy to DEV (Auto)
+        if: steps.check_deploy.outputs.should_deploy == 'true'
+        run: |
+          echo "🚀 Auto-deploying transport ${{ steps.create_transport.outputs.transport_id }} to DEV..."
+          
+          python3 -c "
+          import requests
+          import json
+          import os
+          import sys
+          import time
+          
+          def get_tms_token():
+              oauth_url = os.getenv('TMS_OAUTH_URL')
+              client_id = os.getenv('TMS_CLIENT_ID')
+              client_secret = os.getenv('TMS_CLIENT_SECRET')
+              
+              payload = {
+                  'grant_type': 'client_credentials',
+                  'client_id': client_id,
+                  'client_secret': client_secret
+              }
+              
+              try:
+                  response = requests.post(oauth_url, data=payload, timeout=30)
+                  response.raise_for_status()
+                  return response.json()['access_token']
+              except Exception as e:
+                  print(f'❌ TMS OAuth error: {e}', file=sys.stderr)
+                  return None
+          
+          def deploy_to_dev():
+              token = get_tms_token()
+              if not token:
+                  sys.exit(1)
+              
+              tms_url = os.getenv('TMS_BASE_URL')
+              transport_id = '${{ steps.create_transport.outputs.transport_id }}'
+              dev_node_id = '4'  # DEV_NODE ID
+              
+              headers = {
+                  'Authorization': f'Bearer {token}',
+                  'Content-Type': 'application/json'
+              }
+              
+              try:
+                  # Import transport to DEV node
+                  import_url = f'{tms_url}/v2/nodes/{dev_node_id}/transportRequests/import'
+                  import_data = {'transportRequestId': transport_id}
+                  
+                  print(f'Importing transport {transport_id} to DEV node {dev_node_id}...', file=sys.stderr)
+                  response = requests.post(import_url, headers=headers, json=import_data, timeout=60)
+                  
+                  if response.status_code in [200, 202]:
+                      print(f'✅ Import to DEV initiated', file=sys.stderr)
+                      
+                      # Monitor deployment status
+                      for i in range(24):  # Wait up to 4 minutes
+                          time.sleep(10)
+                          status_url = f'{tms_url}/v2/nodes/{dev_node_id}/transportRequests'
+                          status_response = requests.get(status_url, headers=headers, timeout=30)
+                          
+                          if status_response.status_code == 200:
+                              requests_data = status_response.json()
+                              for req in requests_data:
+                                  if req.get('transportRequestId') == transport_id:
+                                      status = req.get('status', 'UNKNOWN')
+                                      print(f'📊 DEV deployment status: {status}', file=sys.stderr)
+                                      
+                                      if status in ['SUCCESS', 'COMPLETED']:
+                                          print(f'✅ {transport_id} deployed successfully to DEV!')
+                                          return
+                                      elif status in ['ERROR', 'FAILED']:
+                                          error_msg = req.get('errorMessage', 'Unknown error')
+                                          print(f'❌ DEV deployment failed: {error_msg}')
+                                          sys.exit(1)
+                          
+                          print(f'⏳ Checking deployment status... ({i+1}/24)', file=sys.stderr)
+                      
+                      print(f'✅ DEV deployment completed (check TMS for final status)')
+                  else:
+                      print(f'❌ DEV import failed: {response.status_code} - {response.text}', file=sys.stderr)
+                      sys.exit(1)
+                  
+              except Exception as e:
+                  print(f'❌ DEV deployment error: {e}', file=sys.stderr)
+                  sys.exit(1)
+          
+          deploy_to_dev()
+          "
+        env:
+          TMS_OAUTH_URL: ${{ secrets.TMS_OAUTH_URL }}
+          TMS_CLIENT_ID: ${{ secrets.TMS_CLIENT_ID }}
+          TMS_CLIENT_SECRET: ${{ secrets.TMS_CLIENT_SECRET }}
+          TMS_BASE_URL: ${{ secrets.TMS_BASE_URL }}
+
+      - name: Deployment Status Summary
+        run: |
+          echo "📋 Transport request ${{ steps.create_transport.outputs.transport_id }} created for DEV"
+          echo "🏷️  Deployment decision: ${{ steps.check_deploy.outputs.deploy_reason }}"
+          
+          if [[ "${{ steps.check_deploy.outputs.should_deploy }}" == "true" ]]; then
+            echo "✅ Deployment completed automatically"
+          else
+            echo "⏸️  Transport created only (no deployment)"
+            echo "💡 To deploy: comment 'deploy' on the PR or deploy manually via TMS"
+            echo "🔗 Transport ID: ${{ steps.create_transport.outputs.transport_id }}"
+          fi
